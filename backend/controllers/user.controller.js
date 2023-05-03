@@ -1,16 +1,48 @@
 const express = require('express');
-const User = require('../models/user.model');
+const userService = require('../services/user.service');
+
+const HttpError = require("../utils/objects/httpError.object")
+const StatusCode = require("../utils/objects/statusCode.object")
+
+
+const getAllUser = async (req, res) => {
+    try {
+        const users = await userService.getAllUser();
+
+        if (!users) {
+            throw new HttpError(StatusCode.NOT_FOUND, "No user is registered");
+        }
+
+        res.status(StatusCode.OK).json({
+            users
+        })
+    } catch (error) {
+        next(error);
+    }
+}
 
 const getUserByUsername = async (req, res, next) => {
+
+
     try {
         const { username } = req.params;
-        const user = await User.findOne({ where: { username } });
+
+        if (!username) {
+            throw new HttpError(StatusCode.BAD_REQUEST, "Request parameter is empty");
+        }
+
+        const user = await userService.getUserByUsername(username, next);
 
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            console.log("inside");
+            throw new HttpError(StatusCode.NOT_FOUND, "User not found");
         }
-        return res.status(200).json(user);
+        return res.status(StatusCode.OK).json({
+            user
+        });
+
     } catch (error) {
+        console.log(error.message);
         next(error);
     }
 }
@@ -24,6 +56,7 @@ const deleteUserByUsername = (req, res) => {
 }
 
 module.exports = {
+    getAllUser,
     getUserByUsername,
     updateUserByUsername,
     deleteUserByUsername

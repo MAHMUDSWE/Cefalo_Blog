@@ -1,8 +1,8 @@
 const express = require('express');
 const jwt = require("jsonwebtoken");
 
-const jwtAuthentication = (req, res, next) => {
+const Authentication = (req, res, next) => {
     next();
 }
 
-module.exports = jwtAuthentication;
+module.exports = Authentication;

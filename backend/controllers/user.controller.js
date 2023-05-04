@@ -5,7 +5,7 @@ const HttpError = require("../utils/objects/httpError.object")
 const StatusCode = require("../utils/objects/statusCode.object")
 
 
-const getAllUser = async (req, res) => {
+const getAllUser = async (req, res, next) => {
     try {
         const users = await userService.getAllUser();
 

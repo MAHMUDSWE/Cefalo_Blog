@@ -1,6 +1,8 @@
 const express = require('express');
 const authService = require('../services/auth.service');
-const StatusCode = require('../utils/objects/statusCode.object')
+const StatusCode = require('../utils/objects/statusCode.object');
+
+const authUtils = require('../utils/functions/auth.util');
 
 const userRegistration = async (req, res, next) => {
     try {
@@ -17,8 +19,21 @@ const userRegistration = async (req, res, next) => {
     }
 }
 
-const userLogin = (req, res) => {
-    res.send("controller for user log in");
+const userLogin = async (req, res, next) => {
+    try {
+        const loginCredentials = req.body;
+
+        const token = await authService.userLogin(loginCredentials);
+
+        authUtils.setTokenToHeader(token, res);
+
+        res.status(StatusCode.OK).json({
+            message: 'Log in Successful'
+        })
+
+    } catch (error) {
+        next(error);
+    }
 }
 
 module.exports = {

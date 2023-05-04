@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
 const cors = require("cors");
 const morgan = require('morgan'); //logging requests
 
@@ -17,32 +19,18 @@ dotenv.config();
 // //middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(morgan('tiny'));
 app.use(Authentication);
 
-//Routes
-const userRoutes = require("./routes/user.route");
-const blogRoutes = require("./routes/blog.route");
-const authRoutes = require("./routes/auth.route");
 
 
-const api = process.env.API_URL;
+const indexRouter = require("./routes/index.route");
 
-app.use(`${api}/user`, userRoutes);
-app.use(`${api}/blog`, blogRoutes);
-app.use(`${api}/user`, authRoutes);
+app.use(indexRouter);
 
-app.get('/', (req, res) => {
-    throw 'testingError';
-    res.send("Server started");
-})
 
-app.use(errorHandler);
-
-app.use((req, res, next) => {
-    res.status(404).json({
-        "message": "Error! Invalid APIs route",
-    });
-});
+app.use(errorHandler.notFound);
+app.use(errorHandler.error);
 
 module.exports = app;

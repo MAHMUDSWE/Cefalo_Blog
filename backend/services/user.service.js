@@ -7,6 +7,7 @@ const getAllUser = async () => {
 
 const getUserByUsername = async (username) => {
     const user = await userRepository.getUserByUsername(username);
+    
     return user;
 }
 

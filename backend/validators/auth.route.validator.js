@@ -8,8 +8,18 @@ const signup = [
         .isLength({ min: 4 }).withMessage('Username must be at least 4 characters'),
     body('password')
         .trim()
-        .isLength({ min: 8 })
-        .withMessage('Password must be at least 8 characters')
+        .isLength({ min: 4 })
+        .withMessage('Password must be at least 4 characters')
 ];
 
-module.exports = { signup };
+const login = [
+    body('username').trim().not()
+        .isEmpty().withMessage('Username is required')
+        .isLength({ min: 4 }).withMessage('Username must be at least 4 characters'),
+    body('password')
+        .trim()
+        .isLength({ min: 4 })
+        .withMessage('Password must be at least 4 characters')
+]
+
+module.exports = { signup, login };

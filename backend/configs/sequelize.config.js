@@ -3,7 +3,6 @@ const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 dotenv.config();
 
-
 const sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
@@ -15,7 +14,7 @@ const sequelize = new Sequelize(
         logging: false
     });
 
-(async () => {
+async function connectToDatabase() {
     try {
         await sequelize.authenticate();
         console.log('Database Connection has been established successfully.');
@@ -26,6 +25,19 @@ const sequelize = new Sequelize(
     } catch (error) {
         console.error('Unable to sync the models', error);
     }
-})();
+}
 
-module.exports = sequelize;
+// (async () => {
+//     try {
+//         await sequelize.authenticate();
+//         console.log('Database Connection has been established successfully.');
+
+//         await sequelize.sync();
+//         console.log("Models have been synced successfully.");
+
+//     } catch (error) {
+//         console.error('Unable to sync the models', error);
+//     }
+// })();
+
+module.exports = { sequelize, connectToDatabase };

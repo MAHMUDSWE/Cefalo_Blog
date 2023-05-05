@@ -1,4 +1,4 @@
-const { UserDTO } = require('../dto/request/user.dto');
+const { UserDTO } = require('../dto/request/user.req.dto');
 const User = require('../models/user.model');
 
 const getAllUser = async () => {

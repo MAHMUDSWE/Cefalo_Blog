@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-
+const User = require('./user.model');
 const { sequelize } = require('../configs/sequelize.config');
 
 const Blog = sequelize.define('Blog', {
@@ -10,7 +10,7 @@ const Blog = sequelize.define('Blog', {
     },
     userid: {
         type: DataTypes.STRING(150),
-        unique: true,
+        unique: false,
         allowNull: false
     },
     title: {
@@ -35,8 +35,25 @@ const Blog = sequelize.define('Blog', {
     }
 }, {
     tableName: 'tbl_blog',
-    timestamps: false // <-- disable createdAt and updatedAt columns
+    timestamps: false, // <-- disable createdAt and updatedAt columns
+    indexes: [{
+        unique: true,
+        fields: ['userid', 'blogid']
+    }],
+    foreignKeys: [{
+        name: 'fk_blog_user_id',
+        allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        references: {
+            model: User,
+            key: 'userid'
+        }
+    }]
 });
+
+User.hasMany(Blog, { onDelete: "CASCADE", foreignKey: "userid" });
+Blog.belongsTo(User, { onDelete: "CASCADE", foreignKey: "userid" });
 
 // (async () => {
 //     try {

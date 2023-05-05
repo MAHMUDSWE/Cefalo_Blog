@@ -1,5 +1,7 @@
 const userRepository = require('../respositories/user.repository');
 
+
+
 const getAllUser = async () => {
     const users = await userRepository.getAllUser();
     return users;
@@ -7,7 +9,7 @@ const getAllUser = async () => {
 
 const getUserByUsername = async (username) => {
     const user = await userRepository.getUserByUsername(username);
-    
+
     return user;
 }
 

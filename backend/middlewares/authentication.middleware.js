@@ -25,7 +25,10 @@ const Authentication = (req, res, next) => {
         next();
 
     } catch (error) {
-        next(error);
+        if (error.message == "JsonWebTokenError" || "TokenExpiredError") {
+            next(new HttpError(StatusCode.UNAUTHORIZED, error.message));
+        }
+        else next(error);
     }
 }
 

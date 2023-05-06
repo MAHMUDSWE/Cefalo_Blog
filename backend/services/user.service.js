@@ -1,4 +1,6 @@
 const userRepository = require('../respositories/user.repository');
+const HttpError = require('../utils/objects/httpError.object');
+const StatusCode = require('../utils/objects/statusCode.object');
 
 
 
@@ -13,17 +15,32 @@ const getUserByUsername = async (username) => {
     return user;
 }
 
-const updateUserByUsername = (req, res) => {
-    res.send("controller for updating user profile");
+const updateUser = async (userid, updateFields) => {
+
+    const user = await userRepository.getUserById(userid);
+
+    if (!user) {
+        throw new HttpError(StatusCode.NOT_FOUND, `User with id ${userid} not found`);
+    }
+
+    return await userRepository.updateUser(user, updateFields);
 }
 
-const deleteUserByUsername = (req, res) => {
-    res.send("controller for deleteing user");
+const deleteUser = async (userid) => {
+
+    const user = await userRepository.getUserById(userid);
+
+    if (!user) {
+        throw new HttpError(StatusCode.NOT_FOUND, `User with id ${userid} not found`);
+    }
+
+    const result = await userRepository.deleteUser(userid);
+    return result;
 }
 
 module.exports = {
     getAllUser,
     getUserByUsername,
-    updateUserByUsername,
-    deleteUserByUsername
+    updateUser,
+    deleteUser
 };

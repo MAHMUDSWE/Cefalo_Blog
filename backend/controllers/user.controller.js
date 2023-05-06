@@ -47,18 +47,48 @@ const getUserByUsername = async (req, res, next) => {
     }
 }
 
-const updateUserByUsername = (req, res) => {
-    res.send("controller for updating user profile");
+const updateUser = async (req, res, next) => {
+    try {
+        const { userid } = req;
+        const updateFields = req.body;
+
+        if (!Object.keys(updateFields).length) {
+            throw new HttpError(StatusCode.BAD_REQUEST, "Update field is empty");
+        }
+
+        const result = await userService.updateUser(userid, updateFields);
+
+        if (result[0]) {
+            res.status(StatusCode.OK).json({
+                message: `User with id ${req.userid} has been updated successfully`,
+            })
+        }
+
+    } catch (error) {
+        next(error);
+    }
 }
 
-const deleteUserByUsername = (req, res) => {
-    res.send("controller for deleteing user");
+const deleteUser = async (req, res, next) => {
+    try {
+        const { userid } = req;
+
+        const result = await userService.deleteUser(userid);
+
+        if (result) {
+            res.status(StatusCode.OK).json({
+                message: `User with id ${req.userid} has been deleted successfully`,
+            })
+        }
+    } catch (error) {
+        next(error);
+    }
 }
 
 module.exports = {
     getAllUser,
     getUserByUsername,
-    updateUserByUsername,
-    deleteUserByUsername
+    updateUser,
+    deleteUser
 };
 

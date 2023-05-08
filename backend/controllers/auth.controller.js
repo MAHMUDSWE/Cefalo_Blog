@@ -25,10 +25,12 @@ const userLogin = async (req, res, next) => {
 
         const token = await authService.userLogin(loginCredentials);
 
+        const access_token = token;
         authUtils.setTokenToHeader(token, res);
 
         res.status(StatusCode.OK).json({
-            message: 'Log in Successful'
+            message: 'Log in Successful',
+            access_token
         })
 
     } catch (error) {

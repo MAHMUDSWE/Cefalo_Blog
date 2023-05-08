@@ -2,14 +2,16 @@ const express = require('express');
 const router = express();
 
 const blogController = require('../controllers/blog.controller');
+const blogValidator = require('../validators/blog.route.validator');
+const validationCheck = require('../middlewares/validation.middleware');
 
 router.route('/')
     .get(blogController.getAllBlogs)
-    .post(blogController.postBlog);
+    .post(blogValidator.blogPostValidator, validationCheck, blogController.postBlog);
 
-router.route('/:id')
+router.route('/:blogid')
     .get(blogController.getBlogById)
-    .put(blogController.updateBlogById)
+    .put(blogValidator.blogPostValidator, validationCheck, blogController.updateBlogById)
     .delete(blogController.deleteBlogById);
 
 router.get('/author/:username', blogController.getBlogsByAuthorUsername);

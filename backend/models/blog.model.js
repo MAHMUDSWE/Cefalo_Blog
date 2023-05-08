@@ -23,19 +23,10 @@ const Blog = sequelize.define('Blog', {
     },
     status: {
         type: DataTypes.STRING(36),
-        allowNull: false
-    },
-    createtime: {
-        type: DataTypes.DATE(6),
-        allowNull: false
-    },
-    updatetime: {
-        type: DataTypes.DATE(6),
-        allowNull: false
+        allowNull: true
     }
 }, {
     tableName: 'tbl_blog',
-    timestamps: false, // <-- disable createdAt and updatedAt columns
     indexes: [{
         unique: true,
         fields: ['userid', 'blogid']

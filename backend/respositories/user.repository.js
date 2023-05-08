@@ -1,14 +1,10 @@
-const { UserDTO } = require('../dto/request/user.req.dto');
+const { UserDTO } = require('../dto/response/user.res.dto');
 const User = require('../models/user.model');
 
 const getAllUser = async () => {
     const users = await User.findAll();
 
-    if (!users[0]) {
-        return null;
-    }
-    const userDTOs = users.map(user => new UserDTO(user));
-    return userDTOs;
+    return users;
 }
 
 const getUserByUsername = async (username) => {
@@ -18,17 +14,7 @@ const getUserByUsername = async (username) => {
         return null;
     }
 
-    user = {
-        userid: user.userid,
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        password: user.password,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt
-    };
-
-    return new UserDTO(user);
+    return user;
 
 }
 
@@ -39,17 +25,7 @@ const getUserById = async (userid) => {
         return null;
     }
 
-    user = {
-        userid: user.userid,
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        password: user.password,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt
-    };
-
-    return new UserDTO(user);
+    return user;
 
 }
 
@@ -60,26 +36,14 @@ const getUserByEmail = async (email) => {
         return null;
     }
 
-    user = {
-        userid: user.userid,
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        password: user.password,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt
-    };
-
-    return new UserDTO(user);
+    return user;
 }
 
 const updateUser = async (user, updateFields) => {
 
-    var result = await User.update(updateFields, {
-        where: { userid: user.userid }
-    });
+    var updatedUser = await user.update(updateFields);
 
-    return result;
+    return updatedUser;
 }
 
 const deleteUser = async (userid) => {

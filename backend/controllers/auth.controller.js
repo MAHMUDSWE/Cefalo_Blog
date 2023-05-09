@@ -27,15 +27,15 @@ const userLogin = async (req, res, next) => {
     try {
         const loginCredentials = req.body;
 
-        const token = await authService.userLogin(loginCredentials);
+        const token = await authService.userLogin(res, loginCredentials);
 
-        const access_token = token;
+        // const access_token = token;
 
-        authUtils.setTokenToHeader(token, res);
+        // authUtils.setTokenToHeader(token, res);
 
         res.status(StatusCode.OK).json({
             message: 'Log in Successful',
-            access_token
+            access_token: token
         })
 
     } catch (error) {

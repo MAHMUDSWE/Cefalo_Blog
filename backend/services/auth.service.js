@@ -35,7 +35,7 @@ const userRegistration = async (signupReqDto) => {
     return new UserDTO(user);
 }
 
-const userLogin = async (loginCredentials) => {
+const userLogin = async (res, loginCredentials) => {
 
     const { username, password } = loginCredentials;
 
@@ -52,6 +52,8 @@ const userLogin = async (loginCredentials) => {
     }
 
     const token = authUtils.generateAccessToken(user.userid);
+
+    authUtils.setTokenToHeader(token, res);
 
     return token;
 }

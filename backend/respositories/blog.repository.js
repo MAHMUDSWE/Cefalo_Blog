@@ -9,14 +9,14 @@ const getAllBlogs = async () => {
 const postBlog = async (newBlog) => {
     const { blogid, userid, title, content, status } = newBlog;
 
-    var blog = await Blog.create({
+    const blog = await Blog.create({
         blogid, userid, title, content, status
     });
 
     return blog;
 }
 const getBlogById = async (blogid) => {
-    var blog = await Blog.findOne({ where: { blogid } });
+    const blog = await Blog.findOne({ where: { blogid } });
 
     return blog;
 }

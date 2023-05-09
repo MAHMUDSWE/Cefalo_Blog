@@ -7,7 +7,7 @@ const getAllUser = async () => {
 }
 
 const getUserByUsername = async (username) => {
-    var user = await User.findOne({ where: { username } });
+    const user = await User.findOne({ where: { username } });
 
     if (!user) {
         return null;
@@ -18,7 +18,7 @@ const getUserByUsername = async (username) => {
 }
 
 const getUserById = async (userid) => {
-    var user = await User.findOne({ where: { userid } });
+    const user = await User.findOne({ where: { userid } });
 
     if (!user) {
         return null;
@@ -29,7 +29,7 @@ const getUserById = async (userid) => {
 }
 
 const getUserByEmail = async (email) => {
-    var user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
         return null;
@@ -40,7 +40,7 @@ const getUserByEmail = async (email) => {
 
 const updateUser = async (user, updateFields) => {
 
-    var updatedUser = await user.update(updateFields);
+    const updatedUser = await user.update(updateFields);
 
     return updatedUser;
 }

@@ -1,9 +1,8 @@
 const express = require('express');
-const Blog = require("../models/blog.model");
 
 const blogService = require('../services/blog.service');
 const StatusCode = require('../utils/objects/statusCode.object');
-const HttpError = require('../utils/objects/httpError.object');
+const { BlogPostReqDTO, BlogUpdateReqDTO } = require('../dto/request/blog.req.dto');
 
 const getAllBlogs = async (req, res, next) => {
     try {
@@ -19,10 +18,14 @@ const getAllBlogs = async (req, res, next) => {
 
 const postBlog = async (req, res, next) => {
     try {
-        const newBlog = req.body;
+        const { title, content, status } = req.body;
         const userid = req.userid;
 
-        const blog = await blogService.postBlog(userid, newBlog);
+        const blogPostReqDto = new BlogPostReqDTO({
+            userid, title, content, status
+        })
+
+        const blog = await blogService.postBlog(blogPostReqDto);
 
         res.status(StatusCode.OK).json({
             message: 'Blog post created successfully',
@@ -51,9 +54,13 @@ const updateBlogById = async (req, res, next) => {
     try {
         const { userid } = req
         const { blogid } = req.params;
-        const { title, content } = req.body;
+        const { title, content, status } = req.body;
 
-        const updatedBlog = await blogService.updateBlogById(userid, blogid, title, content);
+        const blogUpdateReqDto = new BlogUpdateReqDTO({
+            blogid, userid, title, content, status
+        })
+
+        const updatedBlog = await blogService.updateBlogById(blogUpdateReqDto);
 
         res.status(StatusCode.OK).json({
             "message": "Blog successfully updated",
@@ -87,7 +94,9 @@ const getBlogsByAuthorUsername = async (req, res, next) => {
 
         const blogs = await blogService.getBlogsByAuthorUsername(username);
 
-        res.status(StatusCode.OK).json({ blogs });
+        res.status(StatusCode.OK).json({
+            blogs
+        });
 
     } catch (error) {
         next(error);

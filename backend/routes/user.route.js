@@ -9,7 +9,7 @@ const router = express();
 router.get('/all', userController.getAllUser);
 
 router.route('/:username')
-    .get(userController.getUserByUsername)
+    .get(userValidator.getUserParamValidator, validationCheck, userController.getUserByUsername)
     .put(userValidator.updateUserValidator, validationCheck, userController.updateUser)
     .delete(userController.deleteUser)
 

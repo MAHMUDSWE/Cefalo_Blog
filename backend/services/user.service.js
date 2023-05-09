@@ -43,8 +43,8 @@ const deleteUser = async (userid) => {
         throw new HttpError(StatusCode.NOT_FOUND, `User with id ${userid} not found`);
     }
 
-    const result = await userRepository.deleteUser(userid);
-    return result;
+    await userRepository.deleteUser(userid);
+
 }
 
 module.exports = {

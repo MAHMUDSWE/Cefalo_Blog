@@ -47,7 +47,7 @@ const updateUser = async (user, updateFields) => {
 }
 
 const deleteUser = async (userid) => {
-    return await User.destroy({ where: { userid } });
+    await User.destroy({ where: { userid } });
 }
 
 module.exports = {

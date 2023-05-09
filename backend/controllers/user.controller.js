@@ -22,11 +22,7 @@ const getUserByUsername = async (req, res, next) => {
     try {
         const { username } = req.params;
 
-        if (!username) {
-            throw new HttpError(StatusCode.BAD_REQUEST, "Request parameter is empty");
-        }
-
-        const user = await userService.getUserByUsername(username, next);
+        const user = await userService.getUserByUsername(username);
 
         return res.status(StatusCode.OK).json({
             user
@@ -59,7 +55,7 @@ const deleteUser = async (req, res, next) => {
     try {
         const { userid } = req;
 
-        const result = await userService.deleteUser(userid);
+        await userService.deleteUser(userid);
 
         res.status(StatusCode.OK).json({
             message: `User with id ${req.userid} has been deleted successfully`,

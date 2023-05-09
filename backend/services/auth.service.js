@@ -8,11 +8,12 @@ const bcryptUtils = require("../utils/functions/bcrypt.util");
 
 const HttpError = require('../utils/objects/httpError.object');
 const StatusCode = require('../utils/objects/statusCode.object');
-const User = require('../models/user.model');
 
-const userRegistration = async (newUser) => {
+const { UserDTO } = require('../dto/response/user.res.dto');
 
-    const { name, email, username, password } = newUser;
+const userRegistration = async (signupReqDto) => {
+
+    const { email, username, password } = signupReqDto;
 
     if (await userRepository.getUserByEmail(email)) {
 
@@ -25,13 +26,15 @@ const userRegistration = async (newUser) => {
 
     const hashedPassword = await bcryptUtils.hashPassword(password);
 
-    newUser = {
-        ...newUser,
-        password: hashedPassword,
-        userid: uuidv4()
+    const newUser = {
+        userid: uuidv4(),
+        ...signupReqDto,
+        password: hashedPassword
     }
 
-    return await authRepository.userRegistration(newUser);
+    const user = await authRepository.userRegistration(newUser);
+
+    return new UserDTO(user);
 }
 
 const userLogin = async (loginCredentials) => {

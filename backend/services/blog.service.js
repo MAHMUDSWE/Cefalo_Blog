@@ -8,7 +8,6 @@ const { BlogDto } = require("../dto/response/blog.res.dto");
 
 const getAllBlogs = async () => {
     const blogs = await blogRepository.getAllBlogs();
-    console.log(blogs);
 
     if (!blogs[0]) {
         return blogs;
@@ -17,12 +16,13 @@ const getAllBlogs = async () => {
     return blogs.map((blog) => new BlogDto(blog));
 }
 
-const postBlog = async (userid, newBlog) => {
-    newBlog = {
+const postBlog = async (blogPostReqDto) => {
+
+    const newBlog = {
         blogid: uuidv4(),
-        userid,
-        ...newBlog
+        ...blogPostReqDto
     }
+
     const blog = await blogRepository.postBlog(newBlog);
 
     return new BlogDto(blog);
@@ -38,7 +38,10 @@ const getBlogById = async (blogid) => {
     return new BlogDto(blog);
 }
 
-const updateBlogById = async (userid, blogid, title, content) => {
+const updateBlogById = async (blogUpdateReqDto) => {
+
+    const { blogid, userid } = blogUpdateReqDto;
+
     const blog = await blogRepository.getBlogById(blogid);
 
     if (!blog) {
@@ -49,7 +52,7 @@ const updateBlogById = async (userid, blogid, title, content) => {
         throw new HttpError(StatusCode.FORBIDDEN, 'You are not authorized to update this blog')
     };
 
-    const updatedBlog = await blogRepository.updateBlogById(blog, title, content);
+    const updatedBlog = await blogRepository.updateBlogById(blog, blogUpdateReqDto);
 
     return new BlogDto(updatedBlog);
 }
@@ -78,10 +81,10 @@ const getBlogsByAuthorUsername = async (username) => {
         throw new HttpError(StatusCode.NOT_FOUND, "User not found");
     }
 
-    const blogs = await blogRepository.getBlogsByAuthorUsername(user.userid);
+    const blogs = await blogRepository.getBlogsByAuthorUserId(user.userid);
 
-    if (!blogs) {
-        throw new HttpError(StatusCode.NOT_FOUND, 'No blogs found for author');
+    if (!blogs[0]) {
+        return blogs;
     }
     return blogs.map((blog) => new BlogDto(blog));
 }

@@ -7,8 +7,8 @@ class UserDTO {
         this.email = email;
         this.username = username;
         this.password = password;
-        // this.createdAt = createdAt;
-        // this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
 
         Object.defineProperty(this, "password", {
             enumerable: false,

@@ -1,8 +1,4 @@
 const User = require('../models/user.model');
-const HttpError = require('../utils/objects/httpError.object');
-const StatusCode = require('../utils/objects/statusCode.object');
-
-const bcrypt = require('bcrypt');
 
 const userRegistration = async (newUser) => {
 

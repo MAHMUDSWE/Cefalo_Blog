@@ -9,6 +9,7 @@ const morgan = require('morgan'); //logging requests
 
 const Authentication = require('./middlewares/authentication.middleware');
 const errorHandler = require('./middlewares/errorHandler.middleware');
+const indexRouter = require("./routes/index.route");
 
 app.use(cors());
 app.options(('*'), cors());
@@ -21,16 +22,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morgan('tiny'));
+
 app.use(Authentication);
-
-
-
-const indexRouter = require("./routes/index.route");
-
 app.use(indexRouter);
-
-
 app.use(errorHandler.notFound);
 app.use(errorHandler.error);
+
 
 module.exports = app;

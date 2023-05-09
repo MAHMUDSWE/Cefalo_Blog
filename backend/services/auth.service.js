@@ -3,16 +3,15 @@ const { v4: uuidv4 } = require('uuid');
 const authRepository = require("../respositories/auth.repository");
 const userRepository = require("../respositories/user.repository");
 
-const authUtils = require("../utils/functions/auth.util");
-const bcryptUtils = require("../utils/functions/bcrypt.util");
+const authUtils = require("../utils/auth.util");
+const bcryptUtils = require("../utils/bcrypt.util");
 
-const HttpError = require('../utils/objects/httpError.object');
-const StatusCode = require('../utils/objects/statusCode.object');
-const User = require('../models/user.model');
+const { UserDTO } = require('../dto/response/user.res.dto');
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
-const userRegistration = async (newUser) => {
+const userRegistration = async (signupReqDto) => {
 
-    const { name, email, username, password } = newUser;
+    const { email, username, password } = signupReqDto;
 
     if (await userRepository.getUserByEmail(email)) {
 
@@ -25,16 +24,18 @@ const userRegistration = async (newUser) => {
 
     const hashedPassword = await bcryptUtils.hashPassword(password);
 
-    newUser = {
-        ...newUser,
-        password: hashedPassword,
-        userid: uuidv4()
+    const newUser = {
+        userid: uuidv4(),
+        ...signupReqDto,
+        password: hashedPassword
     }
 
-    return await authRepository.userRegistration(newUser);
+    const user = await authRepository.userRegistration(newUser);
+
+    return new UserDTO(user);
 }
 
-const userLogin = async (loginCredentials) => {
+const userLogin = async (res, loginCredentials) => {
 
     const { username, password } = loginCredentials;
 
@@ -51,6 +52,8 @@ const userLogin = async (loginCredentials) => {
     }
 
     const token = authUtils.generateAccessToken(user.userid);
+
+    authUtils.setTokenToHeader(token, res);
 
     return token;
 }

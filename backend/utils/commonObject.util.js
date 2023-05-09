@@ -1,5 +1,14 @@
 const express = require('express');
 
+class HttpError extends Error {
+    constructor(statusCode, message) {
+        super(message);
+        this.statusCode = statusCode;
+
+        Error.captureStackTrace(this, this.constructor);
+    }
+}
+
 const StatusCode = {
     // 1xx Informational
     CONTINUE: 100,
@@ -74,4 +83,8 @@ const StatusCode = {
     NETWORK_AUTHENTICATION_REQUIRED: 511,
 };
 
-module.exports = StatusCode;
+
+module.exports = {
+    HttpError,
+    StatusCode
+}

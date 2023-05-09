@@ -23,19 +23,10 @@ const Blog = sequelize.define('Blog', {
     },
     status: {
         type: DataTypes.STRING(36),
-        allowNull: false
-    },
-    createtime: {
-        type: DataTypes.DATE(6),
-        allowNull: false
-    },
-    updatetime: {
-        type: DataTypes.DATE(6),
-        allowNull: false
+        allowNull: true
     }
 }, {
     tableName: 'tbl_blog',
-    timestamps: false, // <-- disable createdAt and updatedAt columns
     indexes: [{
         unique: true,
         fields: ['userid', 'blogid']
@@ -55,13 +46,5 @@ const Blog = sequelize.define('Blog', {
 User.hasMany(Blog, { onDelete: "CASCADE", foreignKey: "userid" });
 Blog.belongsTo(User, { onDelete: "CASCADE", foreignKey: "userid" });
 
-// (async () => {
-//     try {
-//         await sequelize.sync();
-//         console.log('Blog Models have been synced successfully.');
-//     } catch (error) {
-//         console.error('Unable to sync the models', error);
-//     }
-// })();
 
 module.exports = Blog;

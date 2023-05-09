@@ -1,18 +1,23 @@
+const { UserDTO } = require('../dto/response/user.res.dto');
 const userRepository = require('../respositories/user.repository');
-const HttpError = require('../utils/objects/httpError.object');
-const StatusCode = require('../utils/objects/statusCode.object');
 
-
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
 const getAllUser = async () => {
     const users = await userRepository.getAllUser();
-    return users;
+    if (!users[0]) {
+        return users
+    }
+    return users.map((user) => new UserDTO(user));
 }
 
 const getUserByUsername = async (username) => {
     const user = await userRepository.getUserByUsername(username);
 
-    return user;
+    if (!user) {
+        throw new HttpError(StatusCode.NOT_FOUND, "User not found");
+    }
+    return new UserDTO(user);
 }
 
 const updateUser = async (userid, updateFields) => {
@@ -23,7 +28,9 @@ const updateUser = async (userid, updateFields) => {
         throw new HttpError(StatusCode.NOT_FOUND, `User with id ${userid} not found`);
     }
 
-    return await userRepository.updateUser(user, updateFields);
+    const updatedUser = await userRepository.updateUser(user, updateFields);
+
+    return new UserDTO(updatedUser);
 }
 
 const deleteUser = async (userid) => {
@@ -34,8 +41,8 @@ const deleteUser = async (userid) => {
         throw new HttpError(StatusCode.NOT_FOUND, `User with id ${userid} not found`);
     }
 
-    const result = await userRepository.deleteUser(userid);
-    return result;
+    await userRepository.deleteUser(userid);
+
 }
 
 module.exports = {

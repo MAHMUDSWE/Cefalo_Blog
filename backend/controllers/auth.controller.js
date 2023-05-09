@@ -1,17 +1,21 @@
 const express = require('express');
 const authService = require('../services/auth.service');
-const StatusCode = require('../utils/objects/statusCode.object');
 
-const authUtils = require('../utils/functions/auth.util');
+const authUtils = require("../utils/auth.util")
+const { SignupReqDTO } = require('../dto/request/signup.req.dto');
+const { StatusCode } = require('../utils/commonObject.util');
 
 const userRegistration = async (req, res, next) => {
     try {
-        const newUser = req.body;
+        const { name, email, username, password, confirmPassword } = req.body
 
-        const user = await authService.userRegistration(newUser);
+        const signupReqDto = new SignupReqDTO({ name, email, username, password, confirmPassword })
+
+        const user = await authService.userRegistration(signupReqDto);
 
         res.status(StatusCode.CREATED).json({
-            message: `Profile for ${user.name} with username ${user.username} created successfully`
+            message: `Profile for ${user.name} with username ${user.username} created successfully`,
+            user
         });
 
     } catch (error) {
@@ -23,12 +27,15 @@ const userLogin = async (req, res, next) => {
     try {
         const loginCredentials = req.body;
 
-        const token = await authService.userLogin(loginCredentials);
+        const token = await authService.userLogin(res, loginCredentials);
 
-        authUtils.setTokenToHeader(token, res);
+        // const access_token = token;
+
+        // authUtils.setTokenToHeader(token, res);
 
         res.status(StatusCode.OK).json({
-            message: 'Log in Successful'
+            message: 'Log in Successful',
+            access_token: token
         })
 
     } catch (error) {

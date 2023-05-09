@@ -27,13 +27,4 @@ const User = sequelize.define('tbl_user', {
     }
 });
 
-// (async () => {
-//     try {
-//         await sequelize.sync();
-//         console.log('User Models have been synced successfully.');
-//     } catch (error) {
-//         console.error('Unable to sync the models', error);
-//     }
-// })();
-
 module.exports = User;

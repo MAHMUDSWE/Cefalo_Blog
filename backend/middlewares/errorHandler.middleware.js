@@ -1,6 +1,6 @@
 const express = require('express');
-const StatusCode = require('../utils/objects/statusCode.object');
-const HttpError = require('../utils/objects/httpError.object');
+
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
 const notFound = (req, res, next) => {
     next(new HttpError(StatusCode.NOT_FOUND, "Error! Invalid APIs route"));
@@ -8,7 +8,7 @@ const notFound = (req, res, next) => {
 
 const error = (err, req, res, next) => {
     if (err.message) {
-        console.log(err.message);
+        console.log(err);
     }
 
     err.statusCode = err.statusCode || StatusCode.INTERNAL_SERVER_ERROR;

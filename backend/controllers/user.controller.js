@@ -1,8 +1,6 @@
 const express = require('express');
 const userService = require('../services/user.service');
-
-const HttpError = require("../utils/objects/httpError.object")
-const StatusCode = require("../utils/objects/statusCode.object")
+const { StatusCode } = require('../utils/commonObject.util');
 
 
 const getAllUser = async (req, res, next) => {

@@ -1,4 +1,5 @@
 const { body, check } = require('express-validator');
+const { StatusCode } = require('../utils/commonObject.util');
 
 const updateUserValidator = [
     body('name').trim().not()

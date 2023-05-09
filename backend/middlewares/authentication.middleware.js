@@ -1,15 +1,16 @@
 const express = require('express');
 const jwt = require("jsonwebtoken");
-const HttpError = require('../utils/objects/httpError.object');
-const StatusCode = require('../utils/objects/statusCode.object');
 
-const authUtils = require("../utils/functions/auth.util");
+const authUtils = require('../utils/auth.util')
+
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
+const { isPublicRoute } = require('../utils/publicRoute.util');
 
 
 const Authentication = (req, res, next) => {
     try {
 
-        if (authUtils.isPublicRoute(req)) {
+        if (isPublicRoute(req)) {
             return next();
         }
 

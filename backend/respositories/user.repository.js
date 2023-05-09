@@ -1,4 +1,3 @@
-const { UserDTO } = require('../dto/response/user.res.dto');
 const User = require('../models/user.model');
 
 const getAllUser = async () => {

@@ -46,13 +46,5 @@ const Blog = sequelize.define('Blog', {
 User.hasMany(Blog, { onDelete: "CASCADE", foreignKey: "userid" });
 Blog.belongsTo(User, { onDelete: "CASCADE", foreignKey: "userid" });
 
-// (async () => {
-//     try {
-//         await sequelize.sync();
-//         console.log('Blog Models have been synced successfully.');
-//     } catch (error) {
-//         console.error('Unable to sync the models', error);
-//     }
-// })();
 
 module.exports = Blog;

@@ -1,8 +1,9 @@
 const express = require('express');
 
 const blogService = require('../services/blog.service');
-const StatusCode = require('../utils/objects/statusCode.object');
+
 const { BlogPostReqDTO, BlogUpdateReqDTO } = require('../dto/request/blog.req.dto');
+const { StatusCode } = require('../utils/commonObject.util');
 
 const getAllBlogs = async (req, res, next) => {
     try {

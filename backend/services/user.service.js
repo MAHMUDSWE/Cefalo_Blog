@@ -1,9 +1,7 @@
 const { UserDTO } = require('../dto/response/user.res.dto');
 const userRepository = require('../respositories/user.repository');
-const HttpError = require('../utils/objects/httpError.object');
-const StatusCode = require('../utils/objects/statusCode.object');
 
-
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
 const getAllUser = async () => {
     const users = await userRepository.getAllUser();

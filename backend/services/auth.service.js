@@ -3,13 +3,11 @@ const { v4: uuidv4 } = require('uuid');
 const authRepository = require("../respositories/auth.repository");
 const userRepository = require("../respositories/user.repository");
 
-const authUtils = require("../utils/functions/auth.util");
-const bcryptUtils = require("../utils/functions/bcrypt.util");
-
-const HttpError = require('../utils/objects/httpError.object');
-const StatusCode = require('../utils/objects/statusCode.object');
+const authUtils = require("../utils/auth.util");
+const bcryptUtils = require("../utils/bcrypt.util");
 
 const { UserDTO } = require('../dto/response/user.res.dto');
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
 const userRegistration = async (signupReqDto) => {
 

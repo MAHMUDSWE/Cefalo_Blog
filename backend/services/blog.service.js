@@ -2,9 +2,9 @@ const blogRepository = require("../respositories/blog.repository");
 const userRepository = require("../respositories/user.repository");
 
 const { v4: uuidv4 } = require('uuid');
-const HttpError = require("../utils/objects/httpError.object");
-const StatusCode = require("../utils/objects/statusCode.object");
+
 const { BlogDto } = require("../dto/response/blog.res.dto");
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
 const getAllBlogs = async () => {
     const blogs = await blogRepository.getAllBlogs();

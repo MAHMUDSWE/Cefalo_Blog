@@ -1,9 +1,9 @@
 const express = require('express');
 const authService = require('../services/auth.service');
-const StatusCode = require('../utils/objects/statusCode.object');
 
-const authUtils = require('../utils/functions/auth.util');
+const authUtils = require("../utils/auth.util")
 const { SignupReqDTO } = require('../dto/request/signup.req.dto');
+const { StatusCode } = require('../utils/commonObject.util');
 
 const userRegistration = async (req, res, next) => {
     try {

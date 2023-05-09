@@ -1,6 +1,7 @@
 const { body } = require('express-validator');
-const HttpError = require('../utils/objects/httpError.object');
-const StatusCode = require('../utils/objects/statusCode.object');
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
+
+
 
 const signup = [
 

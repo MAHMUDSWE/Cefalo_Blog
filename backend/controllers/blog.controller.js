@@ -7,10 +7,11 @@ const { StatusCode } = require('../utils/commonObject.util');
 
 const getAllBlogs = async (req, res, next) => {
     try {
-        const blogs = await blogService.getAllBlogs();
+        const paginationParameter = req.query;
+        const data = await blogService.getAllBlogs(paginationParameter);
 
         res.status(StatusCode.OK).json({
-            blogs
+            data
         })
     } catch (error) {
         next(error);
@@ -92,8 +93,9 @@ const deleteBlogById = async (req, res, next) => {
 const getBlogsByAuthorUsername = async (req, res, next) => {
     try {
         const { username } = req.params;
+        const paginationParameter = req.query;
 
-        const blogs = await blogService.getBlogsByAuthorUsername(username);
+        const blogs = await blogService.getBlogsByAuthorUsername(username, paginationParameter);
 
         res.status(StatusCode.OK).json({
             blogs

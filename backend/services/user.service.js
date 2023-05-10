@@ -2,13 +2,24 @@ const { UserDTO } = require('../dto/response/user.res.dto');
 const userRepository = require('../respositories/user.repository');
 
 const { StatusCode, HttpError } = require('../utils/commonObject.util');
+const paginationUtils = require('../utils/pagination.util');
 
-const getAllUser = async () => {
-    const users = await userRepository.getAllUser();
-    if (!users[0]) {
-        return users
+const getAllUser = async (paginationParameter) => {
+
+    const { offset, limit } = paginationUtils.pagination(paginationParameter);
+
+    const { count, rows } = await userRepository.getAllUser(offset, limit);
+
+
+    if (!rows[0]) {
+        return rows
     }
-    return users.map((user) => new UserDTO(user));
+    return {
+        users: rows.map((user) => new UserDTO(user)),
+        currentPage: paginationUtils.currentPage(offset, limit),
+        totalPages: paginationUtils.totalPages(count, limit),
+        totalUsers: count
+    };
 }
 
 const getUserByUsername = async (username) => {

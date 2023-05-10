@@ -1,9 +1,13 @@
 const Blog = require('../models/blog.model');
 
-const getAllBlogs = async () => {
-    const blogs = await Blog.findAll();
+const getAllBlogs = async (offset, limit) => {
+    const result = await Blog.findAndCountAll({
+        offset,
+        limit,
+        order: [['createdAt', 'DESC']],
+    });
 
-    return blogs;
+    return result;
 }
 
 const postBlog = async (newBlog) => {
@@ -31,13 +35,16 @@ const deleteBlogById = async (blog) => {
     return await blog.destroy();
 }
 
-const getBlogsByAuthorUserId = async (userid) => {
+const getBlogsByAuthorUserId = async (userid, offset, limit) => {
 
-    const blogs = await Blog.findAll({
-        where: { userid }
+    const result = await Blog.findAndCountAll({
+        where: { userid },
+        offset,
+        limit,
+        order: [['createdAt', 'DESC']],
     });
 
-    return blogs;
+    return result;
 };
 
 module.exports = {

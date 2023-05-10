@@ -5,15 +5,23 @@ const { v4: uuidv4 } = require('uuid');
 
 const { BlogDto } = require("../dto/response/blog.res.dto");
 const { StatusCode, HttpError } = require('../utils/commonObject.util');
+const paginationUtils = require('../utils/pagination.util');
 
-const getAllBlogs = async () => {
-    const blogs = await blogRepository.getAllBlogs();
+const getAllBlogs = async (paginationParameter) => {
 
-    if (!blogs[0]) {
-        return blogs;
+    const { offset, limit } = paginationUtils.pagination(paginationParameter);
+    const { count, rows } = await blogRepository.getAllBlogs(offset, limit);
+
+    if (!rows[0]) {
+        return rows;
     }
 
-    return blogs.map((blog) => new BlogDto(blog));
+    return {
+        blogs: rows.map((blog) => new BlogDto(blog)),
+        currentPage: paginationUtils.currentPage(offset, limit),
+        totalPages: paginationUtils.totalPages(count, limit),
+        totalBlogs: count
+    };
 }
 
 const postBlog = async (blogPostReqDto) => {
@@ -74,19 +82,27 @@ const deleteBlogById = async (userid, blogid) => {
 }
 
 
-const getBlogsByAuthorUsername = async (username) => {
+const getBlogsByAuthorUsername = async (username, paginationParameter) => {
     const user = await userRepository.getUserByUsername(username);
 
     if (!user) {
         throw new HttpError(StatusCode.NOT_FOUND, "User not found");
     }
 
-    const blogs = await blogRepository.getBlogsByAuthorUserId(user.userid);
+    const { offset, limit } = paginationUtils.pagination(paginationParameter);
 
-    if (!blogs[0]) {
-        return blogs;
+    const { count, rows } = await blogRepository.getBlogsByAuthorUserId(user.userid, offset, limit);
+
+    if (!rows[0]) {
+        return rows;
     }
-    return blogs.map((blog) => new BlogDto(blog));
+
+    return {
+        blogs: rows.map((blog) => new BlogDto(blog)),
+        currentPage: paginationUtils.currentPage(offset, limit),
+        totalPages: paginationUtils.totalPages(count, limit),
+        totalBlogs: count
+    };
 }
 
 module.exports = {

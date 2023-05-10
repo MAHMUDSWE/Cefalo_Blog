@@ -48,3 +48,4 @@ Blog.belongsTo(User, { onDelete: "CASCADE", foreignKey: "userid" });
 
 
 module.exports = Blog;
+

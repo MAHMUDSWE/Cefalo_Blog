@@ -5,10 +5,13 @@ const { StatusCode } = require('../utils/commonObject.util');
 
 const getAllUser = async (req, res, next) => {
     try {
-        const users = await userService.getAllUser();
+
+        const paginationParameter = req.query;
+
+        const data = await userService.getAllUser(paginationParameter);
 
         res.status(StatusCode.OK).json({
-            users
+            data
         })
     } catch (error) {
         next(error);

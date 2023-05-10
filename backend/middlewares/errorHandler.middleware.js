@@ -7,8 +7,13 @@ const notFound = (req, res, next) => {
 }
 
 const error = (err, req, res, next) => {
-    if (err.message) {
+
+    if (!(err instanceof HttpError)) {
+
         console.log(err);
+
+        err.statusCode = StatusCode.INTERNAL_SERVER_ERROR;
+        err.message = "Internal Server Error"
     }
 
     err.statusCode = err.statusCode || StatusCode.INTERNAL_SERVER_ERROR;

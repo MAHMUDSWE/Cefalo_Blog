@@ -9,14 +9,6 @@ const getAllUser = async (offset, limit) => {
     });
 
     return result;
-    // const totalPages = Math.ceil(count / limit);
-
-    // return {
-    //     users: rows,
-    //     page: Math.ceil((offset / limit) + 1),
-    //     totalPages,
-    //     totalUsers: count,
-    // };
 }
 
 const getUserByUsername = async (username) => {

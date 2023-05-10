@@ -16,11 +16,6 @@ const error = (err, req, res, next) => {
         err.message = "Internal Server Error"
     }
 
-    err.statusCode = err.statusCode || StatusCode.INTERNAL_SERVER_ERROR;
-
-    if (err.statusCode == StatusCode.INTERNAL_SERVER_ERROR) {
-        err.message = "Internal Server Error"
-    }
 
     res.status(err.statusCode).json({
         message: err.message

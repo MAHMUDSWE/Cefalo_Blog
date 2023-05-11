@@ -1,6 +1,7 @@
 const express = require('express');
 const userService = require('../services/user.service');
 const { StatusCode } = require('../utils/commonObject.util');
+const convertData = require('../utils/converData.util');
 
 
 const getAllUser = async (req, res, next) => {
@@ -8,11 +9,11 @@ const getAllUser = async (req, res, next) => {
 
         const paginationParameter = req.query;
 
-        const data = await userService.getAllUser(paginationParameter);
+        const users = await userService.getAllUser(paginationParameter);
 
-        res.status(StatusCode.OK).json({
-            data
-        })
+        const convertedData = convertData(users, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
     } catch (error) {
         next(error);
     }
@@ -25,9 +26,9 @@ const getUserByUsername = async (req, res, next) => {
 
         const user = await userService.getUserByUsername(username);
 
-        return res.status(StatusCode.OK).json({
-            user
-        });
+        const convertedData = convertData(user, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
 
     } catch (error) {
         next(error);
@@ -41,10 +42,9 @@ const updateUser = async (req, res, next) => {
 
         const updatedUser = await userService.updateUser(userid, updateFields);
 
-        res.status(StatusCode.OK).json({
-            message: `User with id ${req.userid} has been updated successfully`,
-            updatedUser
-        })
+        const convertedData = convertData(updatedUser, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
 
 
     } catch (error) {
@@ -58,9 +58,11 @@ const deleteUser = async (req, res, next) => {
 
         await userService.deleteUser(userid);
 
-        res.status(StatusCode.OK).json({
+        const convertedData = convertData({
             message: `User with id ${req.userid} has been deleted successfully`,
-        })
+        }, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
 
     } catch (error) {
         next(error);

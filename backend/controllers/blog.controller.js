@@ -4,15 +4,16 @@ const blogService = require('../services/blog.service');
 
 const { BlogPostReqDTO, BlogUpdateReqDTO } = require('../dto/request/blog.req.dto');
 const { StatusCode } = require('../utils/commonObject.util');
+const convertData = require('../utils/converData.util');
 
 const getAllBlogs = async (req, res, next) => {
     try {
         const paginationParameter = req.query;
         const data = await blogService.getAllBlogs(paginationParameter);
 
-        res.status(StatusCode.OK).json({
-            data
-        })
+        const convertedData = convertData(data, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
     } catch (error) {
         next(error);
     }
@@ -29,10 +30,9 @@ const postBlog = async (req, res, next) => {
 
         const blog = await blogService.postBlog(blogPostReqDto);
 
-        res.status(StatusCode.OK).json({
-            message: 'Blog post created successfully',
-            blog
-        });
+        const convertedData = convertData(blog, req.requestedFormat)
+
+        res.status(StatusCode.CREATED).send(convertedData);
     } catch (error) {
         next(error);
     }
@@ -44,9 +44,9 @@ const getBlogById = async (req, res, next) => {
 
         const blog = await blogService.getBlogById(blogid);
 
-        res.status(StatusCode.OK).json({
-            blog
-        })
+        const convertedData = convertData(blog, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
     } catch (error) {
         next(error);
     }
@@ -64,10 +64,9 @@ const updateBlogById = async (req, res, next) => {
 
         const updatedBlog = await blogService.updateBlogById(blogUpdateReqDto);
 
-        res.status(StatusCode.OK).json({
-            "message": "Blog successfully updated",
-            updatedBlog
-        })
+        const convertedData = convertData(updatedBlog, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
 
     } catch (error) {
         next(error);
@@ -81,9 +80,11 @@ const deleteBlogById = async (req, res, next) => {
 
         await blogService.deleteBlogById(userid, blogid);
 
-        res.status(StatusCode.OK).json({
-            "message": "Blog successfully deleted",
-        })
+        const convertedData = convertData({
+            message: "Blog successfully deleted"
+        }, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
 
     } catch (error) {
         next(error);
@@ -97,9 +98,9 @@ const getBlogsByAuthorUsername = async (req, res, next) => {
 
         const blogs = await blogService.getBlogsByAuthorUsername(username, paginationParameter);
 
-        res.status(StatusCode.OK).json({
-            blogs
-        });
+        const convertedData = convertData(blogs, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
 
     } catch (error) {
         next(error);

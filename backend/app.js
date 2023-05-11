@@ -15,6 +15,7 @@ app.use(cors());
 app.options(('*'), cors());
 
 const dotenv = require('dotenv');
+const contentNegotiation = require('./middlewares/contentNegotiation.middleware');
 dotenv.config();
 
 // //middleware
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use(morgan('tiny'));
 
 app.use(Authentication);
+app.use(contentNegotiation);
 app.use(indexRouter);
 app.use(errorHandler.notFound);
 app.use(errorHandler.error);

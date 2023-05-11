@@ -1,8 +1,6 @@
 const { body } = require('express-validator');
 const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
-
-
 const signup = [
 
     body('name').trim().not()

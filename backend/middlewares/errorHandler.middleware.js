@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { StatusCode, HttpError } = require('../utils/commonObject.util');
+const convertData = require('../utils/convertData.util');
 
 const notFound = (req, res, next) => {
     next(new HttpError(StatusCode.NOT_FOUND, "Error! Invalid APIs route"));
@@ -16,11 +17,11 @@ const error = (err, req, res, next) => {
         err.message = "Internal Server Error"
     }
 
+    const convertedMessage = convertData({
+        message: err.message
+    }, req.requestedFormat)
+    res.status(err.statusCode).send(convertedMessage);
 
-    // res.status(err.statusCode).json({
-    //     message: err.message
-    // })
-    res.status(err.statusCode).send(err.message);
 }
 
 module.exports = { notFound, error };

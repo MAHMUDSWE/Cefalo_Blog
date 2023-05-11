@@ -1,5 +1,3 @@
-const { HttpError, StatusCode } = require("../utils/commonObject.util");
-
 function contentNegotiation(req, res, next) {
 
     const acceptedTypes = req.accepts();

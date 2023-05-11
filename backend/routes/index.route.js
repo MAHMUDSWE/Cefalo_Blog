@@ -1,10 +1,11 @@
 const express = require('express');
-const router = express();
 
 //Routes
 const userRoutes = require("./user.route");
 const blogRoutes = require("./blog.route");
 const authRoutes = require("./auth.route");
+
+const router = express();
 
 
 const api = process.env.API_URL;

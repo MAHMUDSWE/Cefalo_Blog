@@ -4,7 +4,7 @@ const authService = require('../services/auth.service');
 const authUtils = require("../utils/auth.util")
 const { SignupReqDTO } = require('../dto/request/signup.req.dto');
 const { StatusCode } = require('../utils/commonObject.util');
-const convertData = require('../utils/converData.util');
+const convertData = require('../utils/convertData.util');
 
 const userRegistration = async (req, res, next) => {
     try {

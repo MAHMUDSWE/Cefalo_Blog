@@ -1,7 +1,6 @@
-const { js2xml } = require('xml-js');
-const js2xmlparser = require("js2xmlparser");
+const js2xmlparser = require("js2xmlparser").parse;
 
-const { parse: convertToCsv } = require("json2csv");
+const convertToCsv = require("json2csv").parse;
 
 const { HttpError, StatusCode } = require('./commonObject.util');
 
@@ -16,9 +15,11 @@ function convertData(data, format) {
             const options = {
                 compact: true,
                 ignoreComment: true,
-                spaces: 4
+                spaces: 4,
+                attributesKey: null,
+                textKey: '_value',
             };
-            result = js2xml(data, options)
+            result = js2xmlparser('root', data, options);
             break;
         case 'csv':
             result = convertToCsv(data);

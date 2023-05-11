@@ -1,7 +1,7 @@
 const express = require('express');
 const userService = require('../services/user.service');
 const { StatusCode } = require('../utils/commonObject.util');
-const convertData = require('../utils/converData.util');
+const convertData = require('../utils/convertData.util');
 
 
 const getAllUser = async (req, res, next) => {

@@ -1,9 +1,9 @@
 const express = require('express');
-const router = express();
-
 const blogController = require('../controllers/blog.controller');
 const blogValidator = require('../validators/blog.route.validator');
 const validationCheck = require('../middlewares/validation.middleware');
+
+const router = express();
 
 router.route('/')
     .get(blogController.getAllBlogs)

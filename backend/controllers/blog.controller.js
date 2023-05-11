@@ -4,7 +4,7 @@ const blogService = require('../services/blog.service');
 
 const { BlogPostReqDTO, BlogUpdateReqDTO } = require('../dto/request/blog.req.dto');
 const { StatusCode } = require('../utils/commonObject.util');
-const convertData = require('../utils/converData.util');
+const convertData = require('../utils/convertData.util');
 
 const getAllBlogs = async (req, res, next) => {
     try {

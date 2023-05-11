@@ -4,18 +4,14 @@ const isPublicRoute = (req) => {
 
     const api = process.env.API_URL;
 
-    if (req.originalUrl === (`${api}/user/login`)) {
+    if (
+        req.originalUrl === `${api}/user/login` ||
+        req.originalUrl === `${api}/user/signup` ||
+        (req.originalUrl.startsWith(`${api}/blog`) && req.method === 'GET')
+    ) {
         return true;
     }
-    else if (req.originalUrl === (`${api}/user/signup`)) {
-        return true;
-    }
-    else if (req.originalUrl.startsWith(`${api}/blog`) && req.method === 'GET') {
-        if (req.params.blogid) {
-            return true;
-        }
-        return true;
-    }
+
 }
 
 module.exports = { isPublicRoute }

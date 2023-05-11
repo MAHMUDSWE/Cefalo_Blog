@@ -1,9 +1,14 @@
 const User = require('../models/user.model');
 
-const getAllUser = async () => {
-    const users = await User.findAll();
+const getAllUser = async (offset, limit) => {
 
-    return users;
+    const result = await User.findAndCountAll({
+        offset,
+        limit,
+        order: [['createdAt', 'DESC']],
+    });
+
+    return result;
 }
 
 const getUserByUsername = async (username) => {

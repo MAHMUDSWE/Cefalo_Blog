@@ -1,8 +1,21 @@
+/**
+ * Utility functions for the application.
+ * @module Services/User
+ */
+
 const { UserDTO } = require('../dto/response/user.res.dto');
 const userRepository = require('../repositories/user.repository');
 
 const { StatusCode, HttpError } = require('../utils/commonObject.util');
 const paginationUtils = require('../utils/pagination.util');
+
+/**
+ * Retrieves all users based on the given pagination parameters.
+ *
+ * @param {Object} paginationParameter - Object containing pagination parameters (page, pageSize, etc.)
+ * @returns {Promise<Object>} - Object containing an array of users, current page, total pages, and total users.
+ * @throws {HttpError} - Throws a 404 error if no users are found.
+ */
 
 const getAllUser = async (paginationParameter) => {
 
@@ -22,6 +35,14 @@ const getAllUser = async (paginationParameter) => {
     };
 }
 
+/**
+ * Retrieves a user by their username.
+ *
+ * @param {string} username - The username of the user to retrieve.
+ * @returns {Promise<UserDTO>} - The user with the specified username.
+ * @throws {HttpError} - Throws a 404 error if no user is found.
+ */
+
 const getUserByUsername = async (username) => {
     const user = await userRepository.getUserByUsername(username);
 
@@ -30,6 +51,15 @@ const getUserByUsername = async (username) => {
     }
     return new UserDTO(user);
 }
+
+/**
+ * Updates a user with the specified ID using the given fields.
+ *
+ * @param {number} userid - The ID of the user to update.
+ * @param {Object} updateFields - The fields to update for the user.
+ * @returns {Promise<UserDTO>} - The updated user object.
+ * @throws {HttpError} - Throws a 404 error if no user with the specified ID is found.
+ */
 
 const updateUser = async (userid, updateFields) => {
 
@@ -43,6 +73,13 @@ const updateUser = async (userid, updateFields) => {
 
     return new UserDTO(updatedUser);
 }
+
+/**
+ * Deletes the user with the specified ID.
+ *
+ * @param {number} userid - The ID of the user to delete.
+ * @throws {HttpError} - Throws a 404 error if no user with the specified ID is found.
+ */
 
 const deleteUser = async (userid) => {
 

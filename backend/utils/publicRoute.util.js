@@ -1,4 +1,15 @@
+/**
+ * Utility functions for the application.
+ * @module Utils
+ */
+
 const express = require('express');
+/**
+ * Checks if the given request is for a public route.
+ * A route is considered public if it is for user login, user signup, or GET requests to blog routes.
+ * @param {Object} req - The request object to check.
+ * @returns {boolean} True if the request is for a public route, false otherwise.
+ */
 
 const isPublicRoute = (req) => {
 

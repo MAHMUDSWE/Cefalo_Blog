@@ -1,5 +1,18 @@
-const express = require('express');
+/**
+ * Utility functions for the application.
+ * @module Utils
+ */
 
+const express = require('express')
+
+
+/**
+ * Represents an HTTP error with a status code and message.
+ * @class HttpError
+ * @extends Error
+ * @param {number} statusCode - The HTTP status code.
+ * @param {string} message - The error message.
+ */
 class HttpError extends Error {
     constructor(statusCode, message) {
         super(message);
@@ -9,6 +22,11 @@ class HttpError extends Error {
     }
 }
 
+/**
+ * HTTP status codes.
+ * @enum {number}
+ * @readonly
+ */
 const StatusCode = {
     // 1xx Informational
     CONTINUE: 100,
@@ -87,4 +105,4 @@ const StatusCode = {
 module.exports = {
     HttpError,
     StatusCode
-}
+};

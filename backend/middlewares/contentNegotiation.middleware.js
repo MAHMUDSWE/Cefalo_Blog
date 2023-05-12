@@ -1,3 +1,16 @@
+/**
+ * Module representing DTOs for signup requests
+ * @module Middleware/ContentNegotiation
+ */
+
+/**
+ * Middleware for content negotiation based on request headers.
+ * If the client has not specified the response format, it sets JSON as default.
+ * Otherwise, it sets the response format as requested by the client.
+ * @param {Object} req - Request object.
+ * @param {Object} res - Response object.
+ * @param {Function} next - Callback function to call next middleware in the chain.
+ */
 function contentNegotiation(req, res, next) {
 
     const acceptedTypes = req.accepts();

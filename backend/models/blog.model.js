@@ -1,6 +1,30 @@
+/**
+ * Module representing DTOs for signup requests
+ * @module Models/blog
+ */
+
 const { DataTypes } = require('sequelize');
 const User = require('./user.model');
 const { sequelize } = require('../configs/sequelize.config');
+
+/**
+ * @typedef {Object} BlogAttributes
+ * @property {string} blogid - The unique ID of the blog.
+ * @property {string} userid - The user ID of the author of the blog.
+ * @property {string} title - The title of the blog.
+ * @property {string} content - The content of the blog.
+ * @property {string} [status] - The status of the blog.
+ */
+
+/**
+ * @typedef {import('sequelize').Model<BlogAttributes>} BlogModel
+ */
+
+/**
+ * The Sequelize model for the 'tbl_blog' table.
+ *
+ * @type {BlogModel}
+ */
 
 const Blog = sequelize.define('Blog', {
     blogid: {

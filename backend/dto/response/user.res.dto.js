@@ -1,8 +1,7 @@
 const express = require('express');
 
 class UserDTO {
-    constructor({ userid, name, email, username, password, createdAt, updatedAt }) {
-        this.userid = userid;
+    constructor({ name, email, username, password, createdAt, updatedAt }) {
         this.name = name;
         this.email = email;
         this.username = username;

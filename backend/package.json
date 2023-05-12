@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "jsdoc": "jsdoc -c jsdoc.config.js",
+    "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "author": "mahmud",
   "license": "ISC",
@@ -29,5 +31,13 @@
     "sequelize": "^6.31.1",
     "uuid": "^9.0.0",
     "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "docdash": "^2.0.1",
+    "jsdoc": "^4.0.2"
+  },
+  "type": "commonjs",
+  "engines": {
+    "node": ">=14.15.0 <16"
   }
 }

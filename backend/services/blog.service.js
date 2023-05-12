@@ -1,5 +1,5 @@
-const blogRepository = require("../respositories/blog.repository");
-const userRepository = require("../respositories/user.repository");
+const blogRepository = require("../repositories/blog.repository");
+const userRepository = require("../repositories/user.repository");
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -15,6 +15,8 @@ const getAllBlogs = async (paginationParameter) => {
     if (!rows[0]) {
         return rows;
     }
+
+    console.log(rows[0].user.name)
 
     return {
         blogs: rows.map((blog) => new BlogDto(blog)),
@@ -91,7 +93,7 @@ const getBlogsByAuthorUsername = async (username, paginationParameter) => {
 
     const { offset, limit } = paginationUtils.pagination(paginationParameter);
 
-    const { count, rows } = await blogRepository.getBlogsByAuthorUserId(user.userid, offset, limit);
+    const { count, rows } = await blogRepository.getBlogsByAuthorUsername(username, offset, limit);
 
     if (!rows[0]) {
         return rows;

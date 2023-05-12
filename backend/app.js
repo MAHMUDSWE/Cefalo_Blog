@@ -24,8 +24,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morgan('tiny'));
 
-app.use(Authentication);
 app.use(contentNegotiation);
+app.use(Authentication);
 app.use(indexRouter);
 app.use(errorHandler.notFound);
 app.use(errorHandler.error);

@@ -1,3 +1,4 @@
+const Blog = require('../models/blog.model');
 const User = require('../models/user.model');
 
 const getAllUser = async (offset, limit) => {
@@ -12,14 +13,15 @@ const getAllUser = async (offset, limit) => {
 }
 
 const getUserByUsername = async (username) => {
-    const user = await User.findOne({ where: { username } });
+    const user = await User.findOne({
+        where: { username }
+    });
 
     if (!user) {
         return null;
     }
 
     return user;
-
 }
 
 const getUserById = async (userid) => {

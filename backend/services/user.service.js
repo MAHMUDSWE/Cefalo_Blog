@@ -1,5 +1,5 @@
 const { UserDTO } = require('../dto/response/user.res.dto');
-const userRepository = require('../respositories/user.repository');
+const userRepository = require('../repositories/user.repository');
 
 const { StatusCode, HttpError } = require('../utils/commonObject.util');
 const paginationUtils = require('../utils/pagination.util');

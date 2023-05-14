@@ -1,6 +1,15 @@
+/**
+ * User route validators module.
+ * @module Validators/user.route.validator
+ */
+
 const { body } = require('express-validator');
 const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
+/**
+ * Validation rules for user signup.
+ * @type {ValidationChain[]}
+ */
 const signup = [
 
     body('name').trim().not()
@@ -31,6 +40,10 @@ const signup = [
 
 ];
 
+/**
+ * Validation rules for user login.
+ * @type {ValidationChain[]}
+ */
 const login = [
     body('username').trim().not()
         .isEmpty().withMessage('Username is required')
@@ -42,6 +55,6 @@ const login = [
         .isEmpty().withMessage('Password is required')
         .if(body('password').notEmpty())
         .isLength({ min: 4 }).withMessage('Password must be at least 4 characters')
-]
+];
 
 module.exports = { signup, login };

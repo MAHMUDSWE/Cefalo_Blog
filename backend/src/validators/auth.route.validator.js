@@ -3,7 +3,7 @@
  * @module Validators/user.route.validator
  */
 
-const { body } = require('express-validator');
+const { body, ValidationChain } = require('express-validator');
 const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
 /**

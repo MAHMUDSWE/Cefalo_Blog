@@ -12,9 +12,9 @@ const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const morgan = require('morgan'); //logging requests
 
-const Authentication = require('./middlewares/authentication.middleware');
-const errorHandler = require('./middlewares/errorHandler.middleware');
-const indexRouter = require("./routes/index.route");
+const Authentication = require('./src/middlewares/authentication.middleware');
+const errorHandler = require('./src/middlewares/errorHandler.middleware');
+const indexRouter = require("./src/routes/index.route");
 
 app.use(cors());
 
@@ -27,7 +27,7 @@ app.options(('*'), cors());
 
 const dotenv = require('dotenv');
 
-const contentNegotiation = require('./middlewares/contentNegotiation.middleware');
+const contentNegotiation = require('./src/middlewares/contentNegotiation.middleware');
 dotenv.config();
 
 // //middleware

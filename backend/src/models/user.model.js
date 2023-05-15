@@ -5,7 +5,7 @@
 
 /**
  * User model for Sequelize ORM
- * @typedef {Object} User
+ * @typedef {Object} UserModel
  * @property {string} userid - primary key of user table
  * @property {string} name - user's name
  * @property {string} email - user's email
@@ -19,7 +19,7 @@ const { sequelize } = require('../configs/sequelize.config');
 
 /**
  * Sequelize User model
- * @type {import('sequelize').Model<User>}
+ * @type {sequelize.Model<UserModel>}
  */
 const User = sequelize.define('tbl_user', {
     userid: {

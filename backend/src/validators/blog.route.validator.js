@@ -3,18 +3,11 @@
  * @module Validators/blog.route.validator
  */
 
-/**
- * Validator for blog post data.
- * @typedef {Object} BlogPostValidator
- * @property {Function} title - Validates the title of the blog post.
- * @property {Function} content - Validates the content of the blog post.
- */
-
-const { body } = require('express-validator');
+const { body, ValidationChain } = require('express-validator');
 
 /**
  * Validator for blog post data.
- * @type {BlogPostValidator}
+ * @type {ValidationChain[]} 
  */
 const blogPostValidator = [
     body('title')

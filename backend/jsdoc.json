@@ -4,17 +4,7 @@
     },
     "source": {
         "include": [
-            "./configs",
-            "./controllers",
-            "./dto/request",
-            "./dto/response",
-            "./routes",
-            "./repositories",
-            "./models",
-            "./validators",
-            "./services",
-            "./middlewares",
-            "./utils"
+            "src"
         ],
         "exclude": [
             "./node_modules"

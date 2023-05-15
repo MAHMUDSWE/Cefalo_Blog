@@ -10,7 +10,7 @@ const authController = require("../controllers/auth.controller");
 
 /**
  * Express router instance for the auth routes.
- * @typedef {import('express').Router} Router
+ * @typedef {express.Router} Router
  */
 
 /**

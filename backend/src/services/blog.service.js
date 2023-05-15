@@ -30,7 +30,7 @@ const getAllBlogs = async (paginationParameter) => {
         return rows;
     }
 
-    console.log(rows[0].user.name)
+    // console.log(rows[0].user.name)
 
     return {
         blogs: rows.map((blog) => new BlogDto(blog)),

@@ -63,8 +63,8 @@ const Blog = sequelize.define('Blog', {
     }]
 });
 
-User.hasMany(Blog, { onDelete: "CASCADE", foreignKey: "userid", as: "blog" });
 Blog.belongsTo(User, { onDelete: "CASCADE", foreignKey: "userid", as: "user" });
+User.hasMany(Blog, { onDelete: "CASCADE", foreignKey: "userid", as: "blog" });
 
 
 module.exports = Blog;

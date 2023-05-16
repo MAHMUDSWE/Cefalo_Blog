@@ -41,12 +41,12 @@ const userRegistration = async (newUser) => {
  */
 
 
-const userLogin = async (loginCredentials) => {
+// const userLogin = async (loginCredentials) => {
 
-    return null;
-}
+//     return null;
+// }
 
 module.exports = {
     userRegistration,
-    userLogin
+    // userLogin
 }

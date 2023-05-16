@@ -40,7 +40,6 @@ function convertData(data, format) {
             result = convertToCsv(data);
             break;
         default:
-            result = null;
             throw new HttpError(StatusCode.NOT_ACCEPTABLE, "Unsupported format");
     }
     return result;

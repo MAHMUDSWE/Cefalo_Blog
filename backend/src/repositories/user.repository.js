@@ -40,11 +40,11 @@ const getUserByUsername = async (username) => {
         where: { username }
     });
 
-    if (!user) {
-        return null;
-    }
+    // if (!user) {
+    //     return null;
+    // }
 
-    return user;
+    return user || null;
 }
 
 /**

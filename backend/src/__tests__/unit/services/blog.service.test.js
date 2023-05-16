@@ -12,11 +12,26 @@ const userRepository = require('../../../repositories/user.repository');
 
 const { BlogDto } = require('../../../dto/response/blog.res.dto');
 const { StatusCode, HttpError } = require('../../../utils/commonObject.util');
+const paginationUtils = require('../../../utils/pagination.util');
 const { v4: uuidv4 } = require('uuid');
 
 jest.mock('../../../repositories/blog.repository');
 jest.mock('../../../repositories/user.repository');
-jest.mock('../../../dto/response/blog.res.dto')
+jest.mock('../../../dto/response/blog.res.dto');
+// jest.mock('../../../utils/pagination.util');
+
+paginationUtils.pagination = jest.fn(({ page, limit }) => {
+
+    page = parseInt(page) > 0 ? parseInt(page) : 1;
+    limit = parseInt(limit) > 0 ? parseInt(limit) : 10;
+
+    const offset = (page - 1) * limit;
+
+    return {
+        offset,
+        limit,
+    };
+});
 jest.mock('uuid', () => ({
     v4: jest.fn(() => 'mocked-blogid'),
 }));
@@ -45,15 +60,20 @@ describe('Blog Service', () => {
                 totalBlogs: count,
             };
 
+            paginationUtils.pagination.mockReturnValue({ offset, limit });
+            paginationUtils.currentPage = jest.fn().mockReturnValue(1);
+            paginationUtils.totalPages = jest.fn().mockReturnValue(1);
             blogRepository.getAllBlogs.mockResolvedValue({ count, rows: blogs });
 
             const response = await getAllBlogs(paginationParameter);
 
             expect(blogRepository.getAllBlogs).toHaveBeenCalledWith(offset, limit);
-            expect(response).toEqual(expectedResponse);
+            expect(response
+            ).toEqual(expectedResponse);
         });
+
         test('should return an empty array when there are no blogs', async () => {
-            const paginationParameter = { page: 1, limit: 10 };
+            const paginationParameter = { page: 5, limit: 10 };
             const offset = 0;
             const limit = 10;
             const count = 0;

@@ -38,7 +38,7 @@ async function connectToDatabase() {
         await sequelize.sync();
         console.log("Models have been synced successfully.");
     } catch (error) {
-        console.error('Unable to sync the models', error);
+        throw new Error('Unable to sync the models');
     }
 }
 

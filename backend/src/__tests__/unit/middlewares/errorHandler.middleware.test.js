@@ -29,4 +29,25 @@ describe('Error Handler Middleware', () => {
     });
 
 
+    it('should handle HttpError and send the appropriate response', () => {
+        const err = new HttpError(StatusCode.BAD_REQUEST, 'Bad Request');
+
+        error(err, req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(StatusCode.BAD_REQUEST);
+        expect(res.send).toHaveBeenCalledWith(
+            convertData({ message: 'Bad Request' }, '')
+        );
+    });
+
+    it('should handle non-HttpError and send internal server error response', () => {
+        const err = new Error('Internal Server Error');
+
+        error(err, req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
+        expect(res.send).toHaveBeenCalledWith(
+            convertData({ message: 'Internal Server Error' }, '')
+        );
+    });
 });

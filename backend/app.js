@@ -4,7 +4,9 @@
  */
 
 const express = require('express');
+const association = require('./src/models/association.model')
 const app = express();
+
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');

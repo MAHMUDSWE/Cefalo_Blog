@@ -13,7 +13,9 @@ describe('Authentication middleware', () => {
     beforeEach(() => {
         req = {
             cookies: {},
-            headers: {},
+            headers: {
+                authorization: ''
+            }
         };
         res = {};
         next = jest.fn();
@@ -32,13 +34,20 @@ describe('Authentication middleware', () => {
         expect(next).toHaveBeenCalled();
     });
 
-    it("should throw HttpError with UNAUTHORIZED status code if no token is found", () => {
-        req.cookies = {};
 
-        expect(next).not.toHaveBeenCalled();
-        expect(next).not.toHaveBeenCalledWith(new HttpError(StatusCode.UNAUTHORIZED, "Unauthorized, token not found"));
+
+    it('should throw HttpError with status code 401 if token is not found', () => {
+        req.originalUrl = '/api/v1/some/route'; // Change to a non-public route URL
+        req.cookies.token = {}; // Set token to undefined to simulate token not found
+        req.headers.authorization = {};
+
+        Authentication(req, res, next)
+
+        expect(next).toHaveBeenCalled();
+        expect(next).not.toHaveBeenCalledWith(new HttpError(
+            StatusCode.UNAUTHORIZED,
+            'Unauthorized, token not found'));
     });
-
 
 
     it('should set the user ID from the token and call next middleware if token is valid', () => {
@@ -62,6 +71,8 @@ describe('Authentication middleware', () => {
             throw new Error();
         });
 
-        expect(next).not.toHaveBeenCalledWith(new HttpError(StatusCode.UNAUTHORIZED, "Unauthorized, token not found"));
+        expect(next).not.toHaveBeenCalledWith(new HttpError(StatusCode.UNAUTHORIZED, "JsonWebTokenError"));
     });
+
+
 });

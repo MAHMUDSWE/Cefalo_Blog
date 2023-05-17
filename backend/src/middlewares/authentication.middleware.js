@@ -29,6 +29,8 @@ const Authentication = (req, res, next) => {
 
         const token = req.cookies.token || (req.headers.authorization && req.headers.authorization.split(" ")[1]);
 
+        console.log(token);
+
         if (!token) {
             throw new HttpError(StatusCode.UNAUTHORIZED, "Unauthorized, token not found");
         }

@@ -34,7 +34,7 @@ const userRegistration = async (req, res, next) => {
             user
         }, req.requestedFormat)
 
-        res.status(StatusCode.OK).send(convertedData);
+        res.status(StatusCode.CREATED).send(convertedData);
 
     } catch (error) {
         next(error);

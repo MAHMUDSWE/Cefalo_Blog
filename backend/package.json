@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "template": "node_modules/better-docs",
-    "test": "jest",
+    "test": "set \"PORT=0\" & set \"DB_DIALECT=sqlite\" & jest",
     "start": "nodemon server.js",
     "jsdoc": "jsdoc -c jsdoc.json",
     "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
@@ -32,6 +32,8 @@
     "nodemon": "^2.0.22",
     "sequelize": "^6.31.1",
     "sequelize-mock": "^0.10.2",
+    "sqlite3": "^5.1.6",
+    "supertest": "^6.3.3",
     "taffydb": "^2.7.3",
     "uuid": "^9.0.0",
     "xml-js": "^1.6.11"

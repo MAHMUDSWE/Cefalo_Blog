@@ -109,7 +109,7 @@ const deleteUser = async (req, res, next) => {
         await userService.deleteUser(userid);
 
         const convertedData = convertData({
-            message: `User with id ${req.userid} has been deleted successfully`,
+            message: `User with id ${userid} has been deleted successfully`,
         }, req.requestedFormat)
 
         res.status(StatusCode.OK).send(convertedData);

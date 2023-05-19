@@ -1,10 +1,16 @@
 const Blog = require('../models/blog.model');
+const User = require('../models/user.model');
 
 const getAllBlogs = async (offset, limit) => {
     const result = await Blog.findAndCountAll({
         offset,
         limit,
         order: [['createdAt', 'DESC']],
+        include: [{
+            model: User,
+            as: 'user',
+            attributes: ['name', 'username']
+        }]
     });
 
     return result;
@@ -17,10 +23,26 @@ const postBlog = async (newBlog) => {
         blogid, userid, title, content, status
     });
 
+    await blog.reload({
+        include: [{
+            model: User,
+            as: 'user',
+            attributes: ['name', 'username']
+        }]
+    });
+
     return blog;
 }
+
 const getBlogById = async (blogid) => {
-    const blog = await Blog.findOne({ where: { blogid } });
+    const blog = await Blog.findOne({
+        where: { blogid },
+        include: [{
+            model: User,
+            as: 'user',
+            attributes: ['name', 'username']
+        }]
+    });
 
     return blog;
 }
@@ -35,17 +57,22 @@ const deleteBlogById = async (blog) => {
     return await blog.destroy();
 }
 
-const getBlogsByAuthorUserId = async (userid, offset, limit) => {
-
+const getBlogsByAuthorUsername = async (username, offset, limit) => {
     const result = await Blog.findAndCountAll({
-        where: { userid },
+        where: { '$user.username$': username },
         offset,
         limit,
         order: [['createdAt', 'DESC']],
+        include: [{
+            model: User,
+            as: 'user',
+            attributes: ['name', 'username']
+        }]
     });
 
     return result;
 };
+
 
 module.exports = {
     getAllBlogs,
@@ -53,5 +80,5 @@ module.exports = {
     getBlogById,
     updateBlogById,
     deleteBlogById,
-    getBlogsByAuthorUserId
+    getBlogsByAuthorUsername
 }

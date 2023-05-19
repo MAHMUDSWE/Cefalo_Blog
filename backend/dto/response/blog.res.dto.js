@@ -1,12 +1,12 @@
 const express = require('express');
 
 class BlogDto {
-    constructor({ blogid, userid, title, content, status, createdAt, updatedAt }) {
+    constructor({ blogid, user, title, content, createdAt, updatedAt }) {
         this.blogid = blogid;
-        this.userid = userid;
+        this.name = user.name;
+        this.username = user.username;
         this.title = title;
         this.content = content;
-        this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

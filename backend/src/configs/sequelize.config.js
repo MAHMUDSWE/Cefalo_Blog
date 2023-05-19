@@ -21,6 +21,7 @@ const sequelize = new Sequelize(
         host: process.env.DB_HOST,
         port: 3307,
         dialect: process.env.DB_DIALECT,
+        storage: process.env.STORAGE, //used for testing with in memory database
         logging: false
     });
 
@@ -38,7 +39,9 @@ async function connectToDatabase() {
         await sequelize.sync();
         console.log("Models have been synced successfully.");
     } catch (error) {
-        throw new Error('Unable to sync the models');
+        console.log(error);
+        throw error;
+        // throw new Error('Unable to sync the models');
     }
 }
 

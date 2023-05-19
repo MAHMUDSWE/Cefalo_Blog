@@ -2,7 +2,6 @@ const { sequelize, connectToDatabase } = require('../../../configs/sequelize.con
 
 describe('Database Configuration', () => {
     beforeAll(() => {
-        // Set up any necessary environment variables for testing
         process.env.DB_NAME = 'testdb';
         process.env.DB_USER = 'testuser';
         process.env.DB_PASSWORD = 'testpassword';
@@ -11,7 +10,6 @@ describe('Database Configuration', () => {
     });
 
     afterAll(() => {
-        // Clean up and restore environment variables after testing
         delete process.env.DB_NAME;
         delete process.env.DB_USER;
         delete process.env.DB_PASSWORD;
@@ -20,15 +18,11 @@ describe('Database Configuration', () => {
     });
 
     it('should establish a database connection and sync models', async () => {
-        // Test the connectToDatabase function
 
-        // Ensure the authenticate method resolves without error
         sequelize.authenticate = jest.fn().mockResolvedValueOnce();
 
-        // Ensure the sync method resolves without error
         sequelize.sync = jest.fn().mockResolvedValueOnce();
 
-        // Spy on console.log to check if the success messages are logged
         console.log = jest.fn();
 
         await connectToDatabase();
@@ -39,6 +33,19 @@ describe('Database Configuration', () => {
         expect(console.log).toHaveBeenCalledWith('Models have been synced successfully.');
     });
 
+    it('should handle errors and log them', async () => {
+        const errorMessage = 'Unable to sync the models';
+        const error = new Error(errorMessage);
+        sequelize.authenticate = jest.fn().mockResolvedValueOnce();
+        sequelize.sync = jest.fn().mockRejectedValueOnce(error);
+        console.log = jest.fn();
+
+        await expect(connectToDatabase()).rejects.toThrow(errorMessage);
+
+        expect(sequelize.authenticate).toHaveBeenCalled();
+        expect(sequelize.sync).toHaveBeenCalled();
+        expect(console.log).toHaveBeenCalledWith(error);
+    });
 
 });
 

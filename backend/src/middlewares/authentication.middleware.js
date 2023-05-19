@@ -26,7 +26,6 @@ const Authentication = (req, res, next) => {
         if (isPublicRoute(req)) {
             return next();
         }
-
         const token = (req.headers.authorization && req.headers.authorization.split(" ")[1]) || req.cookies.token;
 
         if (!token) {
@@ -39,10 +38,12 @@ const Authentication = (req, res, next) => {
         next();
 
     } catch (error) {
-        if (error.message == "JsonWebTokenError" || "TokenExpiredError") {
-            next(new HttpError(StatusCode.UNAUTHORIZED, error.message));
+
+        if (error instanceof HttpError) {
+            next(error)
         }
-        else next(error);
+
+        next(new HttpError(StatusCode.UNAUTHORIZED, error.message));
     }
 }
 

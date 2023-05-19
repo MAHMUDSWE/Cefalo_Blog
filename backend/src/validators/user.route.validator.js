@@ -4,7 +4,7 @@
  */
 
 const { body, check, ValidationChain } = require('express-validator');
-const { StatusCode } = require('../utils/commonObject.util');
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
 
 /**

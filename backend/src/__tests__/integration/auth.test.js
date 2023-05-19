@@ -7,13 +7,9 @@ const User = require('../../models/user.model');
 const request = supertest(server);
 
 describe('Auth Routes', () => {
-    let token;
-    let username = 'johnswe';
 
     beforeAll(async () => {
         await User.sync({ force: true });
-        // Create a user and obtain the token
-        // ...
     });
 
     afterAll(async () => {
@@ -29,6 +25,7 @@ describe('Auth Routes', () => {
                 email: 'john.doe@example.com',
                 username: 'johnswe',
                 password: '1234',
+                confirmPassword: '1234'
             };
 
             const res = await request.post('/api/v1/user/signup').send(userData);
@@ -37,6 +34,24 @@ describe('Auth Routes', () => {
             expect(res.body.user).toHaveProperty('name', userData.name);
             expect(res.body.user).toHaveProperty('email', userData.email);
             expect(res.body.user).toHaveProperty('username', userData.username);
+        });
+
+        it('should throw error when password do not match', async () => {
+
+            const userData = {
+                name: 'John Doe',
+                email: 'john.doex@example.com',
+                username: 'johnswex',
+                password: '1234',
+                confirmPassword: '7896'
+            };
+
+            const res = await request
+                .post('/api/v1/user/signup')
+                .send(userData);
+
+            expect(res.status).toBe(StatusCode.BAD_REQUEST);
+            expect(res.body).toHaveProperty('message', 'Passwords do not match');
         });
     });
 

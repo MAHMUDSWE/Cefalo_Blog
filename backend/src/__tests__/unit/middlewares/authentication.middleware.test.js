@@ -37,9 +37,9 @@ describe('Authentication middleware', () => {
 
 
     it('should throw HttpError with status code 401 if token is not found', () => {
-        req.originalUrl = '/api/v1/some/route'; // Change to a non-public route URL
-        req.cookies.token = {}; // Set token to undefined to simulate token not found
-        req.headers.authorization = {};
+        isPublicRoute.mockReturnValue(false); // Change to a non-public route URL
+        req.cookies.token = null; // Set token to undefined to simulate token not found
+        req.headers.authorization = null;
 
         Authentication(req, res, next)
 
@@ -73,6 +73,5 @@ describe('Authentication middleware', () => {
 
         expect(next).not.toHaveBeenCalledWith(new HttpError(StatusCode.UNAUTHORIZED, "JsonWebTokenError"));
     });
-
 
 });

@@ -16,7 +16,7 @@ dotenv.config();
  * It uses the value of the PORT environment variable, or 3000 if not set.
  * @type {number}
  */
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT || 3000;
 
 connectToDatabase();
 

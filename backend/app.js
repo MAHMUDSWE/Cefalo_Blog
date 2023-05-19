@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const cors = require("cors");
-const morgan = require('morgan'); //logging requests
+const morgan = require('morgan');
 
 const Authentication = require('./src/middlewares/authentication.middleware');
 const errorHandler = require('./src/middlewares/errorHandler.middleware');

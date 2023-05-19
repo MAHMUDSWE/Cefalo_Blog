@@ -10,7 +10,6 @@ const request = supertest(server);
 describe('User Routes', () => {
 
     let token;
-    let userid;
     let username = "johnswe1";
 
     beforeAll(async () => {

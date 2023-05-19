@@ -18,8 +18,6 @@ describe('Auth Repository', () => {
                 password: 'password123',
             };
 
-            // const createdUser = { id: '1', ...newUser };
-
             User.create.mockResolvedValue(newUser);
 
             const result = await userRegistration(newUser);

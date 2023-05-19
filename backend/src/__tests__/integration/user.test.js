@@ -9,7 +9,6 @@ const request = supertest(server);
 describe('User Routes', () => {
 
     let token;
-    let userid;
     let username = "johnswe2";
 
     beforeAll(async () => {
@@ -20,6 +19,7 @@ describe('User Routes', () => {
             email: "john.doe2@example.com",
             username: "johnswe2",
             password: "1234",
+            confirmPassword: '1234'
         };
 
         const signupRes = await request.post("/api/v1/user/signup").send(signupReq);
@@ -90,6 +90,8 @@ describe('User Routes', () => {
 
             const updatedUser = {
                 name: 'updated name',
+                password: '1234',
+                confirmPassword: '1234'
             };
             const response = await request
                 .put(`/api/v1/user/${username}`)
@@ -98,6 +100,22 @@ describe('User Routes', () => {
 
             expect(response.status).toBe(200);
             expect(response.body).toHaveProperty('name', updatedUser.name);
+        });
+        it('should throw error when password do not match', async () => {
+
+            const updatedUser = {
+                name: 'updated name',
+                password: '1234',
+                confirmPassword: '5678' // Mismatched password
+            };
+
+            const response = await request
+                .put(`/api/v1/user/${username}`)
+                .send(updatedUser)
+                .set("authorization", `Bearer ${token}`);
+
+            expect(response.status).toBe(StatusCode.BAD_REQUEST);
+            expect(response.body).toHaveProperty('message', 'Passwords do not match');
         });
     });
 

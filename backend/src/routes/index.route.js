@@ -25,6 +25,42 @@ const api = process.env.API_URL;
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware
  */
+router.get('/', (req, res) => {
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Cefalo Blog - Home</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 20px;
+              text-align: center;
+            }
+  
+            h1 {
+              color: #333;
+              font-size: 32px;
+            }
+  
+            p {
+              color: #666;
+              font-size: 18px;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Welcome to Cefalo Blog!</h1>
+          <p>This is the home page of the Cefalo Blog Web Service.</p>
+          <p>Check out the documentation on <a href="https://github.com/MAHMUDSWE/Cefalo_Blog/tree/readmeDocumentation/backend#cefalo_blog-web-service-documentation">
+          Github</a></p>
+          
+        </body>
+      </html>
+    `);
+});
+
 router.use(`${api}/user`, userRoutes);
 
 /**

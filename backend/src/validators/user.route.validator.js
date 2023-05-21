@@ -17,7 +17,9 @@ const updateUserValidator = [
         .not()
         .optional()
         .notEmpty()
-        .withMessage('Name field can not be empty'),
+        .withMessage('Name is required')
+        .isLength({ max: 30 })
+        .withMessage('Name must be at max 30 characters'),
 
     body('email')
         .trim()
@@ -38,7 +40,9 @@ const updateUserValidator = [
         .withMessage('Username is required')
         .if(body('username').notEmpty())
         .isLength({ min: 4 })
-        .withMessage('Username must be at least 4 characters'),
+        .withMessage('Username must be at least 4 characters')
+        .isLength({ max: 20 })
+        .withMessage('Username must at max 20 characters'),
 
     body('password')
         .trim()
@@ -48,7 +52,9 @@ const updateUserValidator = [
         .withMessage('Password is required')
         .if(body('password').notEmpty())
         .isLength({ min: 4 })
-        .withMessage('Password must be at least 4 characters'),
+        .withMessage('Password must be at least 4 characters')
+        .isLength({ max: 20 })
+        .withMessage('Password must at max 20 characters'),
 
     body('confirmPassword')
         .custom((value, { req }) => {

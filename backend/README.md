@@ -192,13 +192,9 @@ Cefalo Blog is a web application backend that allows users to read and manage bl
 
     ```json
     {
-      "message": "Name is required,
-                  Invalid email address,
-                  Username must be at least 4 characters,
-                  Password must be at max 20 characters,
-                  Passwords do not match"
-      //Email, Username and Password is required also
+      "message": "Name is required,Invalid email address,Username must be at least 4 characters,Password must be at max 20 characters,Passwords do not match"
     }
+    // Email, Username and Password is required also
     ```
 
 - ### <h2>**POST /api/v1/user/login** </h2>
@@ -244,7 +240,7 @@ Cefalo Blog is a web application backend that allows users to read and manage bl
     {
       "message": "Username is required"
     }
-    //Password is also required
+    // Password is also required
     ```
 
 </details>

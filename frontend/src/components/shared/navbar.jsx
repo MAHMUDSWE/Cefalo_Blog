@@ -1,90 +1,110 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge'
 
-import cefaloBlogLogo from "../../assets/logo.jpg"
+import './style/navbar.css';
+import cefaloBlogLogo from "../../assets/logo.jpg";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faHome, faPerson, faUserFriends } from '@fortawesome/free-solid-svg-icons';
+
+import ProfileDropdown from '../profileDropDown';
+
 
 function Navbar() {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
+    const [userMode, setUserMode] = useState(localStorage.getItem('userMode'));
+
+    const handleLogin = () => {
+        localStorage.setItem('isLoggedIn', isLoggedIn);
+    };
+
     return (
         <header aria-label="Site Header" className="bg-white shadow-md">
+
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+
                 <div className="flex h-16 items-center justify-between">
-
-                    <div className="flex-1 md:flex md:items-center md:gap-12">
-                        <NavLink to="/" >
-                            <img
-                                src={cefaloBlogLogo}
-                                className='w-253 h-53'
-                                alt="Cefalo Blog Logo"
-                            />
-                        </NavLink>
-
+                    <div className="md:flex md:items-center md:gap-12">
+                        <div classNameName="logo-div">
+                            <NavLink to="/">
+                                <img src={cefaloBlogLogo} classNameName="w-253 h-53" alt="Cefalo Blog Logo" />
+                            </NavLink>
+                        </div>
                     </div>
 
-                    <div className="md:flex md:items-center md:gap-12">
-                        <nav aria-label="Site Nav" className="hidden md:block">
-                            <ul className="flex items-center gap-6 text-sm">
+                    <div className="block md:hidden">
+                        <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
+                            <FontAwesomeIcon icon={faBars} className="h-5 w-5" />
+                        </button>
+                    </div>
+
+                    <div className="hidden md:block">
+                        <nav aria-label="Site Nav" className=''>
+                            {(userMode || isLoggedIn) && <ul className="flex items-center gap-6 text-lg">
                                 <li>
                                     <NavLink
-                                        to="/"
-                                        classNameName="block py-2 pl-3 pr-4 rounded md:p-0 md:dark:text-blue-500"
+                                        className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : "text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"}
+                                        to="/home"
                                     >
+                                        <FontAwesomeIcon icon={faHome} className="mr-2 text-lg " />
                                         Home
                                     </NavLink>
                                 </li>
+
                                 <li>
                                     <NavLink
-                                        to="/profile"
-                                        classNameName="block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                        className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
+                                            , !isLoggedIn && 'disabled')}
+
+                                        activeClassName="text-blue-600 bg-blue-100"
+                                        to="/connects"
+                                        disabled
                                     >
+                                        <FontAwesomeIcon icon={faUserFriends} className="mr-2 text-lg" />
+                                        Connects
+                                    </NavLink>
+                                </li>
+
+                                <li>
+                                    <NavLink
+                                        className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
+                                            , !isLoggedIn && 'disabled')}
+                                        activeClassName="text-blue-600 bg-blue-100"
+                                        to="/profile"
+
+                                    >
+                                        <FontAwesomeIcon icon={faPerson} className="mr-2 text-lg" />
                                         Profile
                                     </NavLink>
                                 </li>
-                            </ul>
+                            </ul>}
                         </nav>
+                    </div>
 
-                        <div className="flex items-center gap-4">
-                            <div className="hidden sm:flex sm:gap-4">
-                                <a
+                    <div className="flex items-center gap-4">
+                        <div className="sm:flex sm:gap-4">
+
+                            {isLoggedIn ? <ProfileDropdown /> : <>
+                                <NavLink
                                     className="rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                                    href="/login"
+                                    to="/login"
                                 >
                                     Login
-                                </a>
+                                </NavLink>
 
-                                <div className="hidden sm:flex">
-                                    <a
-                                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600"
-                                        href="/signup"
-                                    >
-                                        Register
-                                    </a>
-                                </div>
-                            </div>
 
-                            <div className="block md:hidden">
-                                <button
-                                    className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+                                <NavLink
+                                    className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600"
+                                    to="/signup"
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M4 6h16M4 12h16M4 18h16"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-
-
+                                    Register
+                                </NavLink></>}
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </header>

@@ -15,7 +15,7 @@ const BlogList = () => {
     }, []);
 
     return (
-        <div className="mx-[25%] mt-1">
+        <div className="mx-[25%] mt-1 bg=gray-50">
             <ul>
                 {blogs.map((blog) => (
                     <li key={blog.blogid}>

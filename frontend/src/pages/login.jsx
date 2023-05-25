@@ -3,20 +3,14 @@ import Navbar from '../components/shared/navbar';
 import Login from '../components/login';
 
 
-const UserLogin = () => {
+const LoginPage = () => {
 
     return (
         <div >
-            <div className='navBar'>
-                <Navbar />
-            </div>
-
-            <div>
-                <Login />
-            </div>
-
+            <Navbar />
+            <Login />
         </div>
     )
 }
 
-export default UserLogin;
+export default LoginPage;

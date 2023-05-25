@@ -2,12 +2,15 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 //pages
-import Home from '../pages/home';
-import UserLogin from '../pages/login';
-
-import { ProtectedRoutes, ProtectedRoutesBeforeLogin } from './protectedRoutes';
 import Error from '../pages/error';
-import Signup from '../components/signup';
+import LoginPage from '../pages/login';
+import SignupPage from '../pages/signup';
+import IndexPage from '../pages';
+import HomePage from '../pages/home.page';
+import { GuestOrLoggedInMode, LoggedInMode, LoggedOutMode, NotGuestOrLoggedInMode } from './protectedRoutes';
+import ProfilePage from '../pages/profile.page';
+
+
 
 
 
@@ -17,17 +20,25 @@ function PageRoutes() {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<ProtectedRoutesBeforeLogin>
-                        <Home />
-                    </ProtectedRoutesBeforeLogin>} />
-                    <Route path="/login" element={<ProtectedRoutesBeforeLogin>
-                        <UserLogin />
-                    </ProtectedRoutesBeforeLogin>} />
+                    <Route path="/" element={<NotGuestOrLoggedInMode>
+                        <IndexPage />
+                    </NotGuestOrLoggedInMode>} />
 
-                    <Route path="/signup" element={<ProtectedRoutesBeforeLogin>
-                        <Signup />
-                    </ProtectedRoutesBeforeLogin>} />
+                    <Route path="/login" element={<LoggedOutMode>
+                        <LoginPage />
+                    </LoggedOutMode>} />
 
+                    <Route path="/signup" element={<LoggedOutMode>
+                        <SignupPage />
+                    </LoggedOutMode>} />
+
+                    <Route path="/home" element={<GuestOrLoggedInMode>
+                        <HomePage />
+                    </GuestOrLoggedInMode>} />
+
+                    <Route path="/profile" element={<LoggedInMode>
+                        <ProfilePage />
+                    </LoggedInMode>} />
 
                     <Route path="/*" element={<Error />} />
 

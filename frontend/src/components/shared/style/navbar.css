@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    .nav-header {
+        @apply bg-white shadow-md;
+    }
+    .nav-div {
+        @apply bg-yellow-200 mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8;
+    }
+    .logo-div{
+        @apply flex-1 md:flex md:items-center md:gap-12;
+    }
+    .nav-active{
+        @apply text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-m;
+    }
+    .nav-inactive {
+        @apply text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md;
+    }
+}
+
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+

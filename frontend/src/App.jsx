@@ -1,12 +1,14 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react'
+import { AuthProvider } from './contexts/AuthContext'
 import PageRoutes from './routes/routes'
 
 function App() {
 
   return (
     <>
-      <PageRoutes />
+      <AuthProvider>
+        <PageRoutes />
+      </AuthProvider>
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
-import Navbar from '../components/shared/navbar'
+import Navbar from '../components/nav/navbar'
 
-function Error() {
+function ErrorPage() {
     return (
         <div>
             <Navbar />
@@ -51,4 +51,4 @@ function Error() {
         </div>
     )
 }
-export default Error;
+export default ErrorPage;

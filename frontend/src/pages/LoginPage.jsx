@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import Navbar from '../components/shared/navbar';
-import Login from '../components/login';
+import Navbar from '../components/nav/navbar';
+import Login from '../components/auth/login';
 
 
 const LoginPage = () => {
 
     return (
         <div >
-            <Navbar />
             <Login />
         </div>
     )

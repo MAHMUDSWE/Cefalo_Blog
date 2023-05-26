@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import Navbar from '../components/shared/navbar';
-import Signup from '../components/signup';
+import Navbar from '../components/nav/navbar';
+import Signup from '../components/auth/signup';
 
 
 const SignupPage = () => {
 
     return (
         <div >
-            <Navbar />
+            {/* <Navbar /> */}
             <Signup />
         </div>
     )

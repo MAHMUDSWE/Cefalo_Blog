@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge'
-
-import './style/navbar.css';
 import cefaloBlogLogo from "../../assets/logo.jpg";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHome, faPerson, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
-import ProfileDropdown from '../profileDropDown';
+import ProfileDropdown from './profileDropDown';
 
 
 function Navbar() {

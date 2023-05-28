@@ -1,11 +1,25 @@
 import React from 'react'
+import cefaloBlogLogo from "../../assets/logo.jpg";
+import { Link } from 'react-router-dom';
 
 export default function Signup() {
     return (
         <div className='mt-1'>
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+
+                {/* <div className='inline-flex items-center gap-4 mb-2'>
+                    <img src={cefaloBlogLogo} className="w-70 h-70 " alt="Cefalo Blog Logo" />
+                    <h1 className='text-blue-600 text-4xl font-bold'>Cefalo Blog</h1>
+
+                </div> */}
+
                 <div className="w-96 p-8 bg-white rounded shadow-lg">
-                    <h2 className="text-2xl font-bold mb-4">Create a New Account</h2>
+
+                    <div className='inline-flex items-center gap-3 mb-3'>
+                        <p className="text-center text-2xl">Create a New Account</p>
+
+                        <img src={cefaloBlogLogo} className="w-10 h-10 " alt="Cefalo Blog Logo" />
+                    </div>
                     <form>
                         <div className="mb-4">
                             <label htmlFor="fullname" className="block font-medium mb-1">
@@ -57,6 +71,11 @@ export default function Signup() {
                         >
                             Sign Up
                         </button>
+                        <div className='text-center mt-3'>
+                            <Link to="/login" className="text-blue-600 text-lg text-center hover:cursor-pointer">
+                                Already have an account?
+                            </Link>
+                        </div>
                     </form>
                 </div>
             </div>

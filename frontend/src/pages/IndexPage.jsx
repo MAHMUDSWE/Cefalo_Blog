@@ -3,6 +3,8 @@ import { Link, Outlet } from 'react-router-dom';
 
 import cefaloBlogLogo from "../assets/logo.jpg";
 
+import indexPageLogo from "../assets/indexPage.svg";
+
 
 function IndexPage() {
     const [userMode, setUserMode] = useState('guest');
@@ -12,19 +14,31 @@ function IndexPage() {
     };
 
     return (
-        <div className="flex flex-row h-screen">
+        <div className="flex flex-row h-screen bg-gray-100">
             <div className="w-1/2 flex flex-col items-center justify-center">
 
-                <img src={cefaloBlogLogo} classNameName="w-300 h-60" alt="Cefalo Blog Logo" />
+                {/* <div className='inline-flex items-center gap-4'>
+                    <img src={cefaloBlogLogo} className="w-70 h-70 " alt="Cefalo Blog Logo" />
+                    <h1 className='text-blue-600 text-6xl font-bold'>Cefalo Blog</h1>
 
+                </div>
 
-                <h1 className="text-center text-4xl font-bold mb-4">Welcome to Cefalo Blog</h1>
                 <br />
                 <h1 className="text-center">
                     <Link to="/home" className="text-blue-600 text-lg hover:underline" onClick={handleContinueAsGuestClick}>
                         Continue as a guest
                     </Link>
-                </h1>
+                </h1> */}
+                <div className='inline-flex items-center gap-4 mb-2'>
+                    <img src={cefaloBlogLogo} className="w-70 h-70 " alt="Cefalo Blog Logo" />
+                    <h1 className='text-blue-600 text-4xl font-bold'>Cefalo Blog</h1>
+
+                </div>
+                <object
+                    type="image/svg+xml"
+                    data={indexPageLogo}
+                    className="max-h-[500px] "
+                />
             </div>
             <div className="w-1/2">
                 <Outlet />

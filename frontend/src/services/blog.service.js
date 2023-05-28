@@ -5,7 +5,6 @@ export const getAllBlogs = async () => {
     try {
         const response = await axiosInstance.get(apiEndpoint.blog.getAll);
         const blogs = response.data;
-
         return blogs;
     } catch (error) {
         console.error('Error fetching blogs:', error);

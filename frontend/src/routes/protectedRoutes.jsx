@@ -32,7 +32,7 @@ const NotGuestOrLoggedInMode = ({ children }) => {
     var isLoggedIn = localStorage.getItem("isLoggedIn");
     var isGuest = localStorage.getItem("userMode");
 
-    if (isGuest || isLoggedIn) {
+    if ( isLoggedIn ) {
 
         return <Navigate to="/home" replace />;
     }

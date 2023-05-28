@@ -21,15 +21,18 @@ function Navbar() {
     return (
         <header aria-label="Site Header" className="bg-white shadow-md">
 
-            <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+            {/* mx-auto max-w-screen-xl */}
+            <div className=" px-4 sm:px-6 lg:px-8">
 
                 <div className="flex h-16 items-center justify-between">
-                    <div className="md:flex md:items-center md:gap-12">
-                        <div classNameName="logo-div">
-                            <NavLink to="/">
-                                <img src={cefaloBlogLogo} classNameName="w-253 h-53" alt="Cefalo Blog Logo" />
-                            </NavLink>
-                        </div>
+
+                    <div className=" md:flex md:items-center md:gap-12">
+                        <NavLink to="/">
+                            <div className='inline-flex items-center gap-4 mt-1'>
+                                <img src={cefaloBlogLogo} className="w-70 h-70 " alt="Cefalo Blog Logo" />
+                                <h1 className='text-blue-600 text-4xl font-bold'>Cefalo Blog</h1>
+                            </div>
+                        </NavLink>
                     </div>
 
                     <div className="block md:hidden">
@@ -56,7 +59,6 @@ function Navbar() {
                                         className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
                                             , !isLoggedIn && 'disabled')}
 
-                                        activeClassName="text-blue-600 bg-blue-100"
                                         to="/connects"
                                         disabled
                                     >
@@ -69,7 +71,6 @@ function Navbar() {
                                     <NavLink
                                         className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
                                             , !isLoggedIn && 'disabled')}
-                                        activeClassName="text-blue-600 bg-blue-100"
                                         to="/profile"
 
                                     >
@@ -84,21 +85,26 @@ function Navbar() {
                     <div className="flex items-center gap-4">
                         <div className="sm:flex sm:gap-4">
 
-                            {isLoggedIn ? <ProfileDropdown /> : <>
-                                <NavLink
-                                    className="rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                                    to="/login"
-                                >
-                                    Login
-                                </NavLink>
+                            {isLoggedIn ?
+                                <ProfileDropdown />
+                                :
+                                <>
+                                    <NavLink
+                                        className="rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+                                        to="/login"
+                                    >
+                                        Login
+                                    </NavLink>
 
 
-                                <NavLink
-                                    className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600"
-                                    to="/signup"
-                                >
-                                    Register
-                                </NavLink></>}
+                                    <NavLink
+                                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600"
+                                        to="/signup"
+                                    >
+                                        Register
+                                    </NavLink>
+                                </>
+                            }
                         </div>
 
                     </div>

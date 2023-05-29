@@ -4,6 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 import cefaloBlogLogo from "../assets/logo.jpg";
 
 import indexPageLogo from "../assets/indexPage.svg";
+import CefaloBlogLogo from '../components/shared/CefaloBlogLogo';
 
 
 function IndexPage() {
@@ -29,11 +30,9 @@ function IndexPage() {
                         Continue as a guest
                     </Link>
                 </h1> */}
-                <div className='inline-flex items-center gap-4 mb-2'>
-                    <img src={cefaloBlogLogo} className="w-70 h-70 " alt="Cefalo Blog Logo" />
-                    <h1 className='text-blue-600 text-4xl font-bold'>Cefalo Blog</h1>
 
-                </div>
+                <CefaloBlogLogo />
+
                 <object
                     type="image/svg+xml"
                     data={indexPageLogo}

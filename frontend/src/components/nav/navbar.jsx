@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge'
 import cefaloBlogLogo from "../../assets/logo.jpg";
@@ -7,11 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHome, faPerson, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
 import ProfileDropdown from './profileDropDown';
+import CefaloBlogLogo from '../shared/CefaloBlogLogo';
+import { AuthContext } from '../../contexts/AuthContext';
 
 
 function Navbar() {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
+    // const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
+    const { isLoggedIn } = useContext(AuthContext);
     const [userMode, setUserMode] = useState(localStorage.getItem('userMode'));
 
     const handleLogin = () => {
@@ -21,17 +24,13 @@ function Navbar() {
     return (
         <header aria-label="Site Header" className="bg-white shadow-md">
 
-            {/* mx-auto max-w-screen-xl */}
             <div className=" px-4 sm:px-6 lg:px-8">
 
                 <div className="flex h-16 items-center justify-between">
 
                     <div className=" md:flex md:items-center md:gap-12">
                         <NavLink to="/">
-                            <div className='inline-flex items-center gap-4 mt-1'>
-                                <img src={cefaloBlogLogo} className="w-70 h-70 " alt="Cefalo Blog Logo" />
-                                <h1 className='text-blue-600 text-4xl font-bold'>Cefalo Blog</h1>
-                            </div>
+                            <CefaloBlogLogo />
                         </NavLink>
                     </div>
 

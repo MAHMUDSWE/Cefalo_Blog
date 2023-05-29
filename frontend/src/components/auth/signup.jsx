@@ -20,6 +20,7 @@ export default function Signup() {
 
                         <img src={cefaloBlogLogo} className="w-10 h-10 " alt="Cefalo Blog Logo" />
                     </div>
+
                     <form>
                         <div className="mb-4">
                             <label htmlFor="fullname" className="block font-medium mb-1">

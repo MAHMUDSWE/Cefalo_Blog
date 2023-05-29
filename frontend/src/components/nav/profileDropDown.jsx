@@ -16,7 +16,7 @@ function ProfileDropdown() {
         if (option === "Logout") {
             // Remove the isloggedIn key from the localStorage
             localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("userMode");
+            localStorage.removeItem("access_token");
 
             window.location.href = "/";
 

@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [authData, setAuthData] = useState({});
+
     const [isLoggedIn, setIsLoggedIn] = useState(!!getAccessToken());
 
     return (

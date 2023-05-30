@@ -15,7 +15,6 @@ const storeAccessToken = (access_token) => {
 
 const removeAccessToken = () => {
     localStorage.removeItem('access_token');
-    localStorage.removeItem('isLoggedIn');
 };
 
-export { getAccessToken, isLoggedIn, storeAccessToken, removeAccessToken };
+export { getAccessToken, storeAccessToken, removeAccessToken };

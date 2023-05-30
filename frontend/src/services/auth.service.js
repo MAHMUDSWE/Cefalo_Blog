@@ -15,16 +15,15 @@ const signup = async (userData) => {
 };
 
 const login = async (credentials) => {
-    console.log(credentials)
-    try {
-        const response = await axiosInstance.post(apiEndpoint.auth.login, credentials);
-        const data = response.data;
+    // try {
+    const response = await axiosInstance.post(apiEndpoint.auth.login, credentials);
+    const data = response.data;
 
-        return data;
+    return data;
 
-    } catch (error) {
-        console.error('Error logging in:', error);
-    }
+    // } catch (error) {
+    //     console.error('Error logging in:', error);
+    // }
 };
 
 const logout = async () => {
@@ -37,13 +36,6 @@ const logout = async () => {
         console.error('Error logging out:', error);
     }
 };
-
-//     return {
-//         signup,
-//         login,
-//         logout,
-//     };
-// };
 
 export const AuthService = {
     signup, login, logout

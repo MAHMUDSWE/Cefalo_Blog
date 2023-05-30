@@ -14,7 +14,7 @@ export default function ShowPassword({ onTogglePassword }) {
 
     return (
         <div
-            className="absolute mt-3 right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            className="absolute mt-4 p-1 rounded-full right-2 top-1/2 transform -translate-y-1/2 cursor-pointer hover:bg-gray-200"
             onClick={handleTogglePassword}
         >
             {showPassword ? <EyeOn /> : <EyeOff />}

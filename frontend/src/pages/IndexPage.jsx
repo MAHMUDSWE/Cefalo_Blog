@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-
-import cefaloBlogLogo from "../assets/logo.jpg";
+import { Outlet } from 'react-router-dom';
 
 import indexPageLogo from "../assets/indexPage.svg";
 import CefaloBlogLogo from '../components/shared/CefaloBlogLogo';

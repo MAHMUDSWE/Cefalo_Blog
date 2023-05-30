@@ -1,7 +1,7 @@
 import axiosInstance from "../utils/axios.util";
 import apiEndpoint from "../utils/endpoint.util";
 
-export const getAllBlogs = async () => {
+const getAllBlogs = async () => {
     try {
         const response = await axiosInstance.get(apiEndpoint.blog.getAll);
         const blogs = response.data;
@@ -11,7 +11,7 @@ export const getAllBlogs = async () => {
     }
 };
 
-export const createBlog = async (blogData) => {
+const createBlog = async (blogData) => {
     try {
         const response = await axiosInstance.post(apiEndpoint.blog.create, blogData);
         const createdBlog = response.data;
@@ -22,7 +22,7 @@ export const createBlog = async (blogData) => {
     }
 };
 
-export const getSpecificBlog = async (blogId) => {
+const getSpecificBlog = async (blogId) => {
     try {
         const url = apiEndpoint.blog.getSpecific.replace(':blogid', blogId);
         const response = await axiosInstance.get(url);
@@ -34,7 +34,7 @@ export const getSpecificBlog = async (blogId) => {
     }
 };
 
-export const updateBlog = async (blogId, updatedData) => {
+const updateBlog = async (blogId, updatedData) => {
     try {
         const url = apiEndpoint.blog.update.replace(':blogid', blogId);
         const response = await axiosInstance.put(url, updatedData);
@@ -46,7 +46,7 @@ export const updateBlog = async (blogId, updatedData) => {
     }
 };
 
-export const deleteBlog = async (blogId) => {
+const deleteBlog = async (blogId) => {
     try {
         const url = apiEndpoint.blog.delete.replace(':blogid', blogId);
         const response = await axiosInstance.delete(url);
@@ -57,7 +57,7 @@ export const deleteBlog = async (blogId) => {
     }
 };
 
-export const getBlogsByUser = async (username) => {
+const getBlogsByUser = async (username) => {
     try {
         const url = apiEndpoint.blog.getListByUser.replace(':username', username);
         const response = await axiosInstance.get(url);
@@ -69,4 +69,6 @@ export const getBlogsByUser = async (username) => {
     }
 };
 
-
+export const BlogService = {
+    getAllBlogs, createBlog, getSpecificBlog, updateBlog, deleteBlog, getBlogsByUser
+}

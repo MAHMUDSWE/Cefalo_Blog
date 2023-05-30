@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-
+import React, { useContext, useState } from 'react'
 import { useMutation } from '@tanstack/react-query';
 
 import CefaloBlogLogo from '../components/shared/CefaloBlogLogo';
@@ -18,20 +17,31 @@ export default function LoginPage() {
 
     const navigate = useNavigate();
     const { setIsLoggedIn } = useContext(AuthContext);
+    const [loginError, setLoginError] = useState(null);
 
     const loginMutation = useMutation({
         mutationFn: AuthService.login,
-        onSuccess: (data) => {
+        onMutate: () => {
 
+        },
+        onSuccess: (data) => {
             storeAccessToken(data.access_token);
             setIsLoggedIn(!!data.access_token);
 
             navigate("/home");
+        },
+        onError: (data) => {
+            if (data.response.status == 503) {
+                setLoginError(data.response.data.message);
+            }
+            else {
+                setLoginError(data.response.data.message);
+            }
         }
     });
 
-    const onSubmit = (credential) => {
-        loginMutation.mutate(credential);
+    const onSubmit = async (credential) => {
+        await loginMutation.mutateAsync(credential);
     }
 
 
@@ -51,7 +61,7 @@ export default function LoginPage() {
                         <img src={blogLogo} className="w-10 h-10 " alt="Cefalo Blog Logo" />
                     </div>
 
-                    <LoginForm onSubmit={onSubmit} />
+                    <LoginForm onSubmit={onSubmit} loginError={loginError} setLoginError={setLoginError} />
 
                     <ForgottenPassword />
 
@@ -62,3 +72,7 @@ export default function LoginPage() {
     )
 }
 
+
+                // {
+                //     !window.location.href.endsWith('/login' && navigate("/login"))
+                // }

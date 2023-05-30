@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getAllBlogs } from '../../services/blog.service';
+import { BlogService } from '../../services/blog.service';
 import BlogItem from './blogItem';
 
 
@@ -9,7 +8,7 @@ const BlogList = () => {
 
     useEffect(() => {
 
-        getAllBlogs()
+        BlogService.getAllBlogs()
             .then(data => setBlogs(data.blogs))
             .catch(error => console.log(error));
     }, []);

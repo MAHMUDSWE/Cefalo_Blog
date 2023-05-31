@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge'
-import cefaloBlogLogo from "../../assets/logo.jpg";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHome, faPerson, faUserFriends } from '@fortawesome/free-solid-svg-icons';
@@ -13,16 +12,11 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 function Navbar() {
 
-    // const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
     const { isLoggedIn } = useContext(AuthContext);
     const [userMode, setUserMode] = useState(localStorage.getItem('userMode'));
 
-    const handleLogin = () => {
-        localStorage.setItem('isLoggedIn', isLoggedIn);
-    };
-
     return (
-        <header aria-label="Site Header" className="bg-white shadow-md">
+        <header aria-label="Site Header" className="bg-white shadow-md sticky top-0 z-10">
 
             <div className=" px-4 sm:px-6 lg:px-8">
 

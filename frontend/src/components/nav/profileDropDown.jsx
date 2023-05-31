@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faCog, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 function ProfileDropdown() {
+    const navigate = useNavigate();
+    const { authData, setAuthData, setIsLoggedIn } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
 
     const handleToggle = () => {
@@ -14,12 +18,11 @@ function ProfileDropdown() {
         console.log(`Selected option: ${option}`);
 
         if (option === "Logout") {
-            // Remove the isloggedIn key from the localStorage
-            localStorage.removeItem("isLoggedIn");
             localStorage.removeItem("access_token");
+            setIsLoggedIn(false);
+            setAuthData({});
 
-            window.location.href = "/";
-
+            navigate('/')
         }
     };
 
@@ -30,7 +33,7 @@ function ProfileDropdown() {
                 className="flex items-center focus:outline-none"
                 onClick={handleToggle}
             >
-                <span className="mr-4 font-bold text-blue-600">Scumbag Steve</span>
+                <span className="mr-4 font-bold text-blue-600">{authData.username}</span>
                 <img
                     src="https://avatars.githubusercontent.com/u/61628453?v=4"
                     alt="Profile"

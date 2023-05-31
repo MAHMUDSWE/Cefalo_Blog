@@ -21,9 +21,7 @@ export default function LoginPage() {
 
     const loginMutation = useMutation({
         mutationFn: AuthService.login,
-        onMutate: () => {
 
-        },
         onSuccess: (data) => {
             storeAccessToken(data.access_token);
             setIsLoggedIn(!!data.access_token);
@@ -32,7 +30,7 @@ export default function LoginPage() {
         },
         onError: (data) => {
             if (data.response.status == 503) {
-                setLoginError(data.response.data.message);
+                setLoginError("Oops! Something went wrong. Please Try Again Later.")
             }
             else {
                 setLoginError(data.response.data.message);
@@ -71,8 +69,3 @@ export default function LoginPage() {
         </div>
     )
 }
-
-
-                // {
-                //     !window.location.href.endsWith('/login' && navigate("/login"))
-                // }

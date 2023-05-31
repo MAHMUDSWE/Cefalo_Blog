@@ -6,7 +6,16 @@ import { AuthProvider } from './contexts/AuthContext'
 import PageRoutes from './routes/routes'
 import LoadingOverlay from './components/loader/loadingOverlay';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+      staleTime: 1000 * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 24,
+    },
+  },
+});
 
 function App() {
 

@@ -29,6 +29,8 @@ const userRouter = express.Router();
  */
 userRouter.get('/', userController.getAllUser);
 
+userRouter.get('/:userid', userController.getUserById);
+
 userRouter.route('/:username')
     /**
      * Route for getting a user by username.

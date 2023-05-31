@@ -52,6 +52,16 @@ const getUserByUsername = async (username) => {
     return new UserDTO(user);
 }
 
+
+const getUserById = async (userid) => {
+    const user = await userRepository.getUserById(userid);
+
+    if (!user) {
+        throw new HttpError(StatusCode.NOT_FOUND, "User not found");
+    }
+    return new UserDTO(user);
+}
+
 /**
  * Updates a user with the specified ID using the given fields.
  *
@@ -96,6 +106,7 @@ const deleteUser = async (userid) => {
 module.exports = {
     getAllUser,
     getUserByUsername,
+    getUserById,
     updateUser,
     deleteUser
 };

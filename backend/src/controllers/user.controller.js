@@ -63,6 +63,23 @@ const getUserByUsername = async (req, res, next) => {
     }
 }
 
+const getUserById = async (req, res, next) => {
+
+    try {
+        const { userid } = req;
+        console.log(userid);
+
+        const user = await userService.getUserById(userid);
+
+        const convertedData = convertData(user, req.requestedFormat)
+
+        res.status(StatusCode.OK).send(convertedData);
+
+    } catch (error) {
+        next(error);
+    }
+}
+
 /**
  * Update a user's data
  * @function
@@ -122,6 +139,7 @@ const deleteUser = async (req, res, next) => {
 module.exports = {
     getAllUser,
     getUserByUsername,
+    getUserById,
     updateUser,
     deleteUser
 };

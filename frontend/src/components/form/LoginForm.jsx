@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ShowPassword from '../shared/ShowPassword';
 import ErrorShow from '../shared/ErrorShow';
+import validateInputs from '../../utils/formValidation.util';
 
 
 export default function LoginForm({ onSubmit, loginError, setLoginError }) {
@@ -11,28 +12,13 @@ export default function LoginForm({ onSubmit, loginError, setLoginError }) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const username = inputs.username.trim();
-        const password = inputs.password.trim();
-
-        if (!(username.length > 1)) {
-            setLoginError('Username is required');
-            return;
+        const validationError = validateInputs(inputs);
+        if (validationError) {
+            setLoginError(validationError);
         }
-        if (username.length < 4) {
-            setLoginError('Username must be at least 4 characters');
-            return;
+        else {
+            onSubmit(inputs);
         }
-
-        if (!(password.length > 1)) {
-            setLoginError('Password is required');
-            return;
-        }
-        if (password.length < 4) {
-            setLoginError('Password must be at least 4 characters');
-            return;
-        }
-
-        onSubmit(inputs);
 
     };
 
@@ -81,7 +67,7 @@ export default function LoginForm({ onSubmit, loginError, setLoginError }) {
                     {inputs.password && <ShowPassword onTogglePassword={onTogglePassword} />}
                 </div>
 
-                <ErrorShow loginError={loginError} />
+                <ErrorShow error={loginError} />
 
                 <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"  >
                     Log In

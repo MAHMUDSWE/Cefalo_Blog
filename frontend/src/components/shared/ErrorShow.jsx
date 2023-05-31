@@ -1,11 +1,11 @@
 import React from 'react';
 import WarningIcon from './WarningIcon';
 
-const ErrorShow = ({ loginError }) => {
+const ErrorShow = ({ error }) => {
     return (
         <>
-            {loginError && (
-                <div className="text-red-500 -mt-3 mb-3 text-center">{loginError} {loginError && <WarningIcon />}</div>
+            {error && (
+                <div className="text-red-500 -mt-3 mb-3 text-center">{error} {error && <WarningIcon />}</div>
             )}
         </>
     );

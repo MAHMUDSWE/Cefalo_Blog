@@ -15,9 +15,9 @@ const LoadingOverlay = () => {
             <object
                 type="image/svg+xml"
                 data={loadingSvg}
-                className="max-w-xs w-full"
+                className="max-w-sm w-48"
             />
-            <span className="text-2xl text-primaryLighter">Loading</span>
+            {/* <span className="text-2xl text-primary text-primaryLighter -mt-10">Loading</span> */}
         </div>
     );
 };

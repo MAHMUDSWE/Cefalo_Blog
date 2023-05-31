@@ -1,5 +1,5 @@
-import axiosInstance from "../../utils/axios.util";
-import apiEndpoint from "../../utils/endpoint.util";
+import axiosInstance from "../utils/axios.util";
+import apiEndpoint from "../utils/endpoint.util";
 
 const UserService = {
     getAllUsers: async () => {
@@ -13,14 +13,15 @@ const UserService = {
     },
 
     getUserByUsername: async (username) => {
-        try {
-            const endpoint = apiEndpoint.user.getSpecific.replace(':username', username);
-            const response = await axiosInstance.get(endpoint);
-            return response.data;
-        } catch (error) {
-            // Handle error fetching user by username
-            throw error;
-        }
+        const endpoint = apiEndpoint.user.getSpecific.replace(':username', username);
+        const response = await axiosInstance.get(endpoint);
+        return response.data;
+    },
+
+    getUserById: async () => {
+        const endpoint = apiEndpoint.user.getUserById;
+        const response = await axiosInstance.get(endpoint);
+        return response.data;
     },
 
     updateUserByUsername: async (username, updatedUserData) => {

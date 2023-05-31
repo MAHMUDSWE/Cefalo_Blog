@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { BlogService } from '../../services/blog.service';
+import React, { useState } from 'react';
 import BlogItem from './blogItem';
+import { BlogService } from '../../services/blog.service';
+import { useQuery } from '@tanstack/react-query';
 
 
 const BlogList = () => {
-    const [blogs, setBlogs] = useState([]);
+    const [pagination, setPagination] = useState({
+        page: 1,
+        limit: 10,
+    });
 
-    useEffect(() => {
-
-        BlogService.getAllBlogs()
-            .then(data => setBlogs(data.blogs))
-            .catch(error => console.log(error));
-    }, []);
-
+    const { data } = useQuery({
+        queryKey: ["getBlogs", pagination.page, pagination.limit],
+        queryFn: async () => await BlogService.getAllBlogs(pagination),
+    });
+    console.log(data);
     return (
         <div className="mx-[25%] mt-1 bg=gray-50">
             <ul>
-                {blogs.map((blog) => (
+                {data?.blogs.map((blog) => (
                     <li key={blog.blogid}>
                         <BlogItem blog={blog} />
                     </li>

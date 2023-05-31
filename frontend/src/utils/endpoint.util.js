@@ -6,7 +6,8 @@ const apiEndpoint = {
     },
     user: {
         getAll: "/user",
-        getSpecific: "/user/:username",
+        getUserById: "/user/userid",
+        getUserByUsername: "/user/:username",
         update: "/user/:username",
         delete: "/user/:username",
     },

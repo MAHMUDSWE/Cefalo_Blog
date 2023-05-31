@@ -16,6 +16,7 @@ const AuthProvider = ({ children }) => {
         queryFn: async () => {
             const data = await UserService.getUserById();
             setAuthData(data);
+            return data;
         },
     });
 

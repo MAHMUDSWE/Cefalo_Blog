@@ -10,6 +10,8 @@ import ProfilePage from '../pages/ProfilePage';
 import ErrorPage from '../pages/ErrorPage';
 
 import { GuestOrLoggedInMode, LoggedInMode, LoggedOutMode, NotGuestOrLoggedInMode } from './protectedRoutes';
+import CreateBlog from '../components/blog/CreateBlog';
+import BlogWrite from '../pages/BlogWrite';
 
 
 function PageRoutes() {
@@ -73,6 +75,10 @@ function PageRoutes() {
                     <Route path="/home" element={<GuestOrLoggedInMode>
                         <HomePage />
                     </GuestOrLoggedInMode>} />
+
+                    <Route path="/write" element={<LoggedInMode>
+                        <BlogWrite />
+                    </LoggedInMode>} />
 
                     <Route path="/profile" element={<LoggedInMode>
                         <ProfilePage />

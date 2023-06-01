@@ -4,11 +4,6 @@ const getAccessToken = () => {
     return token;
 }
 
-const isLoggedIn = () => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    return isLoggedIn;
-}
-
 const storeAccessToken = (access_token) => {
     localStorage.setItem('access_token', access_token);
 };

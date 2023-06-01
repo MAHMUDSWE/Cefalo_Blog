@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { AuthService } from '../services/auth.service';
 
+import { toast } from 'react-toastify';
+
 export default function SignupPage() {
 
     const navigate = useNavigate();
@@ -16,6 +18,7 @@ export default function SignupPage() {
 
         },
         onSuccess: (data) => {
+            toast.success("Signup successful! Welcome to our community.")
             navigate("/login");
         },
         onError: (data) => {

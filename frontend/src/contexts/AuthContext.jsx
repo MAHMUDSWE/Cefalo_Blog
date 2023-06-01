@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { getAccessToken } from '../utils/token.util';
 import { useQuery } from "@tanstack/react-query";
 import UserService from '../services/user.service';
@@ -18,7 +18,12 @@ const AuthProvider = ({ children }) => {
             setAuthData(data);
             return data;
         },
+        staleTime: 0
     });
+
+    useEffect(() => {
+        setIsLoggedIn(!!getAccessToken());
+    }, [isLoggedIn]);
 
     return (
         <AuthContext.Provider value={{ authData, setAuthData, isLoggedIn, setIsLoggedIn }}>

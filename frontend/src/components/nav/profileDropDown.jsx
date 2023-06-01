@@ -5,6 +5,10 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 
+import { removeAccessToken } from '../../utils/token.util';
+import { toast } from 'react-toastify';
+
+
 function ProfileDropdown() {
     const navigate = useNavigate();
     const { authData, setAuthData, setIsLoggedIn } = useContext(AuthContext);
@@ -18,10 +22,10 @@ function ProfileDropdown() {
         console.log(`Selected option: ${option}`);
 
         if (option === "Logout") {
-            localStorage.removeItem("access_token");
             setIsLoggedIn(false);
             setAuthData({});
-
+            removeAccessToken();
+            toast.success("Logout successful! See you again soon.");
             navigate('/')
         }
     };

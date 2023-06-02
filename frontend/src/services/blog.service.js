@@ -16,25 +16,25 @@ const createBlog = async (blogData) => {
 
 };
 
-const getSpecificBlog = async (blogId) => {
-    const url = apiEndpoint.blog.getSpecific.replace(':blogid', blogId);
+const getSpecificBlog = async (blogid) => {
+    const url = apiEndpoint.blog.getSpecific.replace(':blogid', blogid);
     const response = await axiosInstance.get(url);
     const blog = response.data;
     return blog;
 };
 
-const updateBlog = async (blogId, updatedData) => {
+const updateBlog = async (blogid, updatedData) => {
 
-    const url = apiEndpoint.blog.update.replace(':blogid', blogId);
+    const url = apiEndpoint.blog.update.replace(':blogid', blogid);
     const response = await axiosInstance.put(url, updatedData);
     const updatedBlog = response.data;
 
     return updatedBlog;
 };
 
-const deleteBlog = async (blogId) => {
+const deleteBlog = async (blogid) => {
 
-    const url = apiEndpoint.blog.delete.replace(':blogid', blogId);
+    const url = apiEndpoint.blog.delete.replace(':blogid', blogid);
     const response = await axiosInstance.delete(url);
 
     return 'Blog deleted successfully'

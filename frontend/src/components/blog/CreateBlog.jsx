@@ -1,55 +1,49 @@
 import React, { useState } from 'react'
+import BlogForm from '../form/BlogForm';
+import { BlogService } from '../../services/blog.service';
+import { toast } from 'react-toastify';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
-const CreateBlog = () => {
-    const [inputs, setInputs] = useState({});
+const CreateBlog = ({ onClose }) => {
+    const navigate = useNavigate();
+    const [error, setError] = useState(null);
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({ ...values, [name]: value }))
-    }
+    const blogCreateMutation = useMutation({
+        mutationFn: BlogService.createBlog,
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+        onSuccess: (data) => {
+            console.log(data);
+            toast.success("Blog Published Successfully");
+            if (onClose) {
+                onClose();
+            }
+            navigate('/home')
+        },
+        onError: (data) => {
+            if (data.response.status == 503) {
+                toast.error("Oops! Something went wrong. Please Try Again Later.");
+            }
+            else {
+                if (data.response.status == '401') {
+                    navigate('/login');
+                    toast.error("You are logged out");
+                }
+                setError(data.response.data.message);
+            }
+        }
+    });
 
-        console.log("clicked")
+    const onSubmit = async (blogData) => {
+        await blogCreateMutation.mutateAsync(blogData);
     }
 
     return (
-        <div >
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-                <div className="bg-blue-500 py-4 px-6 rounded-t-lg text-white">
-                    <h3 className="text-xl font-semibold">Create Blog</h3>
-                </div>
-                <div className="p-6 bg-white rounded-b-lg shadow-md">
-                    <textarea
-                        className="w-full h-12 mb-4 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                        name="title"
-                        value={inputs.title || ""}
-                        onChange={handleChange}
-                        required
-                        placeholder="Set Title"
-                    ></textarea>
-                    <textarea
-                        className="w-full h-60 mb-4 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                        name="content"
-                        value={inputs.content || ""}
-                        onChange={handleChange}
-                        required
-                        placeholder="What's on your mind?"
-                    ></textarea>
-                    <button
-                        className={`w-full py-2 rounded-lg font-semibold text-white ${inputs.title && inputs.content
-                            ? 'bg-blue-500 hover:bg-blue-600'
-                            : 'bg-gray-300 cursor-not-allowed'
-                            }`}
-                        disabled={(!inputs.title) && (!inputs.content)}
-                    >
-                        PUBLISH
-                    </button>
-                </div>
-            </form>
-
+        <div className='max-w-md mx-auto'>
+            <div className="bg-blue-500 py-4 px-6 rounded-t-lg text-white">
+                <h3 className="text-xl font-semibold">Create Blog</h3>
+            </div>
+            <BlogForm onSubmit={onSubmit} error={error} setError={setError} />
         </div>
     )
 }

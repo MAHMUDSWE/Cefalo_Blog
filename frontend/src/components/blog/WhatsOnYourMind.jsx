@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import CustomModal from '../Modal/CustomModal';
-
+import CreateBlogModal from '../Modal/CreateBlogModal';
 
 function WhatsOnYourMind() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +33,7 @@ function WhatsOnYourMind() {
                     <span className="text-sm font-semibold">What's on your mind?</span>
                 </button>
             </div>
-            {isModalOpen && <CustomModal onClose={handleCloseModal} />}
+            {isModalOpen && <CreateBlogModal onClose={handleCloseModal} />}
         </>
     );
 }

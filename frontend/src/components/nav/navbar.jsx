@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHome, faPerson, faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHome, faPerson, faUserFriends, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 import ProfileDropdown from './profileDropDown';
 import CefaloBlogLogo from '../shared/CefaloBlogLogo';
@@ -22,21 +22,15 @@ function Navbar() {
 
                 <div className="flex h-16 items-center justify-between">
 
-                    <div className=" md:flex md:items-center md:gap-12">
-                        <NavLink to="/">
-                            <CefaloBlogLogo />
-                        </NavLink>
+                    <div className=" md:flex md:items-center mt-1 mb-1 md:gap-12">
+                        {/* <NavLink to="/"> */}
+                        <CefaloBlogLogo />
+                        {/* </NavLink> */}
                     </div>
 
-                    <div className="block md:hidden">
-                        <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
-                            <FontAwesomeIcon icon={faBars} className="h-5 w-5" />
-                        </button>
-                    </div>
-
-                    <div className="hidden md:block">
+                    <div className="hidden lg:block">
                         <nav aria-label="Site Nav" className=''>
-                            {(userMode || isLoggedIn) && <ul className="flex items-center gap-6 text-lg">
+                            {(userMode || isLoggedIn) && <ul className="flex items-center gap-4 text-lg">
                                 <li>
                                     <NavLink
                                         className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : "text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"}
@@ -52,11 +46,11 @@ function Navbar() {
                                         className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
                                             , !isLoggedIn && 'disabled')}
 
-                                        to="/connects"
+                                        to="/write"
                                         disabled
                                     >
-                                        <FontAwesomeIcon icon={faUserFriends} className="mr-2 text-lg" />
-                                        Connects
+                                        <FontAwesomeIcon icon={faPenToSquare} className="mr-2 text-lg" />
+                                        Write
                                     </NavLink>
                                 </li>
 
@@ -75,7 +69,7 @@ function Navbar() {
                         </nav>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="hidden items-center gap-4 lg:block">
                         <div className="sm:flex sm:gap-4">
 
                             {isLoggedIn ?
@@ -99,7 +93,12 @@ function Navbar() {
                                 </>
                             }
                         </div>
+                    </div>
 
+                    <div className="block lg:hidden">
+                        <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
+                            <FontAwesomeIcon icon={faBars} className="h-5 w-5" />
+                        </button>
                     </div>
 
                 </div>

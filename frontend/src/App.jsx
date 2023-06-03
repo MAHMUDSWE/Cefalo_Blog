@@ -5,6 +5,7 @@ import { AuthProvider } from './contexts/AuthContext'
 
 import PageRoutes from './routes/routes'
 import LoadingOverlay from './components/loader/loadingOverlay';
+import Toastify from './components/shared/Toastify';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +29,8 @@ function App() {
         </AuthProvider>
 
         <LoadingOverlay />
+
+        <Toastify />
 
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

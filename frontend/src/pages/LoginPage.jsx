@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { storeAccessToken } from '../utils/token.util';
+import { toast } from 'react-toastify';
 
 
 export default function LoginPage() {
@@ -25,12 +26,13 @@ export default function LoginPage() {
         onSuccess: (data) => {
             storeAccessToken(data.access_token);
             setIsLoggedIn(!!data.access_token);
-
+            toast.success("Login successful! Welcome back.");
             navigate("/home");
         },
         onError: (data) => {
             if (data.response.status == 503) {
-                setLoginError("Oops! Something went wrong. Please Try Again Later.")
+                toast.error("Oops! Something went wrong. Please Try Again Later.");
+                // setLoginError("Oops! Something went wrong. Please Try Again Later.");
             }
             else {
                 setLoginError(data.response.data.message);

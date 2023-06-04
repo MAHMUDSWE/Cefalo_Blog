@@ -11,7 +11,6 @@ const validateInputs = (inputs) => {
     }
 
     // Validate email
-    console.log("email");
     if (email && !email.trim()) {
         error = "Email is required";
         return error;

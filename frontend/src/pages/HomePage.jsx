@@ -26,8 +26,8 @@ export default function HomePage() {
     return (
         <div>
             <Navbar />
-
-            <div className='mt-1 flex flex-col h-screen'>
+            {/* h-screen */}
+            <div className='mt-1 flex flex-col '>
                 {isLoggedIn && <WhatsOnYourMind />}
                 <BlogList blogs={data?.blogs} />
             </div>

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { removeAccessToken } from '../../utils/token.util';
 import { toast } from 'react-toastify';
+import Logout from '../auth/Logout';
 
 
 function ProfileDropdown() {
@@ -22,11 +23,11 @@ function ProfileDropdown() {
         console.log(`Selected option: ${option}`);
 
         if (option === "Logout") {
-            setIsLoggedIn(false);
-            setAuthData({});
-            removeAccessToken();
-            toast.success("Logout successful! See you again soon.");
-            navigate('/')
+            // setIsLoggedIn(false);
+            // setAuthData({});
+            // removeAccessToken();
+            // toast.success("Logout successful! See you again soon.");
+            // navigate('/')
         }
     };
 
@@ -66,13 +67,7 @@ function ProfileDropdown() {
                         </button>
                     </li>
                     <li>
-                        <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                            onClick={() => handleOptionClick('Logout')}
-                        >
-                            <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
-                            Logout
-                        </button>
+                        <Logout />
                     </li>
 
                 </ul>

@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import PageRoutes from './routes/routes'
 import LoadingOverlay from './components/loader/loadingOverlay';
 import Toastify from './components/shared/Toastify';
+import { BlogProvider } from './contexts/BlogContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +26,9 @@ function App() {
       <QueryClientProvider client={queryClient}>
 
         <AuthProvider>
-          <PageRoutes />
+          <BlogProvider>
+            <PageRoutes />
+          </BlogProvider>
         </AuthProvider>
 
         <LoadingOverlay />

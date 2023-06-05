@@ -12,7 +12,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 function Navbar() {
 
-    const { isLoggedIn } = useContext(AuthContext);
+    const { authData, isLoggedIn } = useContext(AuthContext);
     const [userMode, setUserMode] = useState(localStorage.getItem('userMode'));
 
     return (
@@ -58,7 +58,7 @@ function Navbar() {
                                     <NavLink
                                         className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
                                             , !isLoggedIn && 'disabled')}
-                                        to="/profile"
+                                        to={`/${authData.username}`}
 
                                     >
                                         <FontAwesomeIcon icon={faPerson} className="mr-2 text-lg" />

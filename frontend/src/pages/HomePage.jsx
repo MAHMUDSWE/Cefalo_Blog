@@ -7,6 +7,7 @@ import { BlogService } from '../services/blog.service';
 import { toast } from 'react-toastify';
 import WhatsOnYourMind from '../components/blog/WhatsOnYourMind';
 import { AuthContext } from '../contexts/AuthContext';
+import Search from '../components/shared/Search';
 
 export default function HomePage() {
     const { isLoggedIn } = useContext(AuthContext);
@@ -26,10 +27,15 @@ export default function HomePage() {
     return (
         <div>
             <Navbar />
-
-            <div className='mt-1 flex flex-col h-screen'>
-                {isLoggedIn && <WhatsOnYourMind />}
-                <BlogList blogs={data?.blogs} />
+            <div className='flex flex-col'>
+                {/* <div>
+                md:flex-row-reverse
+                    <Search />
+                </div> */}
+                <div className='mt-1 flex flex-col mx-auto'>
+                    {isLoggedIn && <WhatsOnYourMind />}
+                    <BlogList blogs={data?.blogs} />
+                </div>
             </div>
         </div>
     )

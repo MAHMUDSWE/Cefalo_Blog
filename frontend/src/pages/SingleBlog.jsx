@@ -26,26 +26,32 @@ export default function SingleBlog() {
         <div>
             <Navbar />
             <div className='mt-1 flex flex-col h-screen'>
-                {data && <div className="dark:bg-gray-800 dark:text-gray-100">
-                    <div className="container max-w-4xl px-10 py-6 mx-auto rounded-lg shadow-sm dark:bg-gray-900">
+                {data && <div className="text-black-100">
+                    <div className="container max-w-4xl px-10 py-6 mx-auto rounded-lg shadow-sm ">
 
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <span className="px-2 py-1 mb-2 font-bold rounded bg-violet-300 dark:text-gray-900 text-center">Published By {data.name}</span>
-                            </div>
+                        <h2 className="text-blue-950 text-4xl font-bold ">{data?.title}</h2>
 
-                            <div>
-                                <span className="font-bold text-blue-900">Published: {dayjs(data.createdAt).format("MMMM DD, YYYY, hh:mma")}</span>
+                        <div className="border-t-2 border-b-2 mt-4 py-4 border-gray-900">
+
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <span className="px-2 py-1 mb-2 font-bold rounded bg-violet-300 dark:text-gray-900 text-center">Published By {data.name}</span>
+                                </div>
+
+                                <div className='flex-col text-right'>
+                                    <div><span className="text-xl font-bold text-blue-950">Updated On: {dayjs(data.createdAt).format("MMMM DD, YYYY, hh:mma")}</span> </div>
+                                    <div><span className="font-semibold text-gray-500">Published: {dayjs(data.createdAt).format("MMMM DD, YYYY, hh:mma")}</span></div>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="mt-3">
-                            <h2 className="text-2xl font-bold">{data?.title}</h2>
+
+                        <div className="mt-4">
                             <p className="mt-2">{data.content}</p>
                         </div>
 
                         <div className="flex items-center justify-between mt-4">
-                            <span className="dark:text-violet-400">Read more</span>
+                            <span className="text-violet-400">Read more</span>
                             <div>
                                 <div className="flex items-center">
                                     <img src="https://source.unsplash.com/50x50/?portrait" alt="avatar" className="object-cover w-10 h-10 mx-4 rounded-full dark:bg-gray-500" />

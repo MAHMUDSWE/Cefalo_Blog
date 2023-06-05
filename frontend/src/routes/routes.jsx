@@ -84,7 +84,7 @@ function PageRoutes() {
                         <BlogWrite />
                     </LoggedInMode>} />
 
-                    <Route path="/profile" element={<LoggedInMode>
+                    <Route path="/:username" element={<LoggedInMode>
                         <ProfilePage />
                     </LoggedInMode>} />
 

@@ -1,22 +1,35 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { getAccessToken } from '../utils/token.util';
+import { getAccessToken, removeAccessToken } from '../utils/token.util';
 import { useQuery } from "@tanstack/react-query";
 import UserService from '../services/user.service';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [authData, setAuthData] = useState({});
 
+
+    const [authData, setAuthData] = useState({});
     const [isLoggedIn, setIsLoggedIn] = useState(!!getAccessToken());
 
     useQuery({
         enabled: isLoggedIn,
         queryKey: ["getUserById"],
         queryFn: async () => {
-            const data = await UserService.getUserById();
-            setAuthData(data);
-            return data;
+            try {
+                const data = await UserService.getUserById();
+                setAuthData(data);
+                return data;
+            } catch (error) {
+                if (error.response && error.response.status === 401) {
+                    setIsLoggedIn(false);
+                    setAuthData({});
+                    removeAccessToken();
+                    toast.success("Logout successful! See you again soon.");
+                    navigate('/home')
+                }
+                throw error;
+            }
         },
         staleTime: 0
     });

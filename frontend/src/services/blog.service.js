@@ -40,9 +40,9 @@ const deleteBlog = async (blogid) => {
     return 'Blog deleted successfully'
 };
 
-const getBlogsByUser = async (username) => {
-
-    const url = apiEndpoint.blog.getListByUser.replace(':username', username);
+const getBlogsByUser = async (username, { page, limit }) => {
+    // const url = apiEndpoint.blog.getListByUser + `?page=${page}&limit=${limit}`.replace(':username', username);
+    const url = apiEndpoint.blog.getListByUser.replace(':username', username) + `?page=${page}&limit=${limit}`;
     const response = await axiosInstance.get(url);
     const blogs = response.data;
 

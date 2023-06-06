@@ -29,7 +29,7 @@ const userRouter = express.Router();
  */
 userRouter.get('/', userController.getAllUser);
 
-userRouter.get('/:userid', userController.getUserById);
+userRouter.get('/userid', userController.getUserById);
 
 userRouter.route('/:username')
     /**

@@ -33,7 +33,6 @@ const validateInputs = (inputs) => {
     }
 
     // Validate password
-    console.log("password");
     if (password && !password.trim()) {
         error = "Password is required";
         return error;
@@ -47,8 +46,8 @@ const validateInputs = (inputs) => {
     if (title && !title.trim()) {
         error = "Title is required";
         return error;
-    } else if (title && title.trim().length > 50) {
-        error = "Title can be at most 50 characters";
+    } else if (title && title.trim().length > 200) {
+        error = "Title can be at most 200 characters";
         return error;
     }
 
@@ -56,8 +55,8 @@ const validateInputs = (inputs) => {
     if (content && !content.trim()) {
         error = "Content is required";
         return error;
-    } else if (content && content.trim().length > 1000) {
-        error = "Content can be at most 1000 characters";
+    } else if (content && content.trim().length > 20000) {
+        error = "Content can be at most 20000 characters";
         return error;
     }
 

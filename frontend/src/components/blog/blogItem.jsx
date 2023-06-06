@@ -1,20 +1,23 @@
 import dayjs from 'dayjs'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import EditDropdown from '../nav/EditDropDown'
 
 export default function BlogItem({ blog }) {
     return (
         <div className="container text-black max-w-4xl px-10 py-6 rounded-lg mb-2 shadow-md ">
-            {/* border-b-2 border-gray-950 */}
-            <div className="flex items-center justify-between">
-                <Link rel="noopener noreferrer" to={`/blog/${blog.blogid}`} className="text-2xl font-bold hover:underline">{blog.title}</Link> <br />
-                {/* <Link rel="noopener noreferrer" to={`/blog/${blog.blogid}`} className="px-2 py-1 font-bold rounded bg-violet-400 dark:text-gray-900">{blog.name}</Link> */}
-                <span className="font-bold text-blue-900">{dayjs(blog.createdAt).format("MMMM DD, YYYY, hh:mma")}</span>
 
+            <div className="flex items-center justify-between">
+                <div>
+                    <Link rel="noopener noreferrer" to={`/blog/${blog.blogid}`} className="text-2xl font-bold hover:underline">{blog.title}</Link> <br />
+                    <span className="font-bold text-blue-900">{dayjs(blog.createdAt).format("MMMM DD, YYYY, hh:mma")}</span>
+                </div>
+                <div>
+                    <EditDropdown />
+                </div>
             </div>
 
             <div className="mt-3">
-                {/* <span>Published By: {blog.name}</span> */}
                 <p className="mt-2 line-clamp-3  ">{blog.content}</p>
             </div>
 

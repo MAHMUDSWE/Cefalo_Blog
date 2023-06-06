@@ -46,7 +46,7 @@ export default function BlogForm({ onSubmit, error, setError }) {
                         className="w-full h-12 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                     ></textarea>
                     <span className="text-gray-500 text-sm float-right">
-                        Title character: {getTitleCharacterCount()}/50
+                        Title character: {getTitleCharacterCount()}/200
                     </span>
                 </div>
 
@@ -63,7 +63,7 @@ export default function BlogForm({ onSubmit, error, setError }) {
                         className="w-full h-60 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                     ></textarea>
                     <span className=" text-gray-500 text-sm float-right">
-                        Content character: {getContentCharacterCount()}/1000
+                        Content character: {getContentCharacterCount()}/20000
                     </span>
                 </div>
 

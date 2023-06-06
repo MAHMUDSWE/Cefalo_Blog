@@ -10,13 +10,15 @@ import { toast } from 'react-toastify';
 import BlogList from '../components/blog/blogList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import { faLocation, faLocationDot, faLocationPin, faMapLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import EditProfile from '../components/user/EditProfile';
+import UserService from '../services/user.service';
 
 export default function ProfilePage() {
 
     const { authData } = useContext(AuthContext);
     const { blogData, setBlogData } = useContext(BlogContext);
+    const [profileData, setProfileData] = useState();
 
     const { username } = useParams();
     const [pagination, setPagination] = useState({
@@ -25,10 +27,21 @@ export default function ProfilePage() {
     });
 
     const { data, isError } = useQuery({
-        queryKey: ["getBlogsByUser", pagination.page, pagination.limit],
+        queryKey: ["getBlogsByUser", username, pagination.page, pagination.limit],
         queryFn: async () => await BlogService.getBlogsByUser(username, pagination),
         staleTime: 0
     });
+
+    useQuery({
+        queryKey: ["getUserByUsername", username],
+        queryFn: async () => {
+            const user = await UserService.getUserByUsername(username);
+            setProfileData(user);
+            return user;
+        },
+        staleTime: 0
+    });
+
     useEffect(() => {
         if (data) {
             setBlogData(data);
@@ -36,7 +49,7 @@ export default function ProfilePage() {
         if (isError) {
             toast.error("Oops! Something went wrong. Please Try Again Later.");
         }
-    }, [data, isError])
+    }, [data, isError, profileData])
 
 
     return (
@@ -54,13 +67,14 @@ export default function ProfilePage() {
                                     className="w-32 h-32 rounded-full"
                                 />
                             </div>
-                            <h2 className="text-[#1F2328] text-xl font-bold">{authData.name}</h2>
-                            <span className="text-gray-500 font-semibold mb-2"># {authData.username}</span>
+                            <h2 className="text-[#1F2328] text-xl font-bold">{profileData?.name}</h2>
+                            <span>{ }</span>
+                            <span className="text-gray-500 font-semibold mb-2"># {profileData?.username}</span>
                             <div>
-                                <EditProfile />
+                                {(profileData?.username === authData?.username) && <EditProfile profileData={profileData} setProfileData={setProfileData} />}
                             </div>
                             <span className="text-gray-500 mt-2"><FontAwesomeIcon icon={faLocationDot} /> Dhaka, Bangladesh</span>
-                            <span className="text-gray-500"><FontAwesomeIcon icon={faEnvelope} /> {authData.email}</span>
+                            <span className="text-gray-500"><FontAwesomeIcon icon={faEnvelope} /> {profileData?.email}</span>
                         </div>
                     </div>
                 </div>
@@ -76,17 +90,3 @@ export default function ProfilePage() {
 
     )
 }
-
-
-{/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <div className="bg-white rounded-lg shadow-lg p-6">
-                            <h3 className="text-lg font-bold mb-2">Blog Title 1</h3>
-                            <p className="text-gray-500 mb-4">Published on: June 1, 2023</p>
-                            <p className="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget lorem vitae neque volutpat vestibulum. Cras blandit nunc vitae ipsum congue, eget venenatis dui vestibulum. In tristique orci vel velit accumsan efficitur. Sed vitae tincidunt nulla.</p>
-                        </div>
-                        <div className="bg-white rounded-lg shadow-lg p-6">
-                            <h3 className="text-lg font-bold mb-2">Blog Title 2</h3>
-                            <p className="text-gray-500">Published on: June 2, 2023</p>
-                            <p className="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget lorem vitae neque volutpat vestibulum. Cras blandit nunc vitae ipsum congue, eget venenatis dui vestibulum. In tristique orci vel velit accumsan efficitur. Sed vitae tincidunt nulla.</p>
-                        </div>
-                    </div> */}

@@ -35,7 +35,7 @@ export default function LoginPage() {
                 // setLoginError("Oops! Something went wrong. Please Try Again Later.");
             }
             else {
-                setLoginError(data.response.data.message);
+                setLoginError(data.response.data.message || data.response.statusText);
             }
         }
     });

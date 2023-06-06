@@ -5,9 +5,9 @@ import { twMerge } from 'tailwind-merge'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHome, faPerson, faUserFriends, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-import ProfileDropdown from './profileDropDown';
 import CefaloBlogLogo from '../shared/CefaloBlogLogo';
 import { AuthContext } from '../../contexts/AuthContext';
+import ProfileDropdown from './profileDropDown';
 
 
 function Navbar() {

@@ -40,7 +40,7 @@ async function connectToDatabase() {
         console.log("Models have been synced successfully.");
     } catch (error) {
         console.log(error);
-        throw error;
+        // throw error;
         // throw new Error('Unable to sync the models');
     }
 }

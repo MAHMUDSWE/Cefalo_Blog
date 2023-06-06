@@ -25,7 +25,7 @@ export default function SingleBlog() {
     return (
         <div>
             <Navbar />
-            <div className='mt-1 flex flex-col h-screen'>
+            <div className='mt-1 flex flex-col'>
                 {data && <div className="text-black-100">
                     <div className="container max-w-4xl px-10 py-6 mx-auto rounded-lg shadow-sm ">
 

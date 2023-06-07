@@ -1,9 +1,11 @@
 import dayjs from 'dayjs'
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import EditDropdown from '../nav/EditDropDown'
+import EditDropdown from './EditDropDown'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export default function BlogItem({ blog }) {
+    const { authData } = useContext(AuthContext);
     return (
         <div className="container text-black max-w-4xl px-10 py-6 rounded-lg mb-2 shadow-md ">
 
@@ -12,9 +14,9 @@ export default function BlogItem({ blog }) {
                     <Link rel="noopener noreferrer" to={`/blog/${blog.blogid}`} className="text-2xl font-bold hover:underline">{blog.title}</Link> <br />
                     <span className="font-bold text-blue-900">{dayjs(blog.createdAt).format("MMMM DD, YYYY, hh:mma")}</span>
                 </div>
-                <div>
-                    <EditDropdown />
-                </div>
+                {(blog.username === authData.username) && <div>
+                    <EditDropdown blogid={blog.blogid} />
+                </div>}
             </div>
 
             <div className="mt-3">

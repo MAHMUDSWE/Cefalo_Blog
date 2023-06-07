@@ -19,6 +19,7 @@ export default function HomePage() {
     const { data, isError } = useQuery({
         queryKey: ["getBlogs", pagination.page, pagination.limit],
         queryFn: async () => await BlogService.getAllBlogs(pagination),
+        staleTime: 10000
     });
 
     if (isError) {

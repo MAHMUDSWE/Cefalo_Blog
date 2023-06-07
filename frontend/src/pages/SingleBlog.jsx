@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Navbar from '../components/nav/navbar'
 import { BlogService } from '../services/blog.service';
 import { useQuery } from '@tanstack/react-query';
@@ -6,21 +6,25 @@ import { toast } from 'react-toastify';
 import { Link, useParams } from 'react-router-dom';
 
 import dayjs from 'dayjs';
+import EditDropdown from '../components/blog/EditDropDown';
+import { AuthContext } from '../contexts/AuthContext';
 
 
 export default function SingleBlog() {
-
+    const { authData } = useContext(AuthContext);
     const { blogid } = useParams();
 
     const { data, isError } = useQuery({
-        queryKey: ["getBlogById"],
+        queryKey: ["getBlogById", blogid],
         queryFn: async () => await BlogService.getSpecificBlog(blogid),
-        staleTime: 0
+        staleTime: 30000
     });
 
-    if (isError) {
-        toast.error("Oops! Something went wrong. Please Try Again Later.");
-    }
+    useEffect(() => {
+        if (isError) {
+            toast.error("Oops! Something went wrong. Please Try Again Later.");
+        }
+    }, [isError])
 
     return (
         <div>
@@ -29,7 +33,16 @@ export default function SingleBlog() {
                 {data && <div className="text-black-100">
                     <div className="container max-w-4xl px-10 py-6 mx-auto rounded-lg shadow-sm ">
 
-                        <h2 className="text-blue-950 text-4xl font-bold ">{data?.title}</h2>
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <h2 className="text-blue-950 text-4xl font-bold ">{data?.title}</h2>
+                            </div>
+
+                            {(data.username === authData.username) && <div>
+                                <EditDropdown blogid={data.blogid} />
+                            </div>}
+                        </div>
+
 
                         <div className="border-t-2 border-b-2 mt-4 py-4 border-gray-900">
 

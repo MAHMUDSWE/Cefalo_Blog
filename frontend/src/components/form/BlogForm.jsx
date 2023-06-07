@@ -1,10 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import validateInputs from '../../utils/formValidation.util';
 import ErrorShow from '../shared/ErrorShow';
-import { toast } from 'react-toastify';
 
-export default function BlogForm({ onSubmit, error, setError }) {
-    const [inputs, setInputs] = useState({ title: "", content: "" });
+export default function BlogForm({ onSubmit, data, error, setError }) {
+
+    const [inputs, setInputs] = useState({
+        title: "",
+        content: ""
+    });
+
+    useEffect(() => {
+        if (data) {
+            setInputs({
+                title: data.title || "",
+                content: data.content || ""
+            });
+        }
+    }, [data]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -76,7 +88,7 @@ export default function BlogForm({ onSubmit, error, setError }) {
                         }`}
                     disabled={(!inputs.title) && (!inputs.content)}
                 >
-                    PUBLISH
+                    {data ? "SAVE" : "PUBLISH"}
                 </button>
             </div>
         </form>

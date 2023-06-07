@@ -15,41 +15,42 @@ import EditProfile from '../components/user/EditProfile';
 import UserService from '../services/user.service';
 
 export default function ProfilePage() {
-
+    const { username } = useParams();
     const { authData } = useContext(AuthContext);
     const { blogData, setBlogData } = useContext(BlogContext);
     const [profileData, setProfileData] = useState();
 
-    const { username } = useParams();
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 10,
     });
 
-    const { data, isError } = useQuery({
-        queryKey: ["getBlogsByUser", username, pagination.page, pagination.limit],
+    const { data: blogs, isError: isBlogsError } = useQuery({
+        queryKey: ['getBlogsByUser', username, pagination.page, pagination.limit],
         queryFn: async () => await BlogService.getBlogsByUser(username, pagination),
-        staleTime: 0
+        staleTime: 10000
     });
 
-    useQuery({
-        queryKey: ["getUserByUsername", username],
-        queryFn: async () => {
-            const user = await UserService.getUserByUsername(username);
-            setProfileData(user);
-            return user;
-        },
-        staleTime: 0
+    const { data: user, isError: isUserError } = useQuery({
+        queryKey: ['getUserByUsername', username],
+        queryFn: async () => await UserService.getUserByUsername(username),
+        staleTime: 10000
     });
 
     useEffect(() => {
-        if (data) {
-            setBlogData(data);
+        if (blogs) {
+            setBlogData(blogs);
         }
-        if (isError) {
-            toast.error("Oops! Something went wrong. Please Try Again Later.");
+        if (isBlogsError || isUserError) {
+            toast.error('Oops! Something went wrong. Please try again later.');
         }
-    }, [data, isError, profileData])
+    }, [blogs, isBlogsError, isUserError, setBlogData]);
+
+    useEffect(() => {
+        if (user) {
+            setProfileData(user);
+        }
+    }, [user]);
 
 
     return (

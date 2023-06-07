@@ -23,10 +23,10 @@ const getSpecificBlog = async (blogid) => {
     return blog;
 };
 
-const updateBlog = async (blogid, updatedData) => {
+const updateBlog = async ({ blogid, updatedBlogData }) => {
 
     const url = apiEndpoint.blog.update.replace(':blogid', blogid);
-    const response = await axiosInstance.put(url, updatedData);
+    const response = await axiosInstance.put(url, updatedBlogData);
     const updatedBlog = response.data;
 
     return updatedBlog;

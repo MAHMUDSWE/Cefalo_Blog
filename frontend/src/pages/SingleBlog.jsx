@@ -64,7 +64,8 @@ export default function SingleBlog() {
                         </div>
 
                         <div className="flex items-center justify-between mt-4">
-                            <span className="text-violet-400">Read more</span>
+                            {/* <span className="text-violet-400">Read more</span> */}
+                            <span></span>
                             <div>
                                 <div className="flex items-center">
                                     <img src="https://source.unsplash.com/50x50/?portrait" alt="avatar" className="object-cover w-10 h-10 mx-4 rounded-full dark:bg-gray-500" />

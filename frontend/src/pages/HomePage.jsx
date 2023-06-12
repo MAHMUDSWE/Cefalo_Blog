@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import WhatsOnYourMind from '../components/blog/WhatsOnYourMind';
 import { AuthContext } from '../contexts/AuthContext';
 import SearchBar from '../components/shared/Search';
+import Pagination from '../components/shared/Pagination';
 
 
 export default function HomePage() {
@@ -26,6 +27,20 @@ export default function HomePage() {
     if (isError) {
         toast.error("Oops! Something went wrong. Please Try Again Later.");
     }
+
+    const onPageChange = (page) => {
+        const queryParams = new URLSearchParams(window.location.search);
+        queryParams.set('page', page);
+        // queryParams.set('limit', 10); 
+        const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+        window.history.pushState(null, null, newUrl);
+
+        setPagination({
+            ...pagination,
+            page
+        })
+    }
+
     return (
         <div>
             <Navbar />
@@ -43,8 +58,16 @@ export default function HomePage() {
                 </div>
 
                 <div className='lg:w-2/4 p-4 overflow-y-auto '>
-                    {isLoggedIn && <WhatsOnYourMind />}
-                    <BlogList blogs={data?.blogs} />
+                    <div>
+                        {isLoggedIn && <WhatsOnYourMind />}
+                        <BlogList blogs={data?.blogs} />
+                    </div>
+                    <Pagination
+                        currentPage={data?.currentPage}
+                        totalBlogs={data?.totalBlogs}
+                        totalPages={data?.totalPages}
+                        onPageChange={onPageChange}
+                    />
                 </div>
 
                 <div className='lg:w-1/4 items-center' >

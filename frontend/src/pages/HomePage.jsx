@@ -57,15 +57,3 @@ export default function HomePage() {
         </div>
     )
 }
-
-{/* <div className="lg:w-1/4 p-4 ">
-    <div className="sticky top-[84px]">
-        <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-6 mb-4">
-
-            <div className="w-32 h-32 bg-green-700 rounded-full mb-4">
-
-            </div>
-
-        </div>
-    </div>
-</div> */}

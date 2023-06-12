@@ -32,7 +32,7 @@ const updateBlog = async ({ blogid, updatedBlogData }) => {
     return updatedBlog;
 };
 
-const deleteBlog = async (blogid) => {
+const deleteBlog = async ({ blogid }) => {
 
     const url = apiEndpoint.blog.delete.replace(':blogid', blogid);
     const response = await axiosInstance.delete(url);

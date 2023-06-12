@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis, faShare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import EditBlogButton from './EditBlogButton';
 import { BlogContext } from '../../contexts/BlogContext';
+import DeleteBlogButton from './DeleteBlogButton';
 
 export default function EditDropdown({ blogid }) {
     const { setBlogId } = useContext(BlogContext);
@@ -64,12 +65,13 @@ export default function EditDropdown({ blogid }) {
                         <EditBlogButton />
                     </li>
                     <li>
-                        <button
+                        {/* <button
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                             onClick={() => console.log('delete')}
                         >
                             <FontAwesomeIcon icon={faTrash} className="mr-2" /> Delete
-                        </button>
+                        </button> */}
+                        <DeleteBlogButton />
                     </li>
                 </ul>
             )}

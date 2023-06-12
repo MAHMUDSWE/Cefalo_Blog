@@ -7,7 +7,8 @@ import { BlogService } from '../services/blog.service';
 import { toast } from 'react-toastify';
 import WhatsOnYourMind from '../components/blog/WhatsOnYourMind';
 import { AuthContext } from '../contexts/AuthContext';
-import Search from '../components/shared/Search';
+import SearchBar from '../components/shared/Search';
+
 
 export default function HomePage() {
     const { isLoggedIn } = useContext(AuthContext);
@@ -28,16 +29,31 @@ export default function HomePage() {
     return (
         <div>
             <Navbar />
-            <div className='flex flex-col'>
-                {/* <div>
-                md:flex-row-reverse
-                    <Search />
-                </div> */}
-                <div className='mt-1 flex flex-col mx-auto'>
+            <div className='mt-1 flex flex-col-reverse lg:flex-row  justify-center'>
+
+                <div className="lg:w-1/4 p-4 ">
+                    {/* <div className="sticky top-[84px]">
+                        <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-6 mb-4">
+                            <div className="w-32 h-32 bg-green-700 rounded-full mb-4">
+
+                            </div>
+                            <span></span>
+                        </div>
+                    </div> */}
+                </div>
+
+                <div className='lg:w-2/4 p-4 overflow-y-auto '>
                     {isLoggedIn && <WhatsOnYourMind />}
                     <BlogList blogs={data?.blogs} />
                 </div>
+
+                <div className='lg:w-1/4 items-center' >
+                    <div className='sticky items-center top-[84px] '>
+                        <SearchBar />
+                    </div>
+                </div>
             </div>
+
         </div>
     )
 }

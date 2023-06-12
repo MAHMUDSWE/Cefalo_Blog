@@ -13,6 +13,7 @@ import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import EditProfile from '../components/user/EditProfile';
 import UserService from '../services/user.service';
+import SearchBar from '../components/shared/Search';
 
 export default function ProfilePage() {
     const { username } = useParams();
@@ -38,13 +39,22 @@ export default function ProfilePage() {
     });
 
     useEffect(() => {
+        console.log(blogData);
+
+        const blogs = blogData;
+        setBlogData(blogs);
+    }, [blogData]);
+
+    useEffect(() => {
         if (blogs) {
             setBlogData(blogs);
         }
         if (isBlogsError || isUserError) {
             toast.error('Oops! Something went wrong. Please try again later.');
         }
-    }, [blogs, isBlogsError, isUserError, setBlogData]);
+    }, [blogs, isBlogsError, isUserError]);
+
+
 
     useEffect(() => {
         if (user) {
@@ -58,7 +68,7 @@ export default function ProfilePage() {
             <Navbar />
             <div className="mt-1 flex flex-col lg:flex-row  justify-center">
 
-                <div className="lg:w-1/3 p-4 ">
+                <div className="lg:w-1/4 p-4 ">
                     <div className="sticky top-[84px]">
                         <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-6 mb-4">
                             <div className="w-32 h-32 bg-green-700 rounded-full mb-4">
@@ -80,11 +90,21 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                <div className="lg:w-2/3 p-4 overflow-y-auto">
+                <div className="lg:w-2/4 p-4  overflow-y-auto">
                     <div>
                         <WhatsOnYourMind />
                     </div>
-                    <BlogList blogs={blogData?.blogs} />
+                    {blogData?.blogs ?
+                        (<BlogList blogs={blogData?.blogs} />)
+                        : (<div className='font-semibold text-lg text-center'>
+                            <h1>Not Posted Yet</h1>
+                        </div>)}
+                </div>
+
+                <div className='lg:w-1/4 items-center' >
+                    <div className='sticky items-center top-[84px] '>
+                        <SearchBar />
+                    </div>
                 </div>
             </div>
         </div>

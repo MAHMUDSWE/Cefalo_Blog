@@ -22,15 +22,15 @@ function Navbar() {
 
                 <div className="flex h-16 items-center justify-between">
 
-                    <div className=" md:flex md:items-center mt-1 mb-1 md:gap-12">
+                    <div className=" lg:w-1/3 md:flex md:items-center mt-1 mb-1 md:gap-12">
                         {/* <NavLink to="/"> */}
                         <CefaloBlogLogo />
                         {/* </NavLink> */}
                     </div>
 
-                    <div className="hidden lg:block">
+                    <div className="lg:w-1/3 hidden lg:block">
                         <nav aria-label="Site Nav" className=''>
-                            {(userMode || isLoggedIn) && <ul className="flex items-center gap-4 text-lg">
+                            {(userMode || isLoggedIn) && <ul className="flex justify-center items-center gap-4 text-lg">
                                 <li>
                                     <NavLink
                                         className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : "text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"}
@@ -69,8 +69,8 @@ function Navbar() {
                         </nav>
                     </div>
 
-                    <div className="hidden items-center gap-4 lg:block">
-                        <div className="sm:flex sm:gap-4">
+                    <div className="lg:w-1/3  hidden gap-4 lg:block">
+                        <div className="sm:flex justify-end sm:gap-4">
 
                             {isLoggedIn ?
                                 <ProfileDropdown />

@@ -1,51 +1,81 @@
+import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useQuery } from '@tanstack/react-query';
+import UserService from '../../services/user.service';
 
-const Search = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    }
+export default function SearchBar() {
+    const [searchText, setSearchText] = useState('');
+    const [isFocused, setIsFocused] = useState(false);
+    const inputRef = useRef(null);
+    const [searchResults, setSearchResult] = useState([]);
+
+    // const { data: user } = useQuery({
+    //     enabled: !!searchText,
+    //     queryKey: ['getUserByUsername', searchText],
+    //     queryFn: async () => await UserService.getUserByUsername(searchText),
+    //     staleTime: 60000
+    // });
+
+    // useEffect(() => {
+    //     if (user) {
+    //         setSearchResult(user);
+    //     }
+    // }, [user]);
+
+    const handleInputChange = (e) => {
+        setSearchText(e.target.value);
+    };
+
+    const handleClearSearch = () => {
+        setSearchText('');
+        inputRef.current.focus();
+    };
+
     return (
-        <div >
-            <div className=" bg-white border-2 rounded-md shadow-md">
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Search Blog...."
-                        name="search"
-                        className="bg-gray-200 p-4 text-base border-none rounded-l-md"
-                    />
-                    <button
-                        type="submit"
-                        className="bg-gray-200 p-4   text-base border-none rounded-r-md"
-                    >
-                        <FontAwesomeIcon icon={faSearch} />
+        <div className="flex-col mr-5 justify-center rounded-full">
+            <div
+                className={`flex items-center rounded-full gap-2 px-6 py-3 transition duration-300 ${isFocused
+                    ? 'bg-white border border-blue-400 shadow'
+                    : 'bg-[#EFF3F4]'
+                    }`}
+            >
+                <FontAwesomeIcon
+                    icon={faSearch}
+                    className={`mr-2 ${isFocused ? 'text-blue-400' : 'text-gray-500'}`}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Search Cefalo Blog"
+                    value={searchText}
+                    onChange={handleInputChange}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    ref={inputRef}
+                    className="outline-none bg-transparent flex-grow"
+                />
+                {(searchText) && (
+                    <button onClick={handleClearSearch} className=' w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center'>
+                        <FontAwesomeIcon
+                            icon={faTimes}
+                            className="text-white cursor-pointer"
+                        />
                     </button>
-                </form>
+                )}
             </div>
 
-            <div className="mt-4 bg-white border-2 rounded-md p-2 shadow-md hidden md:block">
-                <h3 className="text-left text-xl mt-2 mb-0 pl-4">Trending Blog for you</h3>
-                <div className="trending-contents">
-                    <div className=" p-2 hover:bg-gray-200">
-                        <p>Cricket . Trending</p>
-                        <h4>#ICCRankings</h4>
-                        <p>1,099 Blogs</p>
-                    </div>
-                    <div className=" p-2 hover:bg-gray-200">
-                        <p>Entertainment . Trending</p>
-                        <h4>#ChrisHemsworth</h4>
-                        <p>1,099 Blogs</p>
-                    </div>
-                    <div className=" p-2 hover:bg-gray-200">
-                        <p>Football . Trending</p>
-                        <h4>#LionelMessi</h4>
-                        <p>2,369 Blogs</p>
-                    </div>
+            {(isFocused && searchText.length > 0) && (
+                <div className="mt-4">
+                    {console.log(searchResults)}
                 </div>
-            </div>
+            )}
+
+            {(isFocused && searchText.length <= 0) && (
+                <div className=" px-8 py-4 z-10 shadow-md rounded-md">
+                    Try searching for people, topics, or keywords
+                </div>
+            )}
         </div>
     );
-};
-
-export default Search;
+}

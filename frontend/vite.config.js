@@ -19,5 +19,8 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    optimizeDeps: {
+      exclude: ["@fortawesome/fontawesome-svg-core"]
+    }
   };
 });

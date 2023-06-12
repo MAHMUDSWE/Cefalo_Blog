@@ -27,7 +27,7 @@ export default function BlogItem({ blog }) {
                 <Link rel="noopener noreferrer" to={`/blog/${blog.blogid}`} className="hover:underline text-violet-400">Read Blog</Link>
                 <div>
                     <Link rel="noopener noreferrer" to={`/${blog.username}`} className="flex items-center">
-                        <img src="https://source.unsplash.com/50x50/?portrait" alt="avatar" className="object-cover w-10 h-10 mx-2 rounded-full dark:bg-gray-500" />
+                        <img src={blog.username === authData.username ? "https://avatars.githubusercontent.com/u/61628453?v=4" : "https://source.unsplash.com/50x50/?portrait"} alt="avatar" className="object-cover w-10 h-10 mx-2 rounded-full dark:bg-gray-500" />
                         <span className="hover:underline text-teal-500 font-semibold text-xl">{blog.username}</span>
                     </Link>
                 </div>
@@ -35,3 +35,5 @@ export default function BlogItem({ blog }) {
         </div>
     )
 }
+
+// https://avatars.githubusercontent.com/u/61628453?v=4

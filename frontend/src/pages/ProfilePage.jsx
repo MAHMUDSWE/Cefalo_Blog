@@ -14,6 +14,7 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import EditProfile from '../components/user/EditProfile';
 import UserService from '../services/user.service';
 import SearchBar from '../components/shared/Search';
+import Pagination from '../components/shared/Pagination';
 
 export default function ProfilePage() {
     const { username } = useParams();
@@ -62,7 +63,18 @@ export default function ProfilePage() {
         }
     }, [user]);
 
+    const onPageChange = (page) => {
+        const queryParams = new URLSearchParams(window.location.search);
+        queryParams.set('page', page);
+        // queryParams.set('limit', 10); 
+        const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+        window.history.pushState(null, null, newUrl);
 
+        setPagination({
+            ...pagination,
+            page
+        })
+    }
     return (
         <div>
             <Navbar />
@@ -94,11 +106,19 @@ export default function ProfilePage() {
                     <div>
                         <WhatsOnYourMind />
                     </div>
-                    {blogData?.blogs ?
-                        (<BlogList blogs={blogData?.blogs} />)
-                        : (<div className='font-semibold text-lg text-center'>
-                            <h1>Not Posted Yet</h1>
-                        </div>)}
+                    <div>
+                        {blogData?.blogs ?
+                            (<BlogList blogs={blogData?.blogs} />)
+                            : (<div className='font-semibold text-lg text-center'>
+                                <h1>Not Posted Yet</h1>
+                            </div>)}
+                    </div>
+                    <Pagination
+                        currentPage={blogData?.currentPage}
+                        totalBlogs={blogData?.totalBlogs}
+                        totalPages={blogData?.totalPages}
+                        onPageChange={onPageChange}
+                    />
                 </div>
 
                 <div className='lg:w-1/4 items-center' >

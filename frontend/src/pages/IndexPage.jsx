@@ -13,21 +13,8 @@ function IndexPage() {
     };
 
     return (
-        <div className="flex flex-row h-screen bg-gray-100">
-            <div className="w-1/2 flex flex-col items-center justify-center">
-
-                {/* <div className='inline-flex items-center gap-4'>
-                    <img src={cefaloBlogLogo} className="w-70 h-70 " alt="Cefalo Blog Logo" />
-                    <h1 className='text-blue-600 text-6xl font-bold'>Cefalo Blog</h1>
-
-                </div>
-
-                <br />
-                <h1 className="text-center">
-                    <Link to="/home" className="text-blue-600 text-lg hover:underline" onClick={handleContinueAsGuestClick}>
-                        Continue as a guest
-                    </Link>
-                </h1> */}
+        <div className="flex flex-col h-screen bg-gray-100 sm:flex-row">
+            <div className="-mb-48 z-10 sm:mb-0 sm:w-1/2 flex flex-col items-center justify-center">
 
                 <CefaloBlogLogo />
 
@@ -37,7 +24,7 @@ function IndexPage() {
                     className="max-h-[500px] "
                 />
             </div>
-            <div className="w-1/2">
+            <div className="sm:w-1/2">
                 <Outlet />
             </div>
         </div>

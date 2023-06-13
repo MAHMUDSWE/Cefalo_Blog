@@ -8,6 +8,7 @@ import { faBars, faHome, faPerson, faUserFriends, faPenToSquare } from '@fortawe
 import CefaloBlogLogo from '../shared/CefaloBlogLogo';
 import { AuthContext } from '../../contexts/AuthContext';
 import ProfileDropdown from './profileDropDown';
+import SideNavToggleButton from './SideNavToggleButton';
 
 
 function Navbar() {
@@ -22,10 +23,8 @@ function Navbar() {
 
                 <div className="flex h-16 items-center justify-between">
 
-                    <div className=" lg:w-1/3 md:flex md:items-center mt-1 mb-1 md:gap-12">
-                        {/* <NavLink to="/"> */}
+                    <div className=" lg:w-1/3 flex items-center">
                         <CefaloBlogLogo />
-                        {/* </NavLink> */}
                     </div>
 
                     <div className="lg:w-1/3 hidden lg:block">
@@ -96,9 +95,7 @@ function Navbar() {
                     </div>
 
                     <div className="block lg:hidden">
-                        <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
-                            <FontAwesomeIcon icon={faBars} className="h-5 w-5" />
-                        </button>
+                        <SideNavToggleButton />
                     </div>
 
                 </div>

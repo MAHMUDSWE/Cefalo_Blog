@@ -85,7 +85,7 @@ export default function ProfilePage() {
                         <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-6 mb-4">
                             <div className="w-32 h-32 bg-green-700 rounded-full mb-4">
                                 <img
-                                    src="https://avatars.githubusercontent.com/u/61628453?v=4"
+                                    src={profileData?.username === authData?.username ? "https://avatars.githubusercontent.com/u/61628453?v=4" : "https://source.unsplash.com/50x50/?portrait"}
                                     alt="Profile"
                                     className="w-32 h-32 rounded-full"
                                 />
@@ -121,7 +121,7 @@ export default function ProfilePage() {
                     />
                 </div>
 
-                <div className='lg:w-1/4 items-center' >
+                <div className='lg:w-1/4  items-center' >
                     <div className='sticky items-center top-[84px] '>
                         <SearchBar />
                     </div>

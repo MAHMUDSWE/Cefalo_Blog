@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faCog, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faCog, faUser, faGreaterThan, faLessThan } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,19 +32,29 @@ function ProfileDropdown() {
     };
 
     return (
-        <div className="relative hover:bg-gray-100 text-lg px-3 py-3 rounded">
-            <button
+        <div className="relative text-lg  lg:rounded text-white lg:text-blue-600 hover:text-blue-600 hover:bg-gray-100">
+            <div
                 type="button"
-                className="flex items-center focus:outline-none"
+                className="w-full flex py-3 px-5 items-center focus:outline-none hover:cursor-pointer"
                 onClick={handleToggle}
             >
-                <span className="mr-4 font-bold text-blue-600">{authData.username}</span>
-                <img
-                    src="https://avatars.githubusercontent.com/u/61628453?v=4"
-                    alt="Profile"
-                    className="w-8 h-8 rounded-full"
-                />
-            </button>
+                <div>
+                    <span className="mr-4 font-bold ">{authData.username}</span>
+                </div>
+                <div>
+                    <img
+                        src="https://avatars.githubusercontent.com/u/61628453?v=4"
+                        alt="Profile"
+                        className="w-8 h-8 rounded-full"
+                    />
+                </div>
+                <div className='ml-10'>
+                    <FontAwesomeIcon
+                        icon={isOpen ? faLessThan : faGreaterThan}
+                        rotation={90}
+                    />
+                </div>
+            </div>
 
             {isOpen && (
                 <ul className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">

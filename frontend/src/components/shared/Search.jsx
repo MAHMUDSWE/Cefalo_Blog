@@ -33,7 +33,7 @@ export default function SearchBar() {
     };
 
     return (
-        <div className="flex-col mr-5 justify-center rounded-full">
+        <div className="container max-w-4xl px-4 py-4 flex-col justify-center rounded-full">
             <div
                 className={`flex items-center rounded-full gap-2 px-6 py-3 transition duration-300 ${isFocused
                     ? 'bg-white border border-blue-400 shadow'

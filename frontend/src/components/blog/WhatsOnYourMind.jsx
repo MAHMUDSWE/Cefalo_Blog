@@ -14,7 +14,7 @@ function WhatsOnYourMind() {
 
     return (
         <>
-            <div className="container  max-w-4xl px-10 py-6 bg-white p-4 mb-4 rounded-md shadow-md">
+            <div className="container  max-w-4xl px-10 py-6 p-4 mb-4 bg-white  rounded-md shadow-md">
                 <button
                     className="flex items-center gap-2 text-gray-500"
                     onClick={handleOpenModal}

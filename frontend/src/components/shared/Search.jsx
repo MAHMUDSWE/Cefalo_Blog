@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useQuery } from '@tanstack/react-query';
-import UserService from '../../services/user.service';
+import { BlogService } from '../../services/blog.service';
+import { Link } from 'react-router-dom';
 
 export default function SearchBar() {
     const [searchText, setSearchText] = useState('');
@@ -10,18 +11,18 @@ export default function SearchBar() {
     const inputRef = useRef(null);
     const [searchResults, setSearchResult] = useState([]);
 
-    // const { data: user } = useQuery({
-    //     enabled: !!searchText,
-    //     queryKey: ['getUserByUsername', searchText],
-    //     queryFn: async () => await UserService.getUserByUsername(searchText),
-    //     staleTime: 60000
-    // });
+    const { data: user } = useQuery({
+        enabled: !!searchText,
+        queryKey: ['skipLoading', 'getSearchResults', searchText],
+        queryFn: async () => await BlogService.getSearchResult(searchText),
+        staleTime: 15000
+    });
 
-    // useEffect(() => {
-    //     if (user) {
-    //         setSearchResult(user);
-    //     }
-    // }, [user]);
+    useEffect(() => {
+        if (user) {
+            setSearchResult(user);
+        }
+    }, [user]);
 
     const handleInputChange = (e) => {
         setSearchText(e.target.value);
@@ -65,9 +66,24 @@ export default function SearchBar() {
                 )}
             </div>
 
-            {(isFocused && searchText.length > 0) && (
-                <div className="mt-4">
-                    {console.log(searchResults)}
+            {(searchText.length > 0) && (
+                <div className="mt-4 h-40 sm:h-96 overflow-y-auto  z-10 shadow-md rounded-md">
+                    <ul>
+                        {/* Render the search results */}
+                        {searchResults.map((blog) => (
+                            <li key={blog.blogid} className="mb-2">
+                                <Link
+                                    to={`/blog/${blog.blogid}`}
+                                    className="text-blue-500 hover:underline"
+                                >
+                                    <div className='flex justify-between px-4 py-1 items-center gap-1'>
+                                        <span>{blog.title}</span>
+                                        <span>{blog.user.username}</span>
+                                    </div>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
 

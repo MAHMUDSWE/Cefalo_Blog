@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHome, faTimes, faPenToSquare, faPerson } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHome, faTimes, faPenToSquare, faPerson, faL } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import ProfileDropdown from './profileDropDown';
@@ -10,14 +10,39 @@ function SideNavToggleButton() {
     const [userMode, setUserMode] = useState(localStorage.getItem('userMode'));
     const [showSideNav, setShowSideNav] = useState(false);
 
+    const dropdownRef = useRef(null);
+    const dropdownButtonRef = useRef(null);
+
     const toggleSideNav = () => {
         setShowSideNav(!showSideNav);
     };
 
+    const closeDropdown = () => {
+        setShowSideNav(false);
+    }
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target) &&
+                !dropdownButtonRef.current.contains(event.target)
+            ) {
+                closeDropdown();
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
     return (
         <>
             {/* {showSideNav && ( */}
             <div
+                ref={dropdownRef}
                 className={`fixed top-16 z-0  left-0 w-full bg-white shadow-lg transform transition-transform duration-[5000] ease-in-out
                             ${showSideNav ? 'opacity-100 translate-x-0' : 'pointer-events-none opacity-0 -translate-x-full'}`}
             >
@@ -83,6 +108,7 @@ function SideNavToggleButton() {
 
 
             <button
+                ref={dropdownButtonRef}
                 className="rounded z-40 bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
                 onClick={toggleSideNav}
             >

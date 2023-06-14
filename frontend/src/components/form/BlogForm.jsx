@@ -1,8 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import validateInputs from '../../utils/formValidation.util';
 import ErrorShow from '../shared/ErrorShow';
 
+import SunEditor from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
+
+
 export default function BlogForm({ onSubmit, data, error, setError }) {
+
+    const editor = useRef();
+    const getSunEditorInstance = (sunEditor) => {
+        editor.current = sunEditor;
+    };
 
     const [inputs, setInputs] = useState({
         title: "",
@@ -34,6 +43,7 @@ export default function BlogForm({ onSubmit, data, error, setError }) {
         const value = event.target.value;
         setInputs(values => ({ ...values, [name]: value }))
     }
+
     const getTitleCharacterCount = () => {
         return inputs.title ? inputs.title.trim().length : 0;
     };

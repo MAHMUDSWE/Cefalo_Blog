@@ -54,10 +54,10 @@ export default function EditDropdown({ blogid }) {
                 <ul ref={dropdownRef} className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1">
                     <li>
                         <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                            className="block px-4 py-2 text-sm text-blue-500 hover:bg-gray-100 w-full text-left"
                             onClick={() => console.log('share')}
                         >
-                            <FontAwesomeIcon icon={faShare} className="mr-2" />
+                            <FontAwesomeIcon icon={faShare} className="mr-3" />
                             Share
                         </button>
                     </li>

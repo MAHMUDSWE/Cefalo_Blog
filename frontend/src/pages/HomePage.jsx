@@ -9,6 +9,7 @@ import WhatsOnYourMind from '../components/blog/WhatsOnYourMind';
 import { AuthContext } from '../contexts/AuthContext';
 import SearchBar from '../components/shared/Search';
 import Pagination from '../components/shared/Pagination';
+import CategorySection from '../components/blog/Category';
 
 
 export default function HomePage() {
@@ -46,14 +47,9 @@ export default function HomePage() {
             <Navbar />
             <div className='mt-1 flex flex-col-reverse lg:flex-row  justify-center'>
 
-                <div className="lg:w-1/4 p-4 ">
-                    {/* <div className="sticky top-[84px]">
-                        <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-6 mb-4">
-                            <div className="w-32 h-32 bg-green-700 rounded-full mb-4">
-
-                            </div>
-                            <span></span>
-                        </div>
+                <div className="lg:w-1/4 items-center">
+                    {/* <div className='sticky items-center top-[84px] '>
+                        <CategorySection />
                     </div> */}
                 </div>
 

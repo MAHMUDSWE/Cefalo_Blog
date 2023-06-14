@@ -46,14 +46,15 @@ export default function SingleBlog() {
 
                         <div className="border-t-2 border-b-2 mt-4 py-4 border-gray-900">
 
-                            <div className="flex items-center justify-between">
+                            <div className="flex-col sm:flex sm:flex-row items-center justify-between">
                                 <div>
                                     <span className="px-2 py-1 mb-2 font-bold rounded bg-violet-300 dark:text-gray-900 text-center">Published By {data.name}</span>
                                 </div>
 
-                                <div className='flex-col text-right'>
-                                    <div><span className="text-xl font-bold text-blue-950">Updated On: {dayjs(data.createdAt).format("MMMM DD, YYYY, hh:mma")}</span> </div>
-                                    <div><span className="font-semibold text-gray-500">Published: {dayjs(data.createdAt).format("MMMM DD, YYYY, hh:mma")}</span></div>
+                                <div className='flex-col sm:text-right'>
+                                    {(data.createdAt !== data.updatedAt) &&
+                                        <div><span className="hidden sm:block text-md font-bold text-blue-950">Updated On: {dayjs(data.createdAt).format("MMMM DD, YYYY")}</span> </div>}
+                                    <div><span className="px-2 text-sm font-semibold text-gray-500">Published: {dayjs(data.createdAt).format("MMMM DD, YYYY")}</span></div>
                                 </div>
                             </div>
                         </div>

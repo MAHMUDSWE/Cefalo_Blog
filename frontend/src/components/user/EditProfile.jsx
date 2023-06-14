@@ -11,7 +11,7 @@ export default function EditProfile({ profileData, setProfileData }) {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const username = useParams();
+    const username = useParams().username;
     const userUpdateMutation = useMutation({
         mutationFn: UserService.updateUserByUsername,
         onSuccess: (data) => {
@@ -26,6 +26,7 @@ export default function EditProfile({ profileData, setProfileData }) {
     });
 
     const onSubmit = async (updatedUserData) => {
+        console.log(username);
         await userUpdateMutation.mutateAsync({ username, updatedUserData });
     }
 

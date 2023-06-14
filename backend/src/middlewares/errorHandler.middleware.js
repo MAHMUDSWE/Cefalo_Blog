@@ -29,7 +29,7 @@ const notFound = (req, res, next) => {
  */
 
 const error = (err, req, res, next) => {
-
+    console.log(err);
     if (!(err instanceof HttpError)) {
 
         err.statusCode = StatusCode.INTERNAL_SERVER_ERROR;

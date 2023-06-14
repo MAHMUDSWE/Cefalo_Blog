@@ -79,6 +79,15 @@ const updateUser = async (userid, updateFields) => {
         throw new HttpError(StatusCode.NOT_FOUND, `User with id ${userid} not found`);
     }
 
+    if (await userRepository.getUserByEmail(updateFields?.email)) {
+
+        throw new HttpError(StatusCode.CONFLICT, 'Email already in use')
+    }
+
+    if (await userRepository.getUserByUsername(updateFields?.username)) {
+        throw new HttpError(StatusCode.CONFLICT, 'Username already in use')
+    }
+
     const updatedUser = await userRepository.updateUser(user, updateFields);
 
     return new UserDTO(updatedUser);
@@ -98,6 +107,7 @@ const deleteUser = async (userid) => {
     if (!user) {
         throw new HttpError(StatusCode.NOT_FOUND, `User with id ${userid} not found`);
     }
+
 
     await userRepository.deleteUser(userid);
 

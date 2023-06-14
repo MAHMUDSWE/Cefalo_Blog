@@ -49,6 +49,14 @@ const getBlogsByUser = async (username, { page, limit }) => {
     return blogs
 };
 
+const getSearchResult = async (query) => {
+    const url = apiEndpoint.blog.getSearchResult.replace(':query', query);
+    const response = await axiosInstance.get(url);
+    const result = response.data;
+
+    return result
+}
+
 export const BlogService = {
-    getAllBlogs, createBlog, getSpecificBlog, updateBlog, deleteBlog, getBlogsByUser
+    getAllBlogs, createBlog, getSpecificBlog, updateBlog, deleteBlog, getBlogsByUser, getSearchResult
 }

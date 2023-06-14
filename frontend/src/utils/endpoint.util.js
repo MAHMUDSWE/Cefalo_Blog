@@ -19,6 +19,7 @@ const apiEndpoint = {
         update: "/blog/:blogid",
         delete: "/blog/:blogid",
         getListByUser: "/blog/author/:username",
+        getSearchResult: "/blog/search/:query"
     },
 };
 

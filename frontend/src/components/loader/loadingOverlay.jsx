@@ -6,10 +6,14 @@ const LoadingOverlay = () => {
     const isFetching = useIsFetching();
     const isMutating = useIsMutating();
 
+    const skipLoading = useIsFetching({ queryKey: ['skipLoading'] });
+
     if (!isFetching && !isMutating) {
         return null;
     }
-
+    if (skipLoading) {
+        return null;
+    }
     return (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50">
             <object

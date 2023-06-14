@@ -164,11 +164,18 @@ const getBlogsByAuthorUsername = async (username, paginationParameter) => {
     };
 }
 
+const getSearchResults = async (query) => {
+    const result = await blogRepository.getSearchResults(query);
+
+    return result;
+}
+
 module.exports = {
     getAllBlogs,
     postBlog,
     getBlogById,
     updateBlogById,
     deleteBlogById,
-    getBlogsByAuthorUsername
+    getBlogsByAuthorUsername,
+    getSearchResults
 }

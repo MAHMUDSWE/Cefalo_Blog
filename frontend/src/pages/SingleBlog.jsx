@@ -53,7 +53,7 @@ export default function SingleBlog() {
 
                                 <div className='flex-col sm:text-right'>
                                     {(data.createdAt !== data.updatedAt) &&
-                                        <div><span className="hidden sm:block text-md font-bold text-blue-950">Updated On: {dayjs(data.createdAt).format("MMMM DD, YYYY")}</span> </div>}
+                                        <div><span className="hidden sm:block text-md font-bold text-blue-950">Updated On: {dayjs(data.updatedAt).format("MMMM DD, YYYY")}</span> </div>}
                                     <div><span className="px-2 text-sm font-semibold text-gray-500">Published: {dayjs(data.createdAt).format("MMMM DD, YYYY")}</span></div>
                                 </div>
                             </div>

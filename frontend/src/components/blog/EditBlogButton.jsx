@@ -17,10 +17,10 @@ function EditBlogButton() {
     return (
         <>
             <button
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                className="block px-4 py-2 text-sm text-blue-500 hover:bg-gray-100 w-full text-left"
                 onClick={handleOpenModal}
             >
-                <FontAwesomeIcon icon={faEdit} className="mr-2" /> Edit
+                <FontAwesomeIcon icon={faEdit} className="mr-3" /> Edit
             </button>
             {isModalOpen && <EditBlogModal onClose={handleCloseModal} />}
         </>

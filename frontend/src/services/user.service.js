@@ -20,6 +20,7 @@ const UserService = {
     },
 
     updateUserByUsername: async ({ username, updatedUserData }) => {
+        console.log(username);
         const endpoint = apiEndpoint.user.update.replace(':username', username);
         const response = await axiosInstance.put(endpoint, updatedUserData);
         return response.data;

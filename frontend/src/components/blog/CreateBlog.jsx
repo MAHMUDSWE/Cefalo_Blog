@@ -1,24 +1,27 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import BlogForm from '../form/BlogForm';
 import { BlogService } from '../../services/blog.service';
 import { toast } from 'react-toastify';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const CreateBlog = ({ onClose }) => {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
+    const queryClient = useQueryClient();
+    const { authData } = useContext(AuthContext)
 
     const blogCreateMutation = useMutation({
         mutationFn: BlogService.createBlog,
 
         onSuccess: (data) => {
-            console.log(data);
+            queryClient.invalidateQueries(['getBlogsByUser', authData.username, 1, 10]);
             toast.success("Blog Published Successfully");
             if (onClose) {
                 onClose();
             }
-            navigate('/home')
+            // navigate('/home')
         },
         onError: (data) => {
             if (data.response.status == 503) {

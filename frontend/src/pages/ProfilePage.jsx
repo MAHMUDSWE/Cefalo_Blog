@@ -40,8 +40,6 @@ export default function ProfilePage() {
     });
 
     useEffect(() => {
-        console.log(blogData);
-
         const blogs = blogData;
         setBlogData(blogs);
     }, [blogData]);

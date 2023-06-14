@@ -5,9 +5,9 @@ import validateInputs from '../../utils/formValidation.util';
 export default function EditProfileForm({ onSubmit, profileData, error, setError }) {
 
     const [inputs, setInputs] = useState({
-        name: profileData?.name,
-        email: profileData?.email,
-        username: profileData?.username
+        name: profileData?.name
+        // email: profileData?.email,
+        // username: profileData?.username
     });
 
     const handleChange = (event) => {
@@ -47,7 +47,7 @@ export default function EditProfileForm({ onSubmit, profileData, error, setError
                         className={`w-full px-3 py-2 border rounded focus:outline-none ${error ? 'border-red-500' : 'border-gray-300 focus:border-blue-500'}`}
                     />
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                     <label htmlFor="email" className="block font-medium mb-1">
                         Email
                     </label>
@@ -76,14 +76,16 @@ export default function EditProfileForm({ onSubmit, profileData, error, setError
                         required pattern="[a-z A-Z 0-9]+"
                         className={`w-full px-3 py-2 border rounded focus:outline-none ${error ? 'border-red-500' : 'border-gray-300 focus:border-blue-500'}`}
                     />
-                </div>
+                </div> */}
                 <ErrorShow error={error} />
-                <button
-                    type="submit"
-                    className="w-full bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600"
-                >
-                    Update Profile
-                </button>
+                <div className="flex justify-center">
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600"
+                    >
+                        SAVE
+                    </button>
+                </div>
             </form>
         </>
     )

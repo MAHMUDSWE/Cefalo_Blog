@@ -8,6 +8,8 @@ import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import EditDropdown from '../components/blog/EditDropDown';
 import { AuthContext } from '../contexts/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBlog } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function SingleBlog() {
@@ -35,7 +37,7 @@ export default function SingleBlog() {
 
                         <div className="flex items-center justify-between">
                             <div>
-                                <h2 className="text-blue-950 text-4xl font-bold ">{data?.title}</h2>
+                                <h2 className="text-blue-950 text-4xl font-bold "><FontAwesomeIcon icon={faBlog} size='lg' /> {data?.title}</h2>
                             </div>
 
                             {(data.username === authData.username) && <div>
@@ -48,13 +50,19 @@ export default function SingleBlog() {
 
                             <div className="flex-col sm:flex sm:flex-row items-center justify-between">
                                 <div>
-                                    <span className="px-2 py-1 mb-2 font-bold rounded bg-violet-300 dark:text-gray-900 text-center">Published By {data.name}</span>
+                                    <span className="px-2 line-clamp-1 py-1 mb-2 font-bold rounded bg-violet-300 dark:text-gray-900 text-left">
+                                        Published By <Link to={`/${data.username}`}>{data.name}</Link>
+                                    </span>
                                 </div>
 
                                 <div className='flex-col sm:text-right'>
                                     {(data.createdAt !== data.updatedAt) &&
-                                        <div><span className="hidden sm:block text-md font-bold text-blue-950">Updated On: {dayjs(data.updatedAt).format("MMMM DD, YYYY")}</span> </div>}
-                                    <div><span className="px-2 text-sm font-semibold text-gray-500">Published: {dayjs(data.createdAt).format("MMMM DD, YYYY")}</span></div>
+                                        <div><span className="hidden sm:block text-lg font-bold text-blue-950">Updated On: {dayjs(data.updatedAt).format("MMMM DD, YYYY")}</span> </div>}
+                                    <div>
+                                        <span className={`px-2 text-sm  font-semibold text-gray-500 ${(data.createdAt === data.updatedAt && `sm:text-lg`)} `}>
+                                            Published: {dayjs(data.createdAt).format("MMMM DD, YYYY")}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

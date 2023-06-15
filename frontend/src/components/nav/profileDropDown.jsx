@@ -1,20 +1,16 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faCog, faUser, faGreaterThan, faLessThan } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faUser, faGreaterThan, faLessThan } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-
-import { removeAccessToken } from '../../utils/token.util';
-import { toast } from 'react-toastify';
 import Logout from '../auth/Logout';
 
 
 function ProfileDropdown() {
-    const navigate = useNavigate();
     const dropdownRef = useRef(null);
     const dropdownButtonRef = useRef(null);
-    const { authData, setAuthData, setIsLoggedIn } = useContext(AuthContext);
+    const { authData } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
 
     const handleToggle = () => {
@@ -56,11 +52,11 @@ function ProfileDropdown() {
     }, []);
 
     return (
-        <div className="relative text-lg  lg:rounded text-white lg:text-blue-600 hover:text-blue-600 hover:bg-gray-100">
+        <div className="relative text-lg  lg:rounded text-white lg:text-blue-600 hover:text-blue-600 ">
             <div
                 type="button"
                 ref={dropdownButtonRef}
-                className="w-full flex py-3 px-5 items-center focus:outline-none hover:cursor-pointer"
+                className="w-full border-2 flex py-2 px-5 items-center focus:outline-none hover:cursor-pointer"
                 onClick={handleToggle}
             >
                 <div>
@@ -77,6 +73,7 @@ function ProfileDropdown() {
                     <FontAwesomeIcon
                         icon={isOpen ? faLessThan : faGreaterThan}
                         rotation={90}
+                        size='sm'
                     />
                 </div>
             </div>
@@ -85,7 +82,7 @@ function ProfileDropdown() {
                 <ul ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
                     <li>
                         <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left "
+                            className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-500 w-full text-left "
                             onClick={() => handleOptionClick('Account')}
                         >
                             <FontAwesomeIcon icon={faUser} className="mr-2" />
@@ -94,7 +91,7 @@ function ProfileDropdown() {
                     </li>
                     <li>
                         <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-500 w-full text-left"
                             onClick={() => handleOptionClick('Settings')}
                         >
                             <FontAwesomeIcon icon={faCog} className="mr-2" />

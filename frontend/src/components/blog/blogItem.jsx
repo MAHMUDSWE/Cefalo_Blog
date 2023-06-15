@@ -3,6 +3,8 @@ import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import EditDropdown from './EditDropDown'
 import { AuthContext } from '../../contexts/AuthContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBlog } from '@fortawesome/free-solid-svg-icons'
 
 export default function BlogItem({ blog }) {
     const { authData } = useContext(AuthContext);
@@ -12,7 +14,7 @@ export default function BlogItem({ blog }) {
 
             <div className="flex items-center justify-between">
                 <div>
-                    <Link rel="noopener noreferrer" to={`/blog/${blog.blogid}`} className="text-2xl font-bold hover:underline">{blog.title}</Link> <br />
+                    <Link rel="noopener noreferrer" to={`/blog/${blog.blogid}`} className="text-2xl font-bold "><FontAwesomeIcon icon={faBlog} size='lg' /> {blog.title}</Link> <br />
                     <span className="font-bold text-blue-900">{dayjs(blog.createdAt).format("MMMM DD, YYYY, hh:mma")}</span>
                 </div>
                 {((blog.username === authData.username) && location.pathname !== "/home") && <div>

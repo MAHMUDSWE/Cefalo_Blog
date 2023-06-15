@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHome, faPerson, faUserFriends, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHome, faPerson, faUserFriends, faPenToSquare, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import CefaloBlogLogo from '../shared/CefaloBlogLogo';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -24,15 +24,20 @@ function Navbar() {
                 <div className="flex h-16 items-center justify-between">
 
                     <div className=" lg:w-1/3 flex items-center">
-                        <CefaloBlogLogo />
+                        <NavLink
+                            className='mt-1'
+                            to='/home'>
+                            <CefaloBlogLogo />
+                        </NavLink>
                     </div>
 
                     <div className="lg:w-1/3 hidden lg:block">
                         <nav aria-label="Site Nav" className=''>
                             {(userMode || isLoggedIn) && <ul className="flex justify-center items-center gap-4 text-lg">
-                                <li>
+                                <li className='border-b-blue-500'>
                                     <NavLink
-                                        className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : "text-gray-1000 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"}
+                                        className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
+                                        // className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : "text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"}
                                         to="/home"
                                     >
                                         <FontAwesomeIcon icon={faHome} className="mr-2 text-lg " />
@@ -42,8 +47,9 @@ function Navbar() {
 
                                 <li>
                                     <NavLink
-                                        className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
-                                            , !isLoggedIn && 'disabled')}
+                                        className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
+                                        // className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
+                                        //     , !isLoggedIn && 'disabled')}
 
                                         to="/write"
                                         disabled
@@ -55,12 +61,13 @@ function Navbar() {
 
                                 <li>
                                     <NavLink
-                                        className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
-                                            , !isLoggedIn && 'disabled')}
+                                        className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
+                                        // className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
+                                        //     , !isLoggedIn && 'disabled')}
                                         to={`/${authData.username}`}
 
                                     >
-                                        <FontAwesomeIcon icon={faPerson} className="mr-2 text-lg" />
+                                        <FontAwesomeIcon icon={faUser} className="mr-2 text-lg" />
                                         Profile
                                     </NavLink>
                                 </li>

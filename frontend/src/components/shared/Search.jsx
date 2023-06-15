@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBlog, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useQuery } from '@tanstack/react-query';
 import { BlogService } from '../../services/blog.service';
 import { Link } from 'react-router-dom';
@@ -34,11 +34,11 @@ export default function SearchBar() {
     };
 
     return (
-        <div className="container max-w-4xl px-4 py-4 flex-col justify-center rounded-full">
+        <div className="relative container max-w-4xl mx-auto px-4 py-4">
             <div
                 className={`flex items-center rounded-full gap-2 px-6 py-3 transition duration-300 ${isFocused
                     ? 'bg-white border border-blue-400 shadow'
-                    : 'bg-[#EFF3F4]'
+                    : 'bg-[#EFF3F4] border border-[#EFF3F4]'
                     }`}
             >
                 <FontAwesomeIcon
@@ -54,10 +54,13 @@ export default function SearchBar() {
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     ref={inputRef}
-                    className="outline-none bg-transparent flex-grow"
+                    className="flex-grow outline-none bg-transparent"
                 />
-                {(searchText) && (
-                    <button onClick={handleClearSearch} className=' w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center'>
+                {searchText && (
+                    <button
+                        onClick={handleClearSearch}
+                        className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center"
+                    >
                         <FontAwesomeIcon
                             icon={faTimes}
                             className="text-white cursor-pointer"
@@ -66,19 +69,15 @@ export default function SearchBar() {
                 )}
             </div>
 
-            {(searchText.length > 0) && (
-                <div className="mt-4 h-40 sm:h-96 overflow-y-auto  z-10 shadow-md rounded-md">
+            {searchText.length > 0 && (
+                <div className="absolute mx-auto mt-1 inset-x-0 w-[92%] sm:w-[95%] max-h-40 lg:max-h-96 overflow-y-auto z-20 drop-shadow-sm shadow-[0px_3px_0px_0px] shadow-blue-500 rounded-md bg-white">
                     <ul>
-                        {/* Render the search results */}
                         {searchResults.map((blog) => (
-                            <li key={blog.blogid} className="mb-2">
-                                <Link
-                                    to={`/blog/${blog.blogid}`}
-                                    className="text-blue-500 hover:underline"
-                                >
-                                    <div className='flex justify-between px-4 py-1 items-center gap-1'>
-                                        <span>{blog.title}</span>
-                                        <span>{blog.user.username}</span>
+                            <li key={blog.blogid} className="gap-1 border-b-2 border-blue-200">
+                                <Link to={`/blog/${blog.blogid}`} className="text-blue-500">
+                                    <div className="flex py-2 pl-6 pr-8 hover:bg-indigo-50 justify-between items-center gap-2">
+                                        <span className="line-clamp-2"><FontAwesomeIcon icon={faBlog} /> {blog.title}</span>
+                                        <span >{blog.user.username}</span>
                                     </div>
                                 </Link>
                             </li>
@@ -87,9 +86,19 @@ export default function SearchBar() {
                 </div>
             )}
 
-            {(isFocused && searchText.length <= 0) && (
-                <div className=" px-8 py-4 z-10 shadow-md rounded-md">
-                    Try searching for people, topics, or keywords
+            {(searchText.length > 0 && searchResults.length === 0) && (
+                <div
+                    className="absolute flex-col mx-auto mt-1 inset-x-0  w-[92%] sm:w-[95%] z-20 p-7 shadow-[0px_3px_0px_0px] text-center shadow-blue-500 rounded-md bg-white">
+                    <span><FontAwesomeIcon icon={faSearch} size='lg' /></span>
+                    <span className='text-lg'> No Results Found </span>
+                    <div>Try with specific keywords for better result</div>
+                </div>
+            )}
+
+            {isFocused && searchText.length <= 0 && (
+                <div
+                    className="absolute mx-auto mt-1 inset-x-0  w-[92%] sm:w-[95%] z-20 p-8 shadow-[0px_3px_0px_0px] text-center shadow-blue-500 rounded-md bg-white">
+                    <span className='text-lg'>Try searching for blog, author, or keywords</span>
                 </div>
             )}
         </div>

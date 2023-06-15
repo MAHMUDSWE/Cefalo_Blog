@@ -1,9 +1,37 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHome, faTimes, faPenToSquare, faPerson, faL } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHome, faTimes, faPenToSquare, faPerson, faL, faUser, faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import ProfileDropdown from './profileDropDown';
+
+function LoggedOutSection() {
+
+    return (
+        <ul>
+            <li className='gap-1 border-b-2 border-blue-200'>
+                <NavLink
+                    to="/login"
+                >
+                    <div className=' text-white text-xl  px-6 py-2'>
+                        <FontAwesomeIcon icon={faRightToBracket} className="mr-2" />
+                        Login
+                    </div>
+                </NavLink>
+            </li>
+            <li className='gap-1 border-b-2 border-blue-200'>
+                <NavLink
+                    to="/signup"
+                >
+                    <div className='bg-gray-100 text-blue-600 text-xl  px-6 py-2 hover:bg-blue-400'>
+                        <FontAwesomeIcon icon={faUser} className="mr-2" />
+                        Register
+                    </div>
+                </NavLink>
+            </li>
+        </ul>
+    )
+}
 
 function SideNavToggleButton() {
     const { authData, isLoggedIn } = useContext(AuthContext);
@@ -51,54 +79,47 @@ function SideNavToggleButton() {
                     <div className="block ">
                         <nav aria-label="Site Nav">
                             {(userMode || isLoggedIn) && (
-                                <ul className="flex flex-col justify-between items-center  ">
+                                // className="flex flex-col justify-between items-center  "
+                                <ul >
+                                    <li className='gap-1 border-b-2 border-blue-200'>
+                                        <NavLink
+                                            to="/home"
+                                        >
+                                            <div className=' text-white text-xl  px-6 py-2 hover:bg-blue-400'>
+                                                <FontAwesomeIcon icon={faHome} className="mr-2" />
+                                                Home
+                                            </div>
+                                        </NavLink>
+                                    </li>
 
-                                    <NavLink
-                                        className='text-white text-xl w-full px-6 py-2 hover:bg-gray-100 hover:text-blue-600'
-                                        to="/home"
-                                    >
-                                        <FontAwesomeIcon icon={faHome} className="mr-2 text-xl" />
-                                        Home
-                                    </NavLink>
+                                    <li className='gap-1 border-b-2 border-blue-200'>
+                                        <NavLink
+                                            to="/write"
+                                        >
+                                            <div className=' text-white text-xl  px-6 py-2 hover:bg-blue-400'>
+                                                <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
+                                                Write
+                                            </div>
+                                        </NavLink>
+                                    </li>
 
-                                    <NavLink
-                                        className='text-white text-xl w-full px-6 py-2 hover:bg-gray-100 hover:text-blue-600'
-                                        to="/write"
-                                    >
-                                        <FontAwesomeIcon icon={faPenToSquare} className="mr-2 text-xl" />
-                                        Write
-                                    </NavLink>
-
-                                    <NavLink
-                                        className='text-white text-xl w-full px-6 py-2 hover:bg-gray-100 hover:text-blue-600'
-                                        to={`/${authData.username}`}
-                                    >
-                                        <FontAwesomeIcon icon={faPerson} className="mr-2 text-xl" />
-                                        Profile
-                                    </NavLink>
-
+                                    <li className='gap-1 border-b-2 border-blue-200'>
+                                        <NavLink
+                                            to={`/${authData.username}`}
+                                        >
+                                            <div className=' text-white text-xl  px-6 py-2 hover:bg-blue-400'>
+                                                <FontAwesomeIcon icon={faUser} className="mr-2" />
+                                                Profile
+                                            </div>
+                                        </NavLink>
+                                    </li>
                                 </ul>
                             )}
                         </nav>
                         {isLoggedIn ?
                             <ProfileDropdown />
                             :
-                            <>
-                                <NavLink
-                                    className="rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                                    to="/login"
-                                >
-                                    Login
-                                </NavLink>
-
-
-                                <NavLink
-                                    className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600"
-                                    to="/signup"
-                                >
-                                    Register
-                                </NavLink>
-                            </>
+                            <LoggedOutSection />
                         }
                     </div>
 

@@ -77,7 +77,9 @@ export default function ProfilePage() {
         <div>
             <Navbar />
             <div className="mt-1 flex flex-col lg:flex-row  justify-center">
-
+                <div className='lg:hidden'>
+                    <SearchBar />
+                </div>
                 <div className="lg:w-1/4 p-4 ">
                     <div className="sticky top-[84px]">
                         <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-6 mb-4">
@@ -119,7 +121,7 @@ export default function ProfilePage() {
                     />
                 </div>
 
-                <div className='lg:w-1/4  items-center' >
+                <div className='hidden lg:block lg:w-1/4  items-center' >
                     <div className='sticky items-center top-[84px] '>
                         <SearchBar />
                     </div>

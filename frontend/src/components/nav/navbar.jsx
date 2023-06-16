@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { twMerge } from 'tailwind-merge'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHome, faPerson, faUserFriends, faPenToSquare, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faPenToSquare, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import CefaloBlogLogo from '../shared/CefaloBlogLogo';
 import { AuthContext } from '../../contexts/AuthContext';
-import ProfileDropdown from './profileDropDown';
 import SideNavToggleButton from './SideNavToggleButton';
+import SideNav from './SideNav';
+import ProfileDropDownButton from './ProfileDropDownButton';
+import ProfileDropDown from './profileDropDown';
 
 function LoggedOutSection() {
     return (
@@ -31,88 +32,110 @@ function LoggedOutSection() {
     )
 }
 
+function NavMenu({ authData }) {
+    return (
+        <>
+            <ul className="flex justify-center items-center gap-4 text-lg">
+                <li className='border-b-blue-500'>
+                    <NavLink
+                        className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
+                        to="/home"
+                    >
+                        <FontAwesomeIcon icon={faHome} className="mr-2 text-lg " />
+                        Home
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink
+                        className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
+                        to="/write"
+                        disabled
+                    >
+                        <FontAwesomeIcon icon={faPenToSquare} className="mr-2 text-lg" />
+                        Write
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink
+                        className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
+                        to={`/${authData.username}`}
+
+                    >
+                        <FontAwesomeIcon icon={faUser} className="mr-2 text-lg" />
+                        Profile
+                    </NavLink>
+                </li>
+            </ul>
+        </>
+    )
+}
+
 function Navbar() {
 
     const { authData, isLoggedIn } = useContext(AuthContext);
     const [userMode, setUserMode] = useState(localStorage.getItem('userMode'));
 
+    const [showSideNav, setShowSideNav] = useState(false);
+    const [showDropDown, setShowDropDown] = useState(false);
+
+    const showSideNavCallback = (value) => {
+        setShowSideNav(value);
+    }
+
+    const showDropDownCallback = (value) => {
+        setShowDropDown(value);
+    }
+
     return (
-        <header aria-label="Site Header" className="bg-white shadow-md sticky top-0 z-50">
+        <>
+            <header aria-label="Site Header" className="bg-white shadow-md sticky top-0 z-50">
 
-            <div className=" px-4 sm:px-6 lg:px-8">
+                <div className=" px-4 sm:px-6 lg:px-8">
 
-                <div className="flex h-16 items-center justify-between">
+                    <div className="flex h-16 items-center justify-between">
 
-                    <div className=" lg:w-1/3 flex items-center">
-                        <NavLink
-                            className='mt-1'
-                            to='/home'>
-                            <CefaloBlogLogo />
-                        </NavLink>
-                    </div>
+                        <div className=" lg:w-1/3 flex items-center">
+                            <NavLink
+                                className='mt-1'
+                                to='/home'>
+                                <CefaloBlogLogo />
+                            </NavLink>
+                        </div>
 
-                    <div className="lg:w-1/3 hidden lg:block">
-                        <nav aria-label="Site Nav" className=''>
-                            {(userMode || isLoggedIn) && <ul className="flex justify-center items-center gap-4 text-lg">
-                                <li className='border-b-blue-500'>
-                                    <NavLink
-                                        className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
-                                        // className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : "text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"}
-                                        to="/home"
-                                    >
-                                        <FontAwesomeIcon icon={faHome} className="mr-2 text-lg " />
-                                        Home
-                                    </NavLink>
-                                </li>
+                        <div className="lg:w-1/3 hidden lg:block">
+                            <nav aria-label="Site Nav" className=''>
+                                {(userMode || isLoggedIn) &&
+                                    <NavMenu authData={authData} />
+                                }
+                            </nav>
+                        </div>
 
-                                <li>
-                                    <NavLink
-                                        className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
-                                        // className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
-                                        //     , !isLoggedIn && 'disabled')}
+                        <div className="lg:w-1/3  hidden gap-4 lg:block">
+                            <div className="sm:flex justify-end sm:gap-4">
 
-                                        to="/write"
-                                        disabled
-                                    >
-                                        <FontAwesomeIcon icon={faPenToSquare} className="mr-2 text-lg" />
-                                        Write
-                                    </NavLink>
-                                </li>
-
-                                <li>
-                                    <NavLink
-                                        className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
-                                        // className={({ isActive }) => isActive ? "text-blue-600 bg-blue-100 text-lg px-3 py-3 rounded-md" : twMerge("text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md"
-                                        //     , !isLoggedIn && 'disabled')}
-                                        to={`/${authData.username}`}
-
-                                    >
-                                        <FontAwesomeIcon icon={faUser} className="mr-2 text-lg" />
-                                        Profile
-                                    </NavLink>
-                                </li>
-                            </ul>}
-                        </nav>
-                    </div>
-
-                    <div className="lg:w-1/3  hidden gap-4 lg:block">
-                        <div className="sm:flex justify-end sm:gap-4">
-
-                            {isLoggedIn ?
-                                <ProfileDropdown />
-                                :
-                                <LoggedOutSection />
-                            }
+                                {isLoggedIn ?
+                                    <ProfileDropDownButton showDropDownCallback={showDropDownCallback} />
+                                    :
+                                    <LoggedOutSection />
+                                }
+                            </div>
+                        </div>
+                        <div className="block lg:hidden">
+                            <SideNavToggleButton showSideNavCallback={showSideNavCallback} />
                         </div>
                     </div>
 
-                    <div className="block lg:hidden">
-                        <SideNavToggleButton />
-                    </div>
                 </div>
-
+            </header>
+            <div className='block lg:hidden'>
+                <SideNav showSideNav={showSideNav} showDropDown={showDropDown} showDropDownCallback={showDropDownCallback} />
             </div>
-        </header>
+            <div className='hidden lg:block'>
+                <ProfileDropDown showDropDown={showDropDown} />
+            </div>
+        </>
     );
 }
 

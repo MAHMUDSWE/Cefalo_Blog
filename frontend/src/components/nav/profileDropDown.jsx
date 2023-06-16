@@ -52,11 +52,11 @@ function ProfileDropdown() {
     }, []);
 
     return (
-        <div className="relative text-lg  lg:rounded text-white lg:text-blue-600 hover:text-blue-600 ">
+        <div className="relative text-lg  lg:rounded text-white lg:text-blue-600 ">
             <div
                 type="button"
                 ref={dropdownButtonRef}
-                className="w-full border-2 flex py-2 px-5 items-center focus:outline-none hover:cursor-pointer"
+                className="w-full z-10 lg:border-2 flex py-2 px-5 items-center focus:outline-none hover:cursor-pointer"
                 onClick={handleToggle}
             >
                 <div>
@@ -78,32 +78,34 @@ function ProfileDropdown() {
                 </div>
             </div>
 
-            {isOpen && (
-                <ul ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
-                    <li>
-                        <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-500 w-full text-left "
-                            onClick={() => handleOptionClick('Account')}
-                        >
-                            <FontAwesomeIcon icon={faUser} className="mr-2" />
-                            Account
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-500 w-full text-left"
-                            onClick={() => handleOptionClick('Settings')}
-                        >
-                            <FontAwesomeIcon icon={faCog} className="mr-2" />
-                            Settings
-                        </button>
-                    </li>
-                    <li>
-                        <Logout />
-                    </li>
+            <ul
+                ref={dropdownRef}
+                className={`absolute z-0 right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 transform transition-transform duration-[5000] ease-in-out
+                    ${isOpen ? 'opacity-100 translate-x-0' : 'pointer-events-none opacity-0 -translate-x-full'}`}
+            >
+                <li>
+                    <button
+                        className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-500 w-full text-left "
+                        onClick={() => handleOptionClick('Account')}
+                    >
+                        <FontAwesomeIcon icon={faUser} className="mr-2" />
+                        Account
+                    </button>
+                </li>
+                <li>
+                    <button
+                        className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-500 w-full text-left"
+                        onClick={() => handleOptionClick('Settings')}
+                    >
+                        <FontAwesomeIcon icon={faCog} className="mr-2" />
+                        Settings
+                    </button>
+                </li>
+                <li>
+                    <Logout />
+                </li>
 
-                </ul>
-            )}
+            </ul>
         </div>
     );
 }

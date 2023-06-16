@@ -1,21 +1,37 @@
 import dayjs from 'dayjs'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import EditDropdown from './EditDropDown'
 import { AuthContext } from '../../contexts/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBlog } from '@fortawesome/free-solid-svg-icons'
 
+
 export default function BlogItem({ blog }) {
     const { authData } = useContext(AuthContext);
     const location = useLocation();
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
         <div className="container text-black max-w-4xl px-10 py-6 rounded-lg mb-2 shadow-md ">
 
             <div className="flex items-center justify-between">
                 <div>
                     <Link rel="noopener noreferrer" to={`/blog/${blog.blogid}`} className="text-2xl font-bold "><FontAwesomeIcon icon={faBlog} size='lg' /> {blog.title}</Link> <br />
-                    <span className="font-bold text-blue-900">{dayjs(blog.createdAt).format("MMMM DD, YYYY, hh:mma")}</span>
+                    <div className='relative'>
+                        <span
+                            className=" font-semibold text-blue-900"
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                        >
+                            {dayjs(blog.createdAt).format("DD MMMM, YYYY")}
+                        </span>
+                    </div>
+                    {isHovered && (
+                        <span className="bg-black absolute text-white text-sm p-2 rounded-lg">
+                            {dayjs(blog.createdAt).format("dddd, DD MMMM, YYYY, hh:mma")}
+                        </span>
+                    )}
                 </div>
                 {((blog.username === authData.username) && location.pathname !== "/home") && <div>
                     <EditDropdown blogid={blog.blogid} />

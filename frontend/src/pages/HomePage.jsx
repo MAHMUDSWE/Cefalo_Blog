@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query';
 
 import Navbar from '../components/nav/navbar'
@@ -9,8 +9,6 @@ import WhatsOnYourMind from '../components/blog/WhatsOnYourMind';
 import { AuthContext } from '../contexts/AuthContext';
 import SearchBar from '../components/shared/Search';
 import Pagination from '../components/shared/Pagination';
-import CategorySection from '../components/blog/Category';
-
 
 export default function HomePage() {
     const { isLoggedIn } = useContext(AuthContext);
@@ -25,10 +23,6 @@ export default function HomePage() {
         staleTime: 10000
     });
 
-    if (isError) {
-        toast.error("Oops! Something went wrong. Please Try Again Later.");
-    }
-
     const onPageChange = (page) => {
         const queryParams = new URLSearchParams(window.location.search);
         queryParams.set('page', page);
@@ -41,6 +35,12 @@ export default function HomePage() {
             page
         })
     }
+
+    useEffect(() => {
+        if (isError) {
+            toast.error("Oops! Something went wrong. Please Try Again Later.");
+        }
+    }, [isError])
 
     return (
         <div>

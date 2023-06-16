@@ -68,7 +68,6 @@ function SideNavToggleButton() {
     }, []);
     return (
         <>
-            {/* {showSideNav && ( */}
             <div
                 ref={dropdownRef}
                 className={`fixed top-16 z-0  left-0 w-full bg-white shadow-lg transform transition-transform duration-[5000] ease-in-out
@@ -79,7 +78,6 @@ function SideNavToggleButton() {
                     <div className="block ">
                         <nav aria-label="Site Nav">
                             {(userMode || isLoggedIn) && (
-                                // className="flex flex-col justify-between items-center  "
                                 <ul >
                                     <li className='gap-1 border-b-2 border-blue-200'>
                                         <NavLink
@@ -125,7 +123,6 @@ function SideNavToggleButton() {
 
                 </div>
             </div>
-            {/* )} */}
 
 
             <button

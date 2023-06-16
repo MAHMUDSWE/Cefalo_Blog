@@ -51,7 +51,7 @@ export default function EditDropdown({ blogid }) {
             </button>
 
             {isOpen && (
-                <ul ref={dropdownRef} className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1">
+                <ul ref={dropdownRef} className="absolute z-30 right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1">
                     <li>
                         <button
                             className="block px-4 py-2 text-sm text-blue-500 hover:bg-gray-100 w-full text-left"

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../components/nav/navbar'
 import { BlogService } from '../services/blog.service';
 import { useQuery } from '@tanstack/react-query';
@@ -15,6 +15,8 @@ import { faBlog } from '@fortawesome/free-solid-svg-icons';
 export default function SingleBlog() {
     const { authData } = useContext(AuthContext);
     const { blogid } = useParams();
+    const [updateIsHovered, setUpdatedIsHovered] = useState(false);
+    const [createdIsHovered, setCreatedIsHovered] = useState(false);
 
     const { data, isError } = useQuery({
         queryKey: ["getBlogById", blogid],
@@ -55,13 +57,46 @@ export default function SingleBlog() {
                                     </span>
                                 </div>
 
-                                <div className='flex-col sm:text-right'>
+                                <div className='flex-col '>
                                     {(data.createdAt !== data.updatedAt) &&
-                                        <div><span className="hidden sm:block text-lg font-bold text-blue-950">Updated On: {dayjs(data.updatedAt).format("MMMM DD, YYYY")}</span> </div>}
+                                        <div>
+                                            <div className='relative'>
+                                                <span
+                                                    className="hidden sm:block text-lg font-bold text-blue-950"
+                                                    onMouseEnter={() => setUpdatedIsHovered(true)}
+                                                    onMouseLeave={() => setUpdatedIsHovered(false)}
+                                                >
+
+                                                    Updated On: {dayjs(data.updatedAt).format("DD MMMM, YYYY")}</span>
+                                            </div>
+                                            {updateIsHovered && (
+                                                <span className="bg-black z-20 absolute text-white text-sm p-2 rounded-lg">
+                                                    {dayjs(data.updatedAt).format("dddd, DD MMMM, YYYY, hh:mma")}
+                                                </span>
+                                            )}
+                                        </div>
+                                    }
                                     <div>
-                                        <span className={`px-2 text-sm  font-semibold text-gray-500 ${(data.createdAt === data.updatedAt && `sm:text-lg`)} `}>
-                                            Published: {dayjs(data.createdAt).format("MMMM DD, YYYY")}
-                                        </span>
+                                        <div className='relative sm:text-right'>
+                                            <span
+                                                className={`px-2 text-sm  font-semibold text-gray-500 ${(data.createdAt === data.updatedAt && `sm:text-lg`)} `}
+                                                onMouseEnter={() => setCreatedIsHovered(true)}
+                                                onMouseLeave={() => setCreatedIsHovered(false)}
+                                            >
+
+                                                Published: {dayjs(data.createdAt).format("DD MMMM, YYYY")}
+                                            </span>
+                                        </div>
+                                        {(createdIsHovered && !updateIsHovered) && (
+                                            <span className="bg-black z-20 absolute text-white text-sm p-2 rounded-lg">
+                                                {dayjs(data.createdAt).format("dddd, DD MMMM, YYYY, hh:mma")} <br />
+                                                {(data.createdAt !== data.updatedAt) &&
+                                                    <span className='block sm:hidden'>
+                                                        Updated: {dayjs(data.updatedAt).format("dddd, DD MMMM, YYYY, hh:mma")}
+                                                    </span>
+                                                }
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             </div>

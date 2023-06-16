@@ -10,6 +10,26 @@ import { AuthContext } from '../../contexts/AuthContext';
 import ProfileDropdown from './profileDropDown';
 import SideNavToggleButton from './SideNavToggleButton';
 
+function LoggedOutSection() {
+    return (
+        <>
+            <NavLink
+                className="rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+                to="/login"
+            >
+                Login
+            </NavLink>
+
+
+            <NavLink
+                className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600"
+                to="/signup"
+            >
+                Register
+            </NavLink>
+        </>
+    )
+}
 
 function Navbar() {
 
@@ -81,22 +101,7 @@ function Navbar() {
                             {isLoggedIn ?
                                 <ProfileDropdown />
                                 :
-                                <>
-                                    <NavLink
-                                        className="rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                                        to="/login"
-                                    >
-                                        Login
-                                    </NavLink>
-
-
-                                    <NavLink
-                                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600"
-                                        to="/signup"
-                                    >
-                                        Register
-                                    </NavLink>
-                                </>
+                                <LoggedOutSection />
                             }
                         </div>
                     </div>

@@ -45,4 +45,8 @@ async function connectToDatabase() {
     }
 }
 
-module.exports = { sequelize, connectToDatabase };
+module.exports = {
+    sequelize,
+    Op: Sequelize.Op,
+    connectToDatabase
+};

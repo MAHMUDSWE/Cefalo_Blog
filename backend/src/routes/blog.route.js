@@ -73,4 +73,6 @@ router.route('/:blogid')
  */
 router.get('/author/:username', blogController.getBlogsByAuthorUsername);
 
+router.get('/search/:query', blogController.getSearchResults);
+
 module.exports = router;

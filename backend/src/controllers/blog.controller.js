@@ -176,11 +176,26 @@ const getBlogsByAuthorUsername = async (req, res, next) => {
     }
 }
 
+const getSearchResults = async (req, res, next) => {
+    try {
+        const query = req.params.query;
+
+        const searchResults = await blogService.getSearchResults(query);
+
+        const convertedData = convertData(searchResults, req.requestedFormat);
+
+        res.status(StatusCode.OK).send(convertedData);
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     getAllBlogs,
     postBlog,
     getBlogById,
     updateBlogById,
     deleteBlogById,
-    getBlogsByAuthorUsername
+    getBlogsByAuthorUsername,
+    getSearchResults
 }

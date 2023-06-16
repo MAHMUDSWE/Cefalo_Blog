@@ -4,6 +4,7 @@
  * @description Repositories functions for handling Blog related operations
  */
 
+const { Op, sequelize } = require('../configs/sequelize.config');
 const Blog = require('../models/blog.model');
 const User = require('../models/user.model');
 
@@ -136,6 +137,49 @@ const getBlogsByAuthorUsername = async (username, offset, limit) => {
 
     return result;
 };
+const getSearchResults = async (query) => {
+    const result = await Blog.findAll({
+        attributes: ['blogid', 'title', 'createdAt'],
+        where: {
+            [Op.or]: [
+                { '$user.username$': { [Op.like]: `%${query}%` } },
+                { '$user.name$': { [Op.like]: `%${query}%` } },
+                { title: { [Op.like]: `%${query}%` } },
+            ],
+        },
+        order: [['createdAt', 'DESC']],
+        include: {
+            model: User,
+            as: 'user',
+            attributes: ['name', 'username'],
+            required: false,
+        },
+        limit: 10
+    });
+
+    return result;
+    // const result = await User.findAll({
+    //     attributes: ['name', 'username'],
+    //     include: [
+    //         {
+    //             model: Blog,
+    //             as: 'blog',
+    //             where: {
+    //                 [Op.or]: [
+    //                     { 'title': { [Op.like]: `%${query}%` } },
+    //                     { '$tbl_user.username$': { [Op.like]: `%${query}%` } },
+    //                     { '$tbl_user.name$': { [Op.like]: `%${query}%` } },
+    //                 ],
+    //             },
+    //             attributes: ['blogid', 'title', 'createdAt'],
+    //             required: true,
+    //         },
+    //     ],
+    //     order: [[{ model: Blog, as: 'blog' }, 'createdAt', 'DESC']],
+    // });
+
+    // return result;
+}
 
 
 module.exports = {
@@ -144,5 +188,6 @@ module.exports = {
     getBlogById,
     updateBlogById,
     deleteBlogById,
-    getBlogsByAuthorUsername
+    getBlogsByAuthorUsername,
+    getSearchResults
 }

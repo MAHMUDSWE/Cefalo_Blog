@@ -36,7 +36,7 @@ export default function ProfilePage() {
     const { data: user, isError: isUserError } = useQuery({
         queryKey: ['getUserByUsername', username],
         queryFn: async () => await UserService.getUserByUsername(username),
-        staleTime: 10000
+        staleTime: 30000
     });
 
     useEffect(() => {
@@ -52,7 +52,6 @@ export default function ProfilePage() {
             toast.error('Oops! Something went wrong. Please try again later.');
         }
     }, [blogs, isBlogsError, isUserError]);
-
 
 
     useEffect(() => {

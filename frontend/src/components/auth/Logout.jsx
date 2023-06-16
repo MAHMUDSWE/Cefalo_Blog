@@ -19,12 +19,23 @@ export default function Logout() {
     }
 
     return (
-        <button
-            className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-500 w-full text-left"
-            onClick={handleLogout}
-        >
-            <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
-            Logout
-        </button>
+
+        <li className="w-full text-xl  px-6 py-2 text-gray-700 hover:text-blue-500 ">
+            <div
+                className='hover:cursor-pointer'
+
+                onClick={handleLogout}
+            >
+                <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
+                Logout
+            </div>
+        </li>
+        // <button
+        //     className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-500 w-full text-left"
+        //     onClick={handleLogout}
+        // >
+        //     <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
+        //     Logout
+        // </button>
     )
 }

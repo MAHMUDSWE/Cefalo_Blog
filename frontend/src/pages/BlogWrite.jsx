@@ -7,7 +7,7 @@ export default function
     return (
         <div>
             <Navbar />
-            <div className='mt-1 flex flex-col h-screen'>
+            <div className='mt-1 flex flex-col'>
                 <CreateBlog />
             </div>
 

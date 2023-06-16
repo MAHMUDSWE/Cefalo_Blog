@@ -6,7 +6,7 @@ function ErrorPage() {
         <div>
             <Navbar />
 
-            <div className="mt-1 grid h-screen px-4 bg-white place-content-center">
+            <div className="mt-1 grid px-4 bg-white place-content-center">
                 <div className="text-center">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

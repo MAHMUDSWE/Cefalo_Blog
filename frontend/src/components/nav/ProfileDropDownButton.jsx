@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faUser, faGreaterThan, faLessThan } from '@fortawesome/free-solid-svg-icons';
+import { faGreaterThan, faLessThan } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../contexts/AuthContext';
-import ProfileDropDown from './profileDropDown';
 
 
 function ProfileDropDownButton({ showDropDownCallback, dropdownRef }) {
-    // const dropdownRef = useRef(null);
     const dropdownButtonRef = useRef(null);
     const { authData } = useContext(AuthContext);
     const [showDropDown, setShowDropDown] = useState(false);
@@ -66,8 +64,6 @@ function ProfileDropDownButton({ showDropDownCallback, dropdownRef }) {
                     />
                 </div>
             </div>
-
-            {/* <ProfileDropDown showDropDown={showDropDown} /> */}
         </div>
     );
 }

@@ -41,6 +41,7 @@ function ProfileDropDownButton({ showDropDownCallback, dropdownRef }) {
     return (
         <div className="text-lg  lg:rounded text-white lg:text-blue-600 ">
             <div
+                data-testid="profile-dropdown"
                 type="button"
                 ref={dropdownButtonRef}
                 className="w-full z-10 lg:border-2 flex py-2 px-5 items-center focus:outline-none hover:cursor-pointer"

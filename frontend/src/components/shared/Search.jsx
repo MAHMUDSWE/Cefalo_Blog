@@ -58,6 +58,7 @@ export default function SearchBar() {
                 />
                 {searchText && (
                     <button
+                        data-testid="clearSearch"
                         onClick={handleClearSearch}
                         className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center"
                     >

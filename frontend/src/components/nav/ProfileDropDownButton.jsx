@@ -59,7 +59,7 @@ function ProfileDropDownButton({ showDropDownCallback, dropdownRef }) {
                 <div className='ml-10'>
                     <FontAwesomeIcon
                         icon={showDropDown ? faLessThan : faGreaterThan}
-                        rotation={90}
+                        rotation={180}
                         size='sm'
                     />
                 </div>

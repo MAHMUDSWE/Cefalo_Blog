@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faPenToSquare, faUser, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
-import ProfileDropdown from './ProfileDropDownButton';
 import ProfileDropDownButton from './ProfileDropDownButton';
 import ProfileDropDown from './profileDropDown';
 
@@ -79,11 +78,7 @@ function NavMenu({ authData }) {
 export default function SideNav({ showSideNav, showDropDown, showDropDownCallback }) {
     const { authData, isLoggedIn } = useContext(AuthContext);
     const [userMode, setUserMode] = useState(localStorage.getItem('userMode'));
-    // const [showDropDown, setShowDropDown] = useState(false);
 
-    // const showDropDownCallback = (value) => {
-    //     setShowDropDown(value)
-    // }
     const dropdownRef = useRef(null);
     return (
         <>

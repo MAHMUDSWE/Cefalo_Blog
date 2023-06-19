@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -73,7 +73,7 @@ function NavMenu({ authData }) {
 }
 
 function Navbar() {
-
+    const dropdownRef = useRef(null);
     const { authData, isLoggedIn } = useContext(AuthContext);
     const [userMode, setUserMode] = useState(localStorage.getItem('userMode'));
 
@@ -116,7 +116,7 @@ function Navbar() {
                             <div className="sm:flex justify-end sm:gap-4">
 
                                 {isLoggedIn ?
-                                    <ProfileDropDownButton showDropDownCallback={showDropDownCallback} />
+                                    <ProfileDropDownButton showDropDownCallback={showDropDownCallback} dropdownRef={dropdownRef} />
                                     :
                                     <LoggedOutSection />
                                 }
@@ -132,7 +132,9 @@ function Navbar() {
             <div className='block lg:hidden'>
                 <SideNav showSideNav={showSideNav} showDropDown={showDropDown} showDropDownCallback={showDropDownCallback} />
             </div>
-            <div className='hidden lg:block'>
+            <div
+                ref={dropdownRef}
+                className='hidden lg:block'>
                 <ProfileDropDown showDropDown={showDropDown} />
             </div>
         </>

@@ -5,20 +5,15 @@ import { faCog, faUser } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../auth/Logout';
 
 export default function ProfileDropDown({ showDropDown }) {
+
     const handleOptionClick = (option) => {
         console.log(`Selected option: ${option}`);
-
-        if (option === "Logout") {
-            // setIsLoggedIn(false);
-            // setAuthData({});
-            // removeAccessToken();
-            // toast.success("Logout successful! See you again soon.");
-            // navigate('/')
-        }
     };
+
     return (
         <>
             <div
+                data-testid='profile-dropdown'
                 className={`fixed top-60 mt-2  lg:top-14 z-20 right-0  bg-white rounded-md shadow-lg transform transition-transform duration-1000 ease-in-out
                     ${showDropDown ? 'opacity-100 translate-x-0' : 'pointer-events-none opacity-100 translate-x-full  '}`}
             >

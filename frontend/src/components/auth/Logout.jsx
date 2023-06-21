@@ -23,7 +23,7 @@ export default function Logout() {
         <li className="w-full text-xl  px-6 py-2 text-gray-700 hover:text-blue-500 ">
             <div
                 className='hover:cursor-pointer'
-
+                data-testid="logout-button"
                 onClick={handleLogout}
             >
                 <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />

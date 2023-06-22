@@ -12,6 +12,7 @@ describe('BlogForm', () => {
 
     const mockSetError = vitest.fn();
     const mockOnSubmit = vitest.fn();
+    const mockHandleSubmit = vitest.fn();
 
     it('should render the form with empty inputs', () => {
         const { getByTestId } = render(
@@ -96,7 +97,10 @@ describe('BlogForm', () => {
 
         fireEvent.change(titleInput, { target: { value: mockInvalidData.title } });
         fireEvent.change(contentInput, { target: { value: mockInvalidData.content } });
+
         fireEvent.click(publishButton);
+
+
 
         waitFor(() => {
             expect(mockSetError).toHaveBeenCalledWith('Invalid input data');

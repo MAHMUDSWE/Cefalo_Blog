@@ -9,7 +9,7 @@ import LoginForm from '../components/form/LoginForm';
 
 import { AuthService } from '../services/auth.service';
 import { AuthContext } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { storeAccessToken } from '../utils/token.util';
 import { toast } from 'react-toastify';
 
@@ -65,7 +65,17 @@ export default function LoginPage() {
 
                     <ForgottenPassword />
 
-                    {!window.location.href.endsWith('/login') && <CreateNewAccountButton />}
+                    {!window.location.href.endsWith('/login') &&
+                        <>
+                            <CreateNewAccountButton />
+                            <div className='text-blue-600 text-lg text-center mt-3'>
+
+                                <Link to='/home' className='hover:cursor-pointer'>
+                                    Continue as guest
+                                </Link>
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
         </div>

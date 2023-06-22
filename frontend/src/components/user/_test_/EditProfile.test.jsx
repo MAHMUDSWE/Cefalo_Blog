@@ -86,6 +86,7 @@ describe('EditProfile', () => {
             mutateAsync: updateUserByUsernameMock,
             onSuccess: (mockResponseData) => {
                 setProfileDataMock(mockResponseData);
+                setProfileDataMock(mockResponseData)
             }
         });
 

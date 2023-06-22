@@ -68,14 +68,14 @@ export default function LoginPage() {
                     {!window.location.href.endsWith('/login') &&
                         <>
                             <CreateNewAccountButton />
-                            <div className='text-blue-500 text-center mt-2 hover:underline'>
-                                <Link to='/home' className=''>
-                                    or continue as guest
+                            <div className='text-blue-600 text-lg text-center mt-3'>
+
+                                <Link to='/home' className='hover:cursor-pointer'>
+                                    Continue as guest
                                 </Link>
                             </div>
                         </>
                     }
-
                 </div>
             </div>
         </div>

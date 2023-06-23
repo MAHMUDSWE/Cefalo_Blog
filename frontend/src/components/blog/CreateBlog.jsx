@@ -21,7 +21,6 @@ const CreateBlog = ({ onClose }) => {
             if (onClose) {
                 onClose();
             }
-            // navigate('/home')
         },
         onError: (data) => {
             if (data.response.status == 503) {

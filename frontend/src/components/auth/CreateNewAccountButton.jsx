@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-
-
 export default function CreateNewAccountButton() {
     return (
         <div className="border-t border-gray-300 mt-6 pt-6 text-center">

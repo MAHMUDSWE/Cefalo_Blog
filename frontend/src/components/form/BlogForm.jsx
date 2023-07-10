@@ -2,16 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import validateInputs from '../../utils/formValidation.util';
 import ErrorShow from '../shared/ErrorShow';
 
-import SunEditor from 'suneditor-react';
-import 'suneditor/dist/css/suneditor.min.css';
-
 
 export default function BlogForm({ onSubmit, data, error, setError }) {
-
-    const editor = useRef();
-    const getSunEditorInstance = (sunEditor) => {
-        editor.current = sunEditor;
-    };
 
     const [inputs, setInputs] = useState({
         title: "",
@@ -52,7 +44,9 @@ export default function BlogForm({ onSubmit, data, error, setError }) {
         return inputs.content ? inputs.content.trim().length : 0;
     };
     return (
-        <form onSubmit={handleSubmit}>
+        <form
+            data-testid="blog-form"
+            onSubmit={handleSubmit}>
             <div className="p-6 bg-white rounded-b-lg shadow-md">
 
                 <div className='mb-4'>
@@ -60,6 +54,7 @@ export default function BlogForm({ onSubmit, data, error, setError }) {
                         Title
                     </label>
                     <textarea
+                        data-testid="title-input"
                         name="title"
                         value={inputs.title || ""}
                         onChange={handleChange}
@@ -77,6 +72,7 @@ export default function BlogForm({ onSubmit, data, error, setError }) {
                         Content
                     </label>
                     <textarea
+                        data-testid="content-input"
                         name="content"
                         value={inputs.content || ""}
                         onChange={handleChange}

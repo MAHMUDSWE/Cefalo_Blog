@@ -26,7 +26,6 @@ export default function EditProfile({ profileData, setProfileData }) {
     });
 
     const onSubmit = async (updatedUserData) => {
-        console.log(username);
         await userUpdateMutation.mutateAsync({ username, updatedUserData });
     }
 
@@ -35,7 +34,10 @@ export default function EditProfile({ profileData, setProfileData }) {
     };
 
     return (
-        <div className="container ">
+        <div
+            data-testid="edit-profile"
+            className="container "
+        >
 
             {isEditing ? (
                 <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">

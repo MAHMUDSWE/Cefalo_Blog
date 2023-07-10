@@ -15,6 +15,7 @@ function LoggedOutSection() {
     return (
         <>
             <NavLink
+                data-testid="loggedOut-login"
                 className="rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow"
                 to="/login"
             >
@@ -23,6 +24,7 @@ function LoggedOutSection() {
 
 
             <NavLink
+
                 className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600"
                 to="/signup"
             >
@@ -36,8 +38,11 @@ function NavMenu({ authData }) {
     return (
         <>
             <ul className="flex justify-center items-center gap-4 text-lg">
-                <li className='border-b-blue-500'>
+                <li
+                    data-testid="nav-home"
+                    className='border-b-blue-500'>
                     <NavLink
+
                         className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
                         to="/home"
                     >
@@ -46,7 +51,9 @@ function NavMenu({ authData }) {
                     </NavLink>
                 </li>
 
-                <li>
+                <li
+                    data-testid="nav-write"
+                >
                     <NavLink
                         className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
                         to="/write"
@@ -57,7 +64,9 @@ function NavMenu({ authData }) {
                     </NavLink>
                 </li>
 
-                <li>
+                <li
+                    data-testid="nav-profile"
+                >
                     <NavLink
                         className={({ isActive }) => isActive ? `text-blue-600 p-3 border-b-4 border-blue-600` : `text-gray-500 transition hover:bg-gray-100 text-lg px-3 py-3 rounded-md`}
                         to={`/${authData.username}`}
@@ -90,7 +99,8 @@ function Navbar() {
 
     return (
         <>
-            <header aria-label="Site Header" className="bg-white shadow-md sticky top-0 z-50">
+            <header
+                aria-label="Site Header" className="bg-white shadow-md sticky top-0 z-50">
 
                 <div className=" px-4 sm:px-6 lg:px-8">
 
@@ -122,7 +132,8 @@ function Navbar() {
                                 }
                             </div>
                         </div>
-                        <div className="block lg:hidden">
+                        <div
+                            className="block lg:hidden">
                             <SideNavToggleButton showSideNavCallback={showSideNavCallback} />
                         </div>
                     </div>

@@ -41,7 +41,9 @@ export default function EditDropdown({ blogid }) {
     }, []);
 
     return (
-        <div className="relative inline-block">
+        <div
+            data-testid="edit-dropdown"
+            className="relative inline-block">
             <button
                 ref={dropdownButtonRef}
                 className="flex items-center p-2 rounded-full hover:bg-gray-200 focus:outline-none"

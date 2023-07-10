@@ -17,6 +17,7 @@ function SideNavToggleButton({ showSideNavCallback }) {
     return (
         <>
             <button
+                data-testid="sidenav-toggle-button"
                 className="rounded z-40 bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
                 onClick={toggleSideNav}
             >

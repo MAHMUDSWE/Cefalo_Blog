@@ -7,6 +7,8 @@ const express = require('express');
 const association = require('./src/models/association.model')
 const app = express();
 
+const dotenv = require("dotenv");
+
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -18,14 +20,31 @@ const Authentication = require('./src/middlewares/authentication.middleware');
 const errorHandler = require('./src/middlewares/errorHandler.middleware');
 const indexRouter = require("./src/routes/index.route");
 
-app.use(cors());
+// app.use(cors());
 
 /**
  * Middleware to handle preflight requests for CORS.
  * @name OPTIONS/*
  * @function
  */
-app.options(('*'), cors());
+// app.options(('*'), cors());
+
+app.use(
+    cors({
+        origin: [process.env.CLIENT_URL, process.env.CLIENT_URL_DEV],
+        credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"],
+        allowedMethods: [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "OPTIONS",
+            "PATCH",
+            "HEAD",
+        ],
+    })
+);
 
 const dotenv = require('dotenv');
 

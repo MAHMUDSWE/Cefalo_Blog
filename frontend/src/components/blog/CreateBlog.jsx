@@ -12,12 +12,24 @@ const CreateBlog = ({ onClose }) => {
     const queryClient = useQueryClient();
     const { authData } = useContext(AuthContext)
 
+    const queriesToInvalidate = [
+        ['getBlogsByUser', authData.username, 1, 10],
+        ['getBlogs', 1, 10]
+    ];
+
     const blogCreateMutation = useMutation({
         mutationFn: BlogService.createBlog,
 
         onSuccess: (data) => {
-            queryClient.invalidateQueries(['getBlogsByUser', authData.username, 1, 10]);
+            queriesToInvalidate.forEach(query => {
+                queryClient.invalidateQueries(query);
+            });
+
             toast.success("Blog Published Successfully");
+
+            if (!onClose) {
+                navigate(`/blog/${data.blogid}`)
+            }
             if (onClose) {
                 onClose();
             }

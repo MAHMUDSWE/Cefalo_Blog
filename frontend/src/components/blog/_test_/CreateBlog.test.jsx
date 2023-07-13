@@ -3,8 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Await, MemoryRouter, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
-import CreateBlog from './CreateBlog';
-import { AuthContext } from '../../contexts/AuthContext';
+import CreateBlog from '../CreateBlog';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 vitest.mock('@tanstack/react-query')
 vitest.mock('react-toastify');

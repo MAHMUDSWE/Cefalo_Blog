@@ -50,7 +50,8 @@ export default function BlogForm({ onSubmit, data, error, setError }) {
             <div className="p-6 bg-white rounded-b-lg shadow-md">
 
                 <div className='mb-4'>
-                    <label htmlFor="title" className="block font-medium mb-1">
+                    <label htmlFor="title" className={`block font-medium mb-1 
+                    ${getTitleCharacterCount() > 200 && "text-red-500"}`}>
                         Title
                     </label>
                     <textarea
@@ -60,7 +61,9 @@ export default function BlogForm({ onSubmit, data, error, setError }) {
                         onChange={handleChange}
                         required
                         placeholder="Set Title"
-                        className="w-full h-12 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                        className={`w-full h-12 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500
+                            ${getTitleCharacterCount() > 200 && 'focus:border-red-500 border-red-500'}
+                        `}
                     ></textarea>
                     <span className="text-gray-500 text-sm float-right">
                         Title character: {getTitleCharacterCount()}/200
@@ -68,7 +71,8 @@ export default function BlogForm({ onSubmit, data, error, setError }) {
                 </div>
 
                 <div className='mb-8'>
-                    <label htmlFor="Content" className="block font-medium mb-1">
+                    <label htmlFor="Content" className={`block font-medium mb-1 
+                    ${getContentCharacterCount() > 20000 && "text-red-500"}`}>
                         Content
                     </label>
                     <textarea
@@ -78,7 +82,9 @@ export default function BlogForm({ onSubmit, data, error, setError }) {
                         onChange={handleChange}
                         required
                         placeholder="What's on your mind?"
-                        className="w-full h-60 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                        className={`w-full h-60 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500
+                            ${getContentCharacterCount() > 20000 && 'focus:border-red-500 border-red-500'}
+                        `}
                     ></textarea>
                     <span className=" text-gray-500 text-sm float-right">
                         Content character: {getContentCharacterCount()}/20000

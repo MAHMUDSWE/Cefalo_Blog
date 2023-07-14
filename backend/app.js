@@ -6,6 +6,7 @@
 const express = require('express');
 const association = require('./src/models/association.model')
 const app = express();
+const dotenv = require('dotenv');
 
 
 const bodyParser = require('body-parser');
@@ -27,7 +28,22 @@ app.use(cors());
  */
 app.options(('*'), cors());
 
-const dotenv = require('dotenv');
+// app.use(
+//     cors({
+//         origin: [process.env.CLIENT_URL, process.env.CLIENT_URL_DEV],
+//         credentials: true,
+//         allowedHeaders: ["Content-Type", "Authorization"],
+//         allowedMethods: [
+//             "GET",
+//             "POST",
+//             "PUT",
+//             "DELETE",
+//             "OPTIONS",
+//             "PATCH",
+//             "HEAD",
+//         ],
+//     })
+// );
 
 const contentNegotiation = require('./src/middlewares/contentNegotiation.middleware');
 dotenv.config();

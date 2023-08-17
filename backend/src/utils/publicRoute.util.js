@@ -21,6 +21,8 @@ const isPublicRoute = (req) => {
         req.originalUrl === `/` ||
         req.originalUrl === `${api}/user/login` ||
         req.originalUrl === `${api}/user/signup` ||
+        req.originalUrl === `/auth/google` ||
+        req.originalUrl.startsWith(`/auth/google`) ||
         (req.originalUrl.startsWith(`${api}/blog`) && req.method === 'GET')
 
     ) {

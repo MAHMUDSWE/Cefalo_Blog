@@ -10,6 +10,7 @@ const express = require('express');
 const userRoutes = require("./user.route");
 const blogRoutes = require("./blog.route");
 const authRoutes = require("./auth.route");
+const googleAuthRoutes = require("./googleAuth.route");
 
 const router = express();
 
@@ -26,7 +27,7 @@ const api = process.env.API_URL;
  * @param {callback} middleware - Express middleware
  */
 router.get('/', (req, res) => {
-    res.send(`
+  res.send(`
       <!DOCTYPE html>
       <html>
         <head>
@@ -84,5 +85,7 @@ router.use(`${api}/blog`, blogRoutes);
  * @param {callback} middleware - Express middleware
  */
 router.use(`${api}/user`, authRoutes);
+
+router.use(`/auth`, googleAuthRoutes);
 
 module.exports = router;

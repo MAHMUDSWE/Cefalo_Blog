@@ -19,6 +19,16 @@ const Authentication = require('./src/middlewares/authentication.middleware');
 const errorHandler = require('./src/middlewares/errorHandler.middleware');
 const indexRouter = require("./src/routes/index.route");
 
+const googleStrategy = require('./src/middlewares/googleStrategy.middleware');
+
+const session = require('express-session');
+const passport = require('passport');
+app.use(session({ secret: process.env.JWT_SECRET_KEY, resave: true, saveUninitialized: true }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(cors());
 
 /**
@@ -113,6 +123,8 @@ app.use(indexRouter);
  * @memberof module:app.errorHandler
  */
 app.use(errorHandler.notFound);
+
+passport.use('google', googleStrategy);
 
 /**
  * Middleware to handle errors.

@@ -117,10 +117,22 @@ const deleteUser = async (userid) => {
 
 }
 
+const getUserByOAuthId = async (oauthid) => {
+    const oAuthUser = await userRepository.getUserByOAuthId(oauthid);
+
+    return oAuthUser || null;
+}
+
+const getUserNameCount = async (username) => {
+    return await userRepository.getUserNameCount(username);
+};
+
 module.exports = {
     getAllUser,
     getUserByUsername,
     getUserById,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserByOAuthId,
+    getUserNameCount
 };

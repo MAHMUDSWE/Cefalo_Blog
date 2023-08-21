@@ -4,8 +4,8 @@
  * @description Repositories functions for handling User related operations
  */
 
-const Blog = require('../models/blog.model');
 const User = require('../models/user.model');
+const OAuth = require('../models/oAuth.model');
 
 /**
  * Retrieves all users
@@ -112,11 +112,47 @@ const deleteUser = async (userid) => {
     await User.destroy({ where: { userid } });
 }
 
+const getUserByOAuthId = async (oauthid) => {
+    return await OAuth.findOne({
+        where: { oauthid }
+    });
+};
+
+const getUserNameCount = async (username) => {
+    return await User.count({
+        where: { username }
+    });
+}
+
+const createOAuthUser = async (newUser) => {
+    const createdUser = await User.create({
+        userid: newUser.userid,
+        name: newUser.name,
+        email: newUser.email,
+        username: newUser.username
+    });
+
+    const createdAuth = await OAuth.create({
+        googleId: newUser.googleId,
+        userId: createdUser.id,
+        provider: newUser.provider
+    });
+
+    return {
+        ...createdUser,
+        ...createdAuth
+    };
+
+};
+
 module.exports = {
     getAllUser,
     getUserByUsername,
     getUserById,
     getUserByEmail,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserByOAuthId,
+    getUserNameCount,
+    createOAuthUser
 };

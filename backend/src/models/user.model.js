@@ -42,7 +42,7 @@ const User = sequelize.define('tbl_user', {
     },
     password: {
         type: DataTypes.STRING(69),
-        allowNull: false
+        allowNull: true
     }
 });
 

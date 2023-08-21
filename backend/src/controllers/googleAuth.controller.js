@@ -1,9 +1,22 @@
 const express = require('express');
-const passport = require('passport');
+const { StatusCode } = require('../utils/commonObject.util');
 
-exports.googleSignIn = passport.authenticate('google', { scope: ['profile'] });
+const googleCallback = async (req, res, next) => {
+    try {
+        if (!req.user) {
+            return res.status(StatusCode.UNAUTHORIZED).json({
+                message: 'User not authenticated'
+            });
+        }
+        else {
+            return res.status(StatusCode.OK).json({
+                message: 'User successfully authenticated',
+                user: req.user
+            });
+        }
+    } catch (error) {
+        next(error);
+    }
+}
 
-exports.googleCallback = passport.authenticate('google', {
-    failureRedirect: '/login-failed',
-    successRedirect: '/success'
-});
+module.exports = { googleCallback };

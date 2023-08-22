@@ -1,6 +1,9 @@
 const { v4: uuidv4 } = require('uuid');
-const { getUserByOAuthId, getUserNameCount } = require("./user.service");
-const { createOAuthUser } = require('../repositories/user.repository');
+const authUtils = require("../utils/auth.util");
+
+const { createOAuthUser, getUserByOAuthId, getUserNameCount } = require('../repositories/user.repository');
+const userRepository = require("../repositories/user.repository");
+const { StatusCode, HttpError } = require('../utils/commonObject.util');
 
 const createUserFromOAuthProfile = async (profile, done) => {
 
@@ -18,19 +21,42 @@ const createUserFromOAuthProfile = async (profile, done) => {
         generatedUsername = `${generatedUsername}${numOfExistingGeneratedUsername}`;
     }
 
+    if (await userRepository.getUserByEmail(profile.emails[0].value)) {
+
+        throw new HttpError(StatusCode.CONFLICT, 'Email already in use by another account')
+    }
+
     const newUser = {
-        googleId: profile.id,
+        oauthid: profile.id,
         name: profile.displayName,
-        email: profile.email && profile.emails.length > 0 ? profile.emails[0].value : null,
+        email: profile.emails[0].value,
         username: generatedUsername,
         provider: profile.provider,
         userid: uuidv4()
     };
 
 
-    const createNewUser = createOAuthUser(newUser);
+    const createdNewUser = await createOAuthUser(newUser);
 
-    done(null, createNewUser);
+    return done(null, createdNewUser);
 };
 
-module.exports = { createUserFromOAuthProfile };
+const oauthCallBack = (req, res) => {
+    if (!req.user) {
+        return res.status(StatusCode.UNAUTHORIZED).json({
+            message: 'User not authenticated'
+        });
+    }
+    const token = authUtils.generateAccessToken(req.user.userid);
+
+    authUtils.setTokenToHeader(token, res);
+
+    return token;
+}
+
+
+
+module.exports = {
+    createUserFromOAuthProfile,
+    oauthCallBack
+};

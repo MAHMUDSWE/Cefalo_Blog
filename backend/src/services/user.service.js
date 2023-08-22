@@ -119,7 +119,6 @@ const deleteUser = async (userid) => {
 
 const getUserByOAuthId = async (oauthid) => {
     const oAuthUser = await userRepository.getUserByOAuthId(oauthid);
-
     return oAuthUser || null;
 }
 

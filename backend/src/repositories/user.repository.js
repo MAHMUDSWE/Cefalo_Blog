@@ -133,15 +133,12 @@ const createOAuthUser = async (newUser) => {
     });
 
     const createdAuth = await OAuth.create({
-        googleId: newUser.googleId,
-        userId: createdUser.id,
+        oauthid: newUser.oauthid,
+        userid: createdUser.userid,
         provider: newUser.provider
     });
 
-    return {
-        ...createdUser,
-        ...createdAuth
-    };
+    return createdAuth;
 
 };
 

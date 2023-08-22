@@ -1,34 +1,31 @@
 const express = require('express');
 const router = express.Router();
+const { google } = require('googleapis');
 
 const passport = require('passport');
 const { getUserByOAuthId, getUserNameCount } = require('../services/user.service');
 const { createUserFromOAuthProfile } = require('../services/googleAuth.service');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-
-const users = [];
-
-
 module.exports = new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost:5000/auth/google/callback',
-    scope: ['profile', 'email']
+    callbackURL: process.env.GOOGLE_CALLBACK_URL,
+    scope: [
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/user.emails.read'
+    ]
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        console.log(profile);
-        await createUserFromOAuthProfile(profile, done)
-        // users.push(newUser);
+        const user = await createUserFromOAuthProfile(profile, done);
 
-        // done(null, newUser);
     } catch (error) {
         done(error, false, error.message);
     }
 });
 
 passport.serializeUser((user, done) => {
-    done(null, user.googleId);
+    done(null, user.oauthid);
 });
 
 passport.deserializeUser(async (id, done) => {
